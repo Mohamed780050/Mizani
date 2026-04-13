@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
-import { AuthLayout } from "@/features/auth/components/AuthLayout";
 import { ForgotPasswordForm } from "@/features/auth/components/ForgotPasswordForm";
 import { ResetPasswordForm } from "@/features/auth/components/ResetPasswordForm";
 
@@ -19,15 +18,21 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <AuthLayout 
-      title={t("forgotPasswordTitle")} 
-      description={resetEmail ? undefined : t("forgotPasswordDescription")}
-    >
+    <>
+      <div className="mb-10 text-start">
+        <h2 className="text-3xl font-bold text-primary mb-2">
+          {t("forgotPasswordTitle")}
+        </h2>
+        <p className="text-muted-foreground font-medium">
+          {resetEmail ? undefined : t("forgotPasswordDescription")}
+        </p>
+      </div>
+      
       {resetEmail ? (
         <ResetPasswordForm email={resetEmail} onBack={handleBack} />
       ) : (
         <ForgotPasswordForm onSuccess={handleSuccess} />
       )}
-    </AuthLayout>
+    </>
   );
 }

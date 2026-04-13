@@ -11,9 +11,10 @@ import {
   Bell,
   Plus
 } from "lucide-react";
-import React from "react";
 import db from "@/lib/db";
 import { AddIncomeSheet } from "@/features/income/components/AddIncomeSheet";
+import { AddExpenseSheet } from "@/features/expense/components/AddExpenseSheet";
+import { NotificationBell } from "@/features/notifications/components/NotificationBell";
 
 export default async function ProtectedLayout({
   children,
@@ -39,6 +40,12 @@ export default async function ProtectedLayout({
 
   const budgetSetting = await db.budgetSetting.findUnique({
     where: { userId: session.user.id }
+  });
+
+  const categories = await db.category.findMany({
+    where: { userId: session.user.id },
+    select: { id: true, name: true, emoji: true, isDefault: true },
+    orderBy: { name: 'asc' }
   });
 
   return (
@@ -78,16 +85,13 @@ export default async function ProtectedLayout({
       {/* Main Container */}
       <main className="flex-1 flex flex-col min-w-0 relative">
         {/* Top Header */}
-        <header className="h-20 px-8 flex items-center justify-between z-10">
+        <header className="h-20 px-8 flex items-center justify-between z-10 w-full">
            <div className="lg:hidden font-bold text-lg">Mizani</div>
            <div className="flex items-center gap-4 ms-auto">
               {/* Notification Bell */}
-              <button className="relative p-2 text-muted-foreground hover:text-foreground transition-colors hover:bg-secondary/50 rounded-full">
-                <Bell className="size-6" />
-                {unreadCount > 0 && (
-                  <span className="absolute top-1.5 right-1.5 size-2.5 bg-rose-500 rounded-full border-2 border-[#f7f9ff] dark:border-[#080b0e]" />
-                )}
-              </button>
+              <NotificationBell initialCount={unreadCount} />
+
+              <AddExpenseSheet categories={categories} />
 
               {/* Add Income Button */}
               <AddIncomeSheet 
