@@ -12,6 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ArrowDownRight, ArrowUpRight, Wallet } from "lucide-react";
 import type { Prisma } from "@/generated/prisma/client";
+import { useTranslations } from "next-intl";
 
 // Define the precise nested query output securely
 type LedgerEntry = {
@@ -28,15 +29,17 @@ type LedgerEntry = {
 };
 
 export function LedgerTable({ entries }: { entries: LedgerEntry[] }) {
+  const t = useTranslations("Ledger");
+  
   if (!entries || entries.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center p-12 bg-card rounded-3xl border border-border/50 text-center">
         <div className="size-16 rounded-full bg-secondary/50 flex items-center justify-center mb-4">
           <Wallet className="size-8 text-muted-foreground/50" />
         </div>
-        <h3 className="text-xl font-bold mb-2">No Transactions Yet</h3>
+        <h3 className="text-xl font-bold mb-2">{t("emptyTitle")}</h3>
         <p className="text-muted-foreground max-w-sm">
-          Your immutable ledger will begin tracking the moment you initialize an account balance or log a revenue stream.
+          {t("emptyDesc")}
         </p>
       </div>
     );
@@ -47,11 +50,11 @@ export function LedgerTable({ entries }: { entries: LedgerEntry[] }) {
       <Table>
         <TableHeader className="bg-secondary/20">
           <TableRow className="hover:bg-transparent">
-            <TableHead className="w-[100px] py-5 pl-6">Type</TableHead>
-            <TableHead className="py-5">Description</TableHead>
-            <TableHead className="py-5">Account</TableHead>
-            <TableHead className="py-5">Amount</TableHead>
-            <TableHead className="py-5 text-right pr-6">Rolling Balance</TableHead>
+            <TableHead className="w-[100px] py-5 pl-6">{t("colType")}</TableHead>
+            <TableHead className="py-5">{t("colDesc")}</TableHead>
+            <TableHead className="py-5">{t("colAccount")}</TableHead>
+            <TableHead className="py-5">{t("colAmount")}</TableHead>
+            <TableHead className="py-5 text-right pr-6">{t("colRolling")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -70,7 +73,7 @@ export function LedgerTable({ entries }: { entries: LedgerEntry[] }) {
               </TableCell>
               <TableCell className="py-4">
                 <div className="font-bold text-[15px]">
-                  {entry.note || "General Transaction"}
+                  {entry.note || t("generalTx")}
                 </div>
                 <div className="text-xs font-semibold text-muted-foreground monochrome font-mono mt-1 opacity-70">
                   {new Date(entry.createdAt).toLocaleString()} • REF: {entry.refType.toUpperCase()}

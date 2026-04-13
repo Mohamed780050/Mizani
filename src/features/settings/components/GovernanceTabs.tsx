@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { updateAllocationsAction, updatePreferencesAction } from "../actions/settings-actions";
 import { Loader2, Save, Crown, AlertTriangle } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function GovernanceTabs({
   budgetSettings,
@@ -17,17 +18,18 @@ export function GovernanceTabs({
   preferences: any;
   subscription: any;
 }) {
+  const t = useTranslations("Governance");
   return (
     <Tabs defaultValue="allocations" className="w-full">
       <TabsList className="bg-secondary/40 p-1 flex justify-start rounded-2xl w-full max-w-sm mb-8 h-auto overflow-hidden border border-border/50">
         <TabsTrigger value="allocations" className="rounded-xl py-3 text-xs uppercase font-bold tracking-widest flex-1 px-4">
-          Allocations
+          {t("tabAllocations")}
         </TabsTrigger>
         <TabsTrigger value="preferences" className="rounded-xl py-3 text-xs uppercase font-bold tracking-widest flex-1 px-4">
-          Preferences
+          {t("tabPreferences")}
         </TabsTrigger>
         <TabsTrigger value="subscription" className="rounded-xl py-3 text-xs uppercase font-bold tracking-widest flex-1 px-4">
-          Billing
+          {t("tabBilling")}
         </TabsTrigger>
       </TabsList>
 
@@ -47,6 +49,7 @@ export function GovernanceTabs({
 }
 
 function AllocationPanel({ budgetSettings }: { budgetSettings: any }) {
+  const t = useTranslations("Governance");
   const [isPending, startTransition] = useTransition();
   const [allocations, setAllocations] = useState({
     EXPENSES: Number(budgetSettings?.expensesPct || 50),
@@ -71,9 +74,9 @@ function AllocationPanel({ budgetSettings }: { budgetSettings: any }) {
 
   return (
     <div className="bg-card border border-border/50 p-8 rounded-[32px] shadow-sm max-w-2xl">
-      <h3 className="text-xl font-bold mb-2">Automated Revenue Split</h3>
+      <h3 className="text-xl font-bold mb-2">{t("allocTitle")}</h3>
       <p className="text-muted-foreground text-sm font-medium mb-8">
-        Define the master ratios for your incoming finances. Every time you log revenue, it will be fractionalized instantly across these 4 pillars according to your governance structure.
+        {t("allocDesc")}
       </p>
 
       {error && <div className="text-rose-500 bg-rose-500/10 p-4 rounded-xl text-sm font-bold mb-6">{error}</div>}
@@ -98,7 +101,7 @@ function AllocationPanel({ budgetSettings }: { budgetSettings: any }) {
 
       <div className="mt-12 flex items-center justify-between border-t border-border/50 pt-8">
          <div className="flex items-center gap-3">
-           <span className="text-xs uppercase font-bold tracking-wider text-muted-foreground">Calibration</span>
+           <span className="text-xs uppercase font-bold tracking-wider text-muted-foreground">{t("calibration")}</span>
            <span className={`font-mono font-black text-xl ${isValid ? "text-emerald-500" : "text-rose-500"}`}>{total}%</span>
            {!isValid && <AlertTriangle className="size-4 text-rose-500" />}
          </div>
@@ -109,7 +112,7 @@ function AllocationPanel({ budgetSettings }: { budgetSettings: any }) {
            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl px-8 py-6 shadow-lg shadow-emerald-500/20 active:scale-95"
          >
            {isPending ? <Loader2 className="size-5 animate-spin" /> : <Save className="size-4 mr-2" />}
-           Save Governance
+           {t("save")}
          </Button>
       </div>
     </div>
@@ -117,6 +120,7 @@ function AllocationPanel({ budgetSettings }: { budgetSettings: any }) {
 }
 
 function PreferencesPanel({ preferences }: { preferences: any }) {
+  const t = useTranslations("Governance");
   const [isPending, startTransition] = useTransition();
   const [prefs, setPrefs] = useState({
     notifRecurring: preferences?.notifRecurring ?? true,
@@ -139,33 +143,33 @@ function PreferencesPanel({ preferences }: { preferences: any }) {
   return (
     <div className="bg-card border border-border/50 p-8 rounded-[32px] shadow-sm max-w-2xl space-y-8">
       <div>
-        <h3 className="text-xl font-bold mb-2">Notification & Appearance</h3>
+        <h3 className="text-xl font-bold mb-2">{t("prefTitle")}</h3>
         <p className="text-muted-foreground text-sm font-medium mb-8">
-          Silence the internal engine or stay absolutely informed. Modify how your sanctuary alerts you to important events.
+          {t("prefDesc")}
         </p>
       </div>
 
       <div className="space-y-6">
          <div className="flex items-center justify-between bg-secondary/20 p-4 rounded-2xl border border-border/50">
            <div>
-             <h4 className="font-bold text-sm">Recurring Deductions</h4>
-             <p className="text-xs text-muted-foreground font-medium mt-1 uppercase tracking-wider">Alert when automated billing hits</p>
+             <h4 className="font-bold text-sm">{t("recurring")}</h4>
+             <p className="text-xs text-muted-foreground font-medium mt-1 uppercase tracking-wider">{t("recurringDesc")}</p>
            </div>
            <Switch checked={prefs.notifRecurring} onCheckedChange={(c) => handleChange('notifRecurring', c)} disabled={isPending} />
          </div>
 
          <div className="flex items-center justify-between bg-secondary/20 p-4 rounded-2xl border border-border/50">
            <div>
-             <h4 className="font-bold text-sm">Budget Warning Line (80%)</h4>
-             <p className="text-xs text-muted-foreground font-medium mt-1 uppercase tracking-wider">Safety warnings</p>
+             <h4 className="font-bold text-sm">{t("budgetWarn")}</h4>
+             <p className="text-xs text-muted-foreground font-medium mt-1 uppercase tracking-wider">{t("budgetWarnDesc")}</p>
            </div>
            <Switch checked={prefs.notifBudgetAlert} onCheckedChange={(c) => handleChange('notifBudgetAlert', c)} disabled={isPending} />
          </div>
 
          <div className="flex items-center justify-between bg-secondary/20 p-4 rounded-2xl border border-border/50">
            <div>
-             <h4 className="font-bold text-sm">Goal Milestones</h4>
-             <p className="text-xs text-muted-foreground font-medium mt-1 uppercase tracking-wider">Celebratory Completion Pings</p>
+             <h4 className="font-bold text-sm">{t("goalMilestones")}</h4>
+             <p className="text-xs text-muted-foreground font-medium mt-1 uppercase tracking-wider">{t("goalMilestonesDesc")}</p>
            </div>
            <Switch checked={prefs.notifGoal} onCheckedChange={(c) => handleChange('notifGoal', c)} disabled={isPending} />
          </div>
@@ -175,6 +179,7 @@ function PreferencesPanel({ preferences }: { preferences: any }) {
 }
 
 function SubscriptionPanel({ subscription }: { subscription: any }) {
+  const t = useTranslations("Governance");
   const isPro = subscription?.plan === "pro";
 
   return (
@@ -182,9 +187,9 @@ function SubscriptionPanel({ subscription }: { subscription: any }) {
       {isPro && <div className="absolute -top-10 -right-10 size-40 bg-amber-500/10 blur-3xl rounded-full" />}
       
       <div className="relative z-10">
-        <h3 className="text-xl font-bold mb-2">Subscription & Limits</h3>
+        <h3 className="text-xl font-bold mb-2">{t("subsTitle")}</h3>
         <p className="text-muted-foreground text-sm font-medium mb-8">
-          Manage your connection to Mizani platform features. 
+          {t("subsDesc")}
         </p>
 
         <div className={`p-6 rounded-2xl border ${isPro ? 'border-amber-500/30 bg-amber-500/5' : 'border-border/50 bg-secondary/20'} flex items-start gap-4`}>
@@ -192,15 +197,13 @@ function SubscriptionPanel({ subscription }: { subscription: any }) {
              <Crown className="size-6" />
           </div>
           <div>
-            <h4 className="font-bold text-lg">{isPro ? "Mizani Pro" : "Mizani Architect (Free)"}</h4>
+            <h4 className="font-bold text-lg">{isPro ? t("proTitle") : t("freeTitle")}</h4>
             <p className="text-sm font-medium text-muted-foreground mt-1 mb-4">
-              {isPro 
-                ? "You have limitless access to the unified ledger engine, unlimited category thresholds, and automated recurring logic."
-                : "You are bounded by 50 manual expense deductions per month. Upgrade to lift the boundary."}
+              {isPro ? t("proDesc") : t("freeDesc")}
             </p>
             
             <Button disabled variant={isPro ? "outline" : "default"} className={`rounded-xl font-bold ${isPro ? 'border-amber-500/50 text-amber-600 hover:bg-amber-500/10' : ''}`}>
-               {isPro ? "Manage via DodoPayments" : "Upgrade to Pro"}
+               {isPro ? t("managePro") : t("upgrade")}
             </Button>
           </div>
         </div>

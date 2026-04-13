@@ -14,6 +14,7 @@ import {
   SheetDescription,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useTranslations } from "next-intl";
 
 type Goal = {
   id: string;
@@ -27,6 +28,7 @@ type Goal = {
 export function GoalGrid({ goals, savingsBalance }: { goals: Goal[], savingsBalance: number }) {
   const [openCreate, setOpenCreate] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations("Goals");
 
   return (
     <div className="space-y-6">
@@ -34,7 +36,7 @@ export function GoalGrid({ goals, savingsBalance }: { goals: Goal[], savingsBala
       {/* Header specific to Goals */}
       <div className="flex items-center justify-between bg-card border border-border/50 p-6 rounded-3xl shadow-sm">
         <div>
-          <p className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-1">Liquid Savings Power</p>
+          <p className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-1">{t("power")}</p>
           <div className="flex items-baseline gap-1.5">
              <span className="text-3xl font-black font-mono text-emerald-600 dark:text-emerald-500">
                {savingsBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}
@@ -47,7 +49,7 @@ export function GoalGrid({ goals, savingsBalance }: { goals: Goal[], savingsBala
           <SheetTrigger asChild>
             <Button className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-full px-6 py-6 shadow-lg shadow-emerald-500/20 active:scale-95 transition-transform">
               <Plus className="size-5 mr-2" />
-              Conceive Milestone
+              {t("createBtn")}
             </Button>
           </SheetTrigger>
           <SheetContent className="w-full sm:max-w-md bg-[#f7f9ff] dark:bg-[#080b0e] border-s-border/50">
@@ -66,12 +68,12 @@ export function GoalGrid({ goals, savingsBalance }: { goals: Goal[], savingsBala
               <div className="size-16 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4">
                  <Target className="size-8 text-emerald-500 opacity-80" />
               </div>
-              <h3 className="text-xl font-bold">No Defined Objectives</h3>
+              <h3 className="text-xl font-bold">{t("emptyTitle")}</h3>
               <p className="text-muted-foreground mt-2 max-w-sm font-medium">
-                Lock away liquid capital from your main Savings pillar into dedicated physical financial milestones.
+                {t("emptyDesc")}
               </p>
               <Button variant="outline" className="mt-6 font-bold rounded-xl" onClick={() => setOpenCreate(true)}>
-                Draft First Goal
+                {t("draftFirst")}
               </Button>
            </div>
          )}
@@ -87,6 +89,7 @@ function CreateGoalForm({ onSuccess }: { onSuccess: () => void }) {
   const [amount, setAmount] = useState<number | "">("");
   const [date, setDate] = useState("");
   const [error, setError] = useState("");
+  const t = useTranslations("Goals");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -108,9 +111,9 @@ function CreateGoalForm({ onSuccess }: { onSuccess: () => void }) {
   return (
     <>
       <SheetHeader className="text-left space-y-2 pt-6">
-         <SheetTitle className="text-2xl font-black tracking-tight">New Objective</SheetTitle>
+         <SheetTitle className="text-2xl font-black tracking-tight">{t("newTitle")}</SheetTitle>
          <SheetDescription className="text-muted-foreground">
-            Establish a new sanctuary milestone to conquer.
+            {t("newDesc")}
          </SheetDescription>
       </SheetHeader>
       
@@ -118,17 +121,17 @@ function CreateGoalForm({ onSuccess }: { onSuccess: () => void }) {
         {error && <div className="text-rose-500 text-sm font-bold bg-rose-500/10 p-3 rounded-lg">{error}</div>}
         
         <div className="space-y-1.5">
-          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">Goal Identity</label>
-          <Input required value={title} onChange={e => setTitle(e.target.value)} placeholder="e.g. Dream House Downpayment" className="bg-card border-none py-6 rounded-xl font-bold shadow-sm" />
+          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("goalIdentity")}</label>
+          <Input required value={title} onChange={e => setTitle(e.target.value)} placeholder={t("goalPlaceholder")} className="bg-card border-none py-6 rounded-xl font-bold shadow-sm" />
         </div>
         
         <div className="space-y-1.5">
-          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">Target Capital (EGP)</label>
+          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("targetCapital")}</label>
           <Input required type="number" min="1" value={amount} onChange={e => setAmount(Number(e.target.value))} placeholder="0.00" className="bg-card border-none py-6 rounded-xl font-mono font-black text-emerald-600 text-lg shadow-sm" />
         </div>
         
         <div className="space-y-1.5">
-          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">Deadline (Optional)</label>
+          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("deadline")}</label>
           <div className="relative">
              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground/50" />
              <Input type="date" value={date} onChange={e => setDate(e.target.value)} className="bg-card border-none py-6 pl-9 rounded-xl font-bold shadow-sm" />
@@ -136,7 +139,7 @@ function CreateGoalForm({ onSuccess }: { onSuccess: () => void }) {
         </div>
         
         <Button disabled={isPending} type="submit" className="w-full py-6 font-bold rounded-xl mt-4 bg-emerald-600 hover:bg-emerald-700">
-          {isPending ? <Loader2 className="size-5 animate-spin" /> : "Establish Goal"}
+          {isPending ? <Loader2 className="size-5 animate-spin" /> : t("establishBtn")}
         </Button>
       </form>
     </>
@@ -144,6 +147,7 @@ function CreateGoalForm({ onSuccess }: { onSuccess: () => void }) {
 }
 
 function GoalCard({ goal, currentSavings }: { goal: Goal, currentSavings: number }) {
+  const t = useTranslations("Goals");
   const percentage = Math.min((goal.currentAmount / goal.targetAmount) * 100, 100);
   const [fundingAmount, setFundingAmount] = useState<number | "">("");
   const [isPending, startTransition] = useTransition();
@@ -180,7 +184,7 @@ function GoalCard({ goal, currentSavings }: { goal: Goal, currentSavings: number
           <div className="size-16 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow-xl shadow-emerald-500/30 mb-3 animate-in zoom-in">
              <CheckCircle2 className="size-8" />
           </div>
-          <h3 className="font-black text-emerald-700 dark:text-emerald-400 text-lg">Goal Achieved</h3>
+          <h3 className="font-black text-emerald-700 dark:text-emerald-400 text-lg">{t("achieved")}</h3>
         </div>
       )}
       
@@ -212,7 +216,7 @@ function GoalCard({ goal, currentSavings }: { goal: Goal, currentSavings: number
       <div className="space-y-6">
          <div className="space-y-2">
             <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-muted-foreground">
-              <span>Progress</span>
+              <span>{t("progress")}</span>
               <span className="text-foreground">{percentage.toFixed(1)}%</span>
             </div>
             <Progress value={percentage} className="h-3" />
@@ -223,7 +227,7 @@ function GoalCard({ goal, currentSavings }: { goal: Goal, currentSavings: number
          <div className="flex gap-2 relative z-20">
             <Input 
               type="number"
-              placeholder="Inject Funds"
+              placeholder={t("inject")}
               className="bg-secondary/40 border-none font-bold placeholder:text-muted-foreground/50 rounded-xl"
               value={fundingAmount}
               onChange={e => setFundingAmount(Number(e.target.value))}
