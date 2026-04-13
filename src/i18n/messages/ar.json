@@ -1,0 +1,53 @@
+{
+  "Emails": {
+    "EmailLinkVerification": {
+      "projectName": "Auth Template",
+      "title": "تأكيد بريدك الإلكتروني",
+      "greeting": "مرحبًا،",
+      "greetingDefault": "مرحبًا",
+      "instruction": "يرجى تأكيد بريدك الإلكتروني بالضغط على الرابط أدناه.",
+      "button": "تأكيد البريد الإلكتروني",
+      "fallback": "أو انسخ والصق هذا الرابط في متصفحك:",
+      "ignore": "إذا لم تطلب هذا البريد، يمكنك تجاهله بأمان.",
+      "secure": "هذا بريد إلكتروني آمن ومُرسَل تلقائيًا.",
+      "copyright": "© 2026 Auth Template. جميع الحقوق محفوظة."
+    },
+    "ResetPasswordEmail": {
+      "projectName": "Auth Template",
+      "title": "إعادة تعيين كلمة المرور",
+      "greeting": "مرحبًا،",
+      "greetingDefault": "مرحبًا",
+      "instruction": "استخدم رمز OTP التالي لإعادة تعيين كلمة المرور.",
+      "otpLabel": "رمز OTP",
+      "ignore": "إذا لم تطلب هذا البريد، يمكنك تجاهله بأمان.",
+      "secure": "هذا بريد إلكتروني آمن ومُرسَل تلقائيًا.",
+      "copyright": "© 2026 Auth Template. جميع الحقوق محفوظة."
+    }
+  },
+  "Auth": {
+    "signInTitle": "مرحباً بعودتك",
+    "signInDescription": "أدخل بياناتك للوصول إلى حسابك.",
+    "emailLabel": "البريد الإلكتروني",
+    "passwordLabel": "كلمة المرور",
+    "forgotPasswordLink": "نسيت كلمة المرور؟",
+    "signInButton": "تسجيل الدخول",
+    "noAccountText": "ليس لديك حساب؟",
+    "signUpLink": "أنشئ حساباً",
+    "signUpTitle": "إنشاء حساب",
+    "signUpDescription": "انضم إلينا وابدأ في بناء مشاريعك المستقبلية.",
+    "nameLabel": "الاسم الكامل",
+    "confirmPasswordLabel": "تأكيد كلمة المرور",
+    "signUpButton": "إنشاء الحساب",
+    "alreadyHaveAccountText": "لديك حساب بالفعل؟",
+    "signInLink": "سجل دخولك بدلاً من ذلك",
+    "forgotPasswordTitle": "إعادة تعيين كلمة المرور",
+    "forgotPasswordDescription": "أدخل بريدك الإلكتروني وسنرسل لك رمز الاسترداد.",
+    "requestResetButton": "إرسال رمز إعادة التعيين",
+    "backToSignInLink": "العودة إلى تسجيل الدخول",
+    "resetingPasswordFor": "إعادة تعيين كلمة المرور لـ",
+    "resetCodeLabel": "رمز إعادة التعيين",
+    "newPasswordLabel": "كلمة المرور الجديدة",
+    "resetPasswordButton": "تحديث كلمة المرور",
+    "changeEmailLink": "أدخلت بريداً خاطئاً؟ قم بتغييره"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "Emails": {
+    "EmailLinkVerification": {
+      "projectName": "Auth Template",
+      "title": "Verify your email",
+      "greeting": "Hello,",
+      "greetingDefault": "Hello",
+      "instruction": "Please verify your email address by clicking the link below.",
+      "button": "Verify Email",
+      "fallback": "Or copy and paste this URL into your browser:",
+      "ignore": "If you didn't request this email, you can safely ignore it.",
+      "secure": "This is a secure, automated email.",
+      "copyright": "© 2026 Auth Template. All rights reserved."
+    },
+    "ResetPasswordEmail": {
+      "projectName": "Auth Template",
+      "title": "Reset your password",
+      "greeting": "Hello,",
+      "greetingDefault": "Hello",
+      "instruction": "Use the following OTP code to reset your password.",
+      "otpLabel": "OTP Code",
+      "ignore": "If you didn't request this email, you can safely ignore it.",
+      "secure": "This is a secure, automated email.",
+      "copyright": "© 2026 Auth Template. All rights reserved."
+    }
+  },
+  "Auth": {
+    "signInTitle": "Welcome back",
+    "signInDescription": "Enter your credentials to access your account.",
+    "emailLabel": "Email Address",
+    "passwordLabel": "Password",
+    "forgotPasswordLink": "Forgot password?",
+    "signInButton": "Sign In",
+    "noAccountText": "Don't have an account?",
+    "signUpLink": "Create one",
+    "signUpTitle": "Create Account",
+    "signUpDescription": "Join us and start building your future projects.",
+    "nameLabel": "Full Name",
+    "confirmPasswordLabel": "Confirm Password",
+    "signUpButton": "Sign Up",
+    "alreadyHaveAccountText": "Already have an account?",
+    "signInLink": "Sign in instead",
+    "forgotPasswordTitle": "Reset Password",
+    "forgotPasswordDescription": "Enter your email and we'll send you a recovery code.",
+    "requestResetButton": "Send Reset Code",
+    "backToSignInLink": "Back to login",
+    "resetingPasswordFor": "Resetting password for",
+    "resetCodeLabel": "Reset Code",
+    "newPasswordLabel": "New Password",
+    "resetPasswordButton": "Update Password",
+    "changeEmailLink": "Entered wrong email? Change it"
+  }
+}
