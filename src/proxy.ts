@@ -69,6 +69,20 @@ export default async function middleware(request: NextRequest) {
     );
   }
 
+  // 10. Trap new users in Onboarding flow
+  // BetterAuth injects onboardingComplete via additionalFields configuration
+  const isOnboardingComplete = (session.user as any).onboardingComplete === true;
+  const isOnboardingRoute = pathWithoutLocale.startsWith("/onboarding");
+
+  if (!isOnboardingComplete && !isOnboardingRoute) {
+    return NextResponse.redirect(new URL(`/${locale}/onboarding`, request.nextUrl.origin));
+  }
+
+  // 11. Prevent fully onboarded users from accessing onboarding
+  if (isOnboardingComplete && isOnboardingRoute) {
+    return NextResponse.redirect(new URL(`/${locale}${DEFAULT_LOGIN_REDIRECT}`, request.nextUrl.origin));
+  }
+
   return response;
 }
 

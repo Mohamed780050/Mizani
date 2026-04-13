@@ -16,6 +16,18 @@ export const auth = betterAuth({
   database: prismaAdapter(db, {
     provider: "postgresql",
   }),
+  user: {
+    additionalFields: {
+      onboardingComplete: {
+        type: "boolean",
+        defaultValue: false,
+      },
+      dodoCustomerId: {
+        type: "string",
+        required: false,
+      }
+    },
+  },
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,

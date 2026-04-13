@@ -33,6 +33,7 @@ export type UserMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   dodoCustomerId: string | null
+  onboardingComplete: boolean | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -44,6 +45,7 @@ export type UserMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   dodoCustomerId: string | null
+  onboardingComplete: boolean | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -55,6 +57,7 @@ export type UserCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   dodoCustomerId: number
+  onboardingComplete: number
   _all: number
 }
 
@@ -68,6 +71,7 @@ export type UserMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   dodoCustomerId?: true
+  onboardingComplete?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -79,6 +83,7 @@ export type UserMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   dodoCustomerId?: true
+  onboardingComplete?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -90,6 +95,7 @@ export type UserCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   dodoCustomerId?: true
+  onboardingComplete?: true
   _all?: true
 }
 
@@ -174,6 +180,7 @@ export type UserGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   dodoCustomerId: string | null
+  onboardingComplete: boolean | null
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -206,6 +213,7 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   dodoCustomerId?: Prisma.StringNullableFilter<"User"> | string | null
+  onboardingComplete?: Prisma.BoolNullableFilter<"User"> | boolean | null
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   financialAccounts?: Prisma.FinancialAccountListRelationFilter
@@ -231,6 +239,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   dodoCustomerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  onboardingComplete?: Prisma.SortOrderInput | Prisma.SortOrder
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   financialAccounts?: Prisma.FinancialAccountOrderByRelationAggregateInput
@@ -259,6 +268,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   dodoCustomerId?: Prisma.StringNullableFilter<"User"> | string | null
+  onboardingComplete?: Prisma.BoolNullableFilter<"User"> | boolean | null
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   financialAccounts?: Prisma.FinancialAccountListRelationFilter
@@ -284,6 +294,7 @@ export type UserOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   dodoCustomerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  onboardingComplete?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -301,6 +312,7 @@ export type UserScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   dodoCustomerId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  onboardingComplete?: Prisma.BoolNullableWithAggregatesFilter<"User"> | boolean | null
 }
 
 export type UserCreateInput = {
@@ -312,6 +324,7 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
@@ -337,6 +350,7 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
@@ -362,6 +376,7 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
@@ -387,6 +402,7 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
@@ -412,6 +428,7 @@ export type UserCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -423,6 +440,7 @@ export type UserUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -434,6 +452,7 @@ export type UserUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -445,6 +464,7 @@ export type UserCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   dodoCustomerId?: Prisma.SortOrder
+  onboardingComplete?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -456,6 +476,7 @@ export type UserMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   dodoCustomerId?: Prisma.SortOrder
+  onboardingComplete?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -467,6 +488,7 @@ export type UserMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   dodoCustomerId?: Prisma.SortOrder
+  onboardingComplete?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -488,6 +510,10 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
 }
 
 export type UserCreateNestedOneWithoutSessionsInput = {
@@ -695,6 +721,7 @@ export type UserCreateWithoutSessionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
@@ -719,6 +746,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
@@ -759,6 +787,7 @@ export type UserUpdateWithoutSessionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
@@ -783,6 +812,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
@@ -807,6 +837,7 @@ export type UserCreateWithoutAccountsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
@@ -831,6 +862,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
@@ -871,6 +903,7 @@ export type UserUpdateWithoutAccountsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
@@ -895,6 +928,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
@@ -919,6 +953,7 @@ export type UserCreateWithoutFinancialAccountsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
@@ -943,6 +978,7 @@ export type UserUncheckedCreateWithoutFinancialAccountsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
@@ -983,6 +1019,7 @@ export type UserUpdateWithoutFinancialAccountsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
@@ -1007,6 +1044,7 @@ export type UserUncheckedUpdateWithoutFinancialAccountsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
@@ -1031,6 +1069,7 @@ export type UserCreateWithoutCategoriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
@@ -1055,6 +1094,7 @@ export type UserUncheckedCreateWithoutCategoriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
@@ -1095,6 +1135,7 @@ export type UserUpdateWithoutCategoriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
@@ -1119,6 +1160,7 @@ export type UserUncheckedUpdateWithoutCategoriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
@@ -1143,6 +1185,7 @@ export type UserCreateWithoutIncomesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
@@ -1167,6 +1210,7 @@ export type UserUncheckedCreateWithoutIncomesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
@@ -1207,6 +1251,7 @@ export type UserUpdateWithoutIncomesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
@@ -1231,6 +1276,7 @@ export type UserUncheckedUpdateWithoutIncomesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
@@ -1255,6 +1301,7 @@ export type UserCreateWithoutExpensesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
@@ -1279,6 +1326,7 @@ export type UserUncheckedCreateWithoutExpensesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
@@ -1319,6 +1367,7 @@ export type UserUpdateWithoutExpensesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
@@ -1343,6 +1392,7 @@ export type UserUncheckedUpdateWithoutExpensesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
@@ -1367,6 +1417,7 @@ export type UserCreateWithoutGoalsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
@@ -1391,6 +1442,7 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
@@ -1431,6 +1483,7 @@ export type UserUpdateWithoutGoalsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
@@ -1455,6 +1508,7 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
@@ -1479,6 +1533,7 @@ export type UserCreateWithoutBudgetsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
@@ -1503,6 +1558,7 @@ export type UserUncheckedCreateWithoutBudgetsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
@@ -1543,6 +1599,7 @@ export type UserUpdateWithoutBudgetsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
@@ -1567,6 +1624,7 @@ export type UserUncheckedUpdateWithoutBudgetsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
@@ -1591,6 +1649,7 @@ export type UserCreateWithoutNotificationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
@@ -1615,6 +1674,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
@@ -1655,6 +1715,7 @@ export type UserUpdateWithoutNotificationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
@@ -1679,6 +1740,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
@@ -1703,6 +1765,7 @@ export type UserCreateWithoutBudgetSettingInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
@@ -1727,6 +1790,7 @@ export type UserUncheckedCreateWithoutBudgetSettingInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
@@ -1767,6 +1831,7 @@ export type UserUpdateWithoutBudgetSettingInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
@@ -1791,6 +1856,7 @@ export type UserUncheckedUpdateWithoutBudgetSettingInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
@@ -1815,6 +1881,7 @@ export type UserCreateWithoutSubscriptionInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
@@ -1839,6 +1906,7 @@ export type UserUncheckedCreateWithoutSubscriptionInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
@@ -1879,6 +1947,7 @@ export type UserUpdateWithoutSubscriptionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
@@ -1903,6 +1972,7 @@ export type UserUncheckedUpdateWithoutSubscriptionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
@@ -1927,6 +1997,7 @@ export type UserCreateWithoutUserPreferenceInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
@@ -1951,6 +2022,7 @@ export type UserUncheckedCreateWithoutUserPreferenceInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
@@ -1991,6 +2063,7 @@ export type UserUpdateWithoutUserPreferenceInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
@@ -2015,6 +2088,7 @@ export type UserUncheckedUpdateWithoutUserPreferenceInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
@@ -2039,6 +2113,7 @@ export type UserCreateWithoutRecurringExpensesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
@@ -2063,6 +2138,7 @@ export type UserUncheckedCreateWithoutRecurringExpensesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
@@ -2103,6 +2179,7 @@ export type UserUpdateWithoutRecurringExpensesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
@@ -2127,6 +2204,7 @@ export type UserUncheckedUpdateWithoutRecurringExpensesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
@@ -2151,6 +2229,7 @@ export type UserCreateWithoutSettingsHistoriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
@@ -2175,6 +2254,7 @@ export type UserUncheckedCreateWithoutSettingsHistoriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dodoCustomerId?: string | null
+  onboardingComplete?: boolean | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
@@ -2215,6 +2295,7 @@ export type UserUpdateWithoutSettingsHistoriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
@@ -2239,6 +2320,7 @@ export type UserUncheckedUpdateWithoutSettingsHistoriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingComplete?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
@@ -2384,6 +2466,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   dodoCustomerId?: boolean
+  onboardingComplete?: boolean
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   financialAccounts?: boolean | Prisma.User$financialAccountsArgs<ExtArgs>
@@ -2410,6 +2493,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   updatedAt?: boolean
   dodoCustomerId?: boolean
+  onboardingComplete?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2421,6 +2505,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   updatedAt?: boolean
   dodoCustomerId?: boolean
+  onboardingComplete?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -2432,9 +2517,10 @@ export type UserSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   dodoCustomerId?: boolean
+  onboardingComplete?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "dodoCustomerId", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "dodoCustomerId" | "onboardingComplete", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -2482,6 +2568,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     createdAt: Date
     updatedAt: Date
     dodoCustomerId: string | null
+    onboardingComplete: boolean | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -2927,6 +3014,7 @@ export interface UserFieldRefs {
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly dodoCustomerId: Prisma.FieldRef<"User", 'String'>
+  readonly onboardingComplete: Prisma.FieldRef<"User", 'Boolean'>
 }
     
 

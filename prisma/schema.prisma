@@ -11,6 +11,7 @@ datasource db {
 }
 
 // ─── ENUMS ───────────────────────────────────────────────────────
+
 enum AccountType {
   INVESTMENT
   SAVINGS
@@ -51,6 +52,7 @@ enum LimitType {
 }
 
 // ─── BETTER-AUTH MODELS ──────────────────────────────────────────
+
 model User {
   id            String   @id
   name          String
@@ -78,6 +80,8 @@ model User {
   userPreference    UserPreference?
   recurringExpenses RecurringExpense[]
   settingsHistories SettingsHistory[]
+
+  onboardingComplete Boolean? @default(false)
 
   @@unique([email])
   @@map("users")
@@ -193,7 +197,8 @@ model Income {
   user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   allocations Allocation[]
 
-  @@index([userId, date]) // Index for fast monthly reports
+  // Index for fast monthly reports
+  @@index([userId, date])
   @@map("incomes")
 }
 
@@ -238,12 +243,14 @@ model Expense {
   recurringExpense RecurringExpense? @relation(fields: [recurringExpenseId], references: [id], onDelete: SetNull)
   financialAccount FinancialAccount  @relation(fields: [financialAccountId], references: [id])
 
-  @@index([userId, date]) // Composite index for dashboard/reports
+  // Composite index for dashboard/reports
+  @@index([userId, date])
   @@index([userId, categoryId])
   @@map("expenses")
 }
 
 // Immutable Ledger - Event Sourcing concept for financial integrity
+
 model TransactionLedger {
   id                 String          @id @default(cuid())
   financialAccountId String
@@ -260,7 +267,8 @@ model TransactionLedger {
 
   financialAccount FinancialAccount @relation(fields: [financialAccountId], references: [id], onDelete: Cascade)
 
-  @@index([financialAccountId, createdAt(sort: Desc)]) // Optimized for unified transaction log UI
+  // Optimized for unified transaction log UI
+  @@index([financialAccountId, createdAt(sort: Desc)])
   @@map("transaction_ledgers")
 }
 
@@ -299,7 +307,8 @@ model Budget {
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, categoryId, month, year]) // منع وجود ميزانيتين لنفس الفئة في نفس الشهر
+  // منع وجود ميزانيتين لنفس الفئة في نفس الشهر
+  @@unique([userId, categoryId, month, year])
   @@map("budgets")
 }
 
@@ -391,6 +400,7 @@ model RecurringExpense {
 }
 
 // 2. سجل تتبع التغييرات في النسب المالية
+
 model SettingsHistory {
   id     String @id @default(cuid())
   userId String
