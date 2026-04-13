@@ -49,3 +49,20 @@ export const TransactionType = {
 } as const
 
 export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
+
+
+export const Currency = {
+  EGP: 'EGP',
+  USD: 'USD',
+  EUR: 'EUR'
+} as const
+
+export type Currency = (typeof Currency)[keyof typeof Currency]
+
+
+export const LimitType = {
+  FIXED: 'FIXED',
+  PERCENTAGE: 'PERCENTAGE'
+} as const
+
+export type LimitType = (typeof LimitType)[keyof typeof LimitType]

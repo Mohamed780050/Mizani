@@ -49,6 +49,9 @@ export type ExpenseMinAggregateOutputType = {
   notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
+  financialAccountId: string | null
+  recurringExpenseId: string | null
 }
 
 export type ExpenseMaxAggregateOutputType = {
@@ -66,6 +69,9 @@ export type ExpenseMaxAggregateOutputType = {
   notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
+  financialAccountId: string | null
+  recurringExpenseId: string | null
 }
 
 export type ExpenseCountAggregateOutputType = {
@@ -83,6 +89,9 @@ export type ExpenseCountAggregateOutputType = {
   notes: number
   createdAt: number
   updatedAt: number
+  deletedAt: number
+  financialAccountId: number
+  recurringExpenseId: number
   _all: number
 }
 
@@ -110,6 +119,9 @@ export type ExpenseMinAggregateInputType = {
   notes?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
+  financialAccountId?: true
+  recurringExpenseId?: true
 }
 
 export type ExpenseMaxAggregateInputType = {
@@ -127,6 +139,9 @@ export type ExpenseMaxAggregateInputType = {
   notes?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
+  financialAccountId?: true
+  recurringExpenseId?: true
 }
 
 export type ExpenseCountAggregateInputType = {
@@ -144,6 +159,9 @@ export type ExpenseCountAggregateInputType = {
   notes?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
+  financialAccountId?: true
+  recurringExpenseId?: true
   _all?: true
 }
 
@@ -248,6 +266,9 @@ export type ExpenseGroupByOutputType = {
   notes: string | null
   createdAt: Date
   updatedAt: Date
+  deletedAt: Date | null
+  financialAccountId: string
+  recurringExpenseId: string | null
   _count: ExpenseCountAggregateOutputType | null
   _avg: ExpenseAvgAggregateOutputType | null
   _sum: ExpenseSumAggregateOutputType | null
@@ -288,8 +309,13 @@ export type ExpenseWhereInput = {
   notes?: Prisma.StringNullableFilter<"Expense"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Expense"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Expense"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Expense"> | Date | string | null
+  financialAccountId?: Prisma.StringFilter<"Expense"> | string
+  recurringExpenseId?: Prisma.StringNullableFilter<"Expense"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
+  recurringExpense?: Prisma.XOR<Prisma.RecurringExpenseNullableScalarRelationFilter, Prisma.RecurringExpenseWhereInput> | null
+  financialAccount?: Prisma.XOR<Prisma.FinancialAccountScalarRelationFilter, Prisma.FinancialAccountWhereInput>
 }
 
 export type ExpenseOrderByWithRelationInput = {
@@ -307,8 +333,13 @@ export type ExpenseOrderByWithRelationInput = {
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  financialAccountId?: Prisma.SortOrder
+  recurringExpenseId?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   category?: Prisma.CategoryOrderByWithRelationInput
+  recurringExpense?: Prisma.RecurringExpenseOrderByWithRelationInput
+  financialAccount?: Prisma.FinancialAccountOrderByWithRelationInput
 }
 
 export type ExpenseWhereUniqueInput = Prisma.AtLeast<{
@@ -329,8 +360,13 @@ export type ExpenseWhereUniqueInput = Prisma.AtLeast<{
   notes?: Prisma.StringNullableFilter<"Expense"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Expense"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Expense"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Expense"> | Date | string | null
+  financialAccountId?: Prisma.StringFilter<"Expense"> | string
+  recurringExpenseId?: Prisma.StringNullableFilter<"Expense"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
+  recurringExpense?: Prisma.XOR<Prisma.RecurringExpenseNullableScalarRelationFilter, Prisma.RecurringExpenseWhereInput> | null
+  financialAccount?: Prisma.XOR<Prisma.FinancialAccountScalarRelationFilter, Prisma.FinancialAccountWhereInput>
 }, "id">
 
 export type ExpenseOrderByWithAggregationInput = {
@@ -348,6 +384,9 @@ export type ExpenseOrderByWithAggregationInput = {
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  financialAccountId?: Prisma.SortOrder
+  recurringExpenseId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ExpenseCountOrderByAggregateInput
   _avg?: Prisma.ExpenseAvgOrderByAggregateInput
   _max?: Prisma.ExpenseMaxOrderByAggregateInput
@@ -373,6 +412,9 @@ export type ExpenseScalarWhereWithAggregatesInput = {
   notes?: Prisma.StringNullableWithAggregatesFilter<"Expense"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Expense"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Expense"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Expense"> | Date | string | null
+  financialAccountId?: Prisma.StringWithAggregatesFilter<"Expense"> | string
+  recurringExpenseId?: Prisma.StringNullableWithAggregatesFilter<"Expense"> | string | null
 }
 
 export type ExpenseCreateInput = {
@@ -388,8 +430,11 @@ export type ExpenseCreateInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutExpensesInput
   category: Prisma.CategoryCreateNestedOneWithoutExpensesInput
+  recurringExpense?: Prisma.RecurringExpenseCreateNestedOneWithoutExpensesInput
+  financialAccount: Prisma.FinancialAccountCreateNestedOneWithoutExpensesInput
 }
 
 export type ExpenseUncheckedCreateInput = {
@@ -407,6 +452,9 @@ export type ExpenseUncheckedCreateInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  financialAccountId: string
+  recurringExpenseId?: string | null
 }
 
 export type ExpenseUpdateInput = {
@@ -422,8 +470,11 @@ export type ExpenseUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutExpensesNestedInput
   category?: Prisma.CategoryUpdateOneRequiredWithoutExpensesNestedInput
+  recurringExpense?: Prisma.RecurringExpenseUpdateOneWithoutExpensesNestedInput
+  financialAccount?: Prisma.FinancialAccountUpdateOneRequiredWithoutExpensesNestedInput
 }
 
 export type ExpenseUncheckedUpdateInput = {
@@ -441,6 +492,9 @@ export type ExpenseUncheckedUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  financialAccountId?: Prisma.StringFieldUpdateOperationsInput | string
+  recurringExpenseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ExpenseCreateManyInput = {
@@ -458,6 +512,9 @@ export type ExpenseCreateManyInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  financialAccountId: string
+  recurringExpenseId?: string | null
 }
 
 export type ExpenseUpdateManyMutationInput = {
@@ -473,6 +530,7 @@ export type ExpenseUpdateManyMutationInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ExpenseUncheckedUpdateManyInput = {
@@ -490,6 +548,9 @@ export type ExpenseUncheckedUpdateManyInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  financialAccountId?: Prisma.StringFieldUpdateOperationsInput | string
+  recurringExpenseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ExpenseListRelationFilter = {
@@ -517,6 +578,9 @@ export type ExpenseCountOrderByAggregateInput = {
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+  financialAccountId?: Prisma.SortOrder
+  recurringExpenseId?: Prisma.SortOrder
 }
 
 export type ExpenseAvgOrderByAggregateInput = {
@@ -538,6 +602,9 @@ export type ExpenseMaxOrderByAggregateInput = {
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+  financialAccountId?: Prisma.SortOrder
+  recurringExpenseId?: Prisma.SortOrder
 }
 
 export type ExpenseMinOrderByAggregateInput = {
@@ -555,6 +622,9 @@ export type ExpenseMinOrderByAggregateInput = {
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
+  financialAccountId?: Prisma.SortOrder
+  recurringExpenseId?: Prisma.SortOrder
 }
 
 export type ExpenseSumOrderByAggregateInput = {
@@ -600,6 +670,48 @@ export type ExpenseUncheckedUpdateManyWithoutUserNestedInput = {
   connect?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
   update?: Prisma.ExpenseUpdateWithWhereUniqueWithoutUserInput | Prisma.ExpenseUpdateWithWhereUniqueWithoutUserInput[]
   updateMany?: Prisma.ExpenseUpdateManyWithWhereWithoutUserInput | Prisma.ExpenseUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.ExpenseScalarWhereInput | Prisma.ExpenseScalarWhereInput[]
+}
+
+export type ExpenseCreateNestedManyWithoutFinancialAccountInput = {
+  create?: Prisma.XOR<Prisma.ExpenseCreateWithoutFinancialAccountInput, Prisma.ExpenseUncheckedCreateWithoutFinancialAccountInput> | Prisma.ExpenseCreateWithoutFinancialAccountInput[] | Prisma.ExpenseUncheckedCreateWithoutFinancialAccountInput[]
+  connectOrCreate?: Prisma.ExpenseCreateOrConnectWithoutFinancialAccountInput | Prisma.ExpenseCreateOrConnectWithoutFinancialAccountInput[]
+  createMany?: Prisma.ExpenseCreateManyFinancialAccountInputEnvelope
+  connect?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+}
+
+export type ExpenseUncheckedCreateNestedManyWithoutFinancialAccountInput = {
+  create?: Prisma.XOR<Prisma.ExpenseCreateWithoutFinancialAccountInput, Prisma.ExpenseUncheckedCreateWithoutFinancialAccountInput> | Prisma.ExpenseCreateWithoutFinancialAccountInput[] | Prisma.ExpenseUncheckedCreateWithoutFinancialAccountInput[]
+  connectOrCreate?: Prisma.ExpenseCreateOrConnectWithoutFinancialAccountInput | Prisma.ExpenseCreateOrConnectWithoutFinancialAccountInput[]
+  createMany?: Prisma.ExpenseCreateManyFinancialAccountInputEnvelope
+  connect?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+}
+
+export type ExpenseUpdateManyWithoutFinancialAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.ExpenseCreateWithoutFinancialAccountInput, Prisma.ExpenseUncheckedCreateWithoutFinancialAccountInput> | Prisma.ExpenseCreateWithoutFinancialAccountInput[] | Prisma.ExpenseUncheckedCreateWithoutFinancialAccountInput[]
+  connectOrCreate?: Prisma.ExpenseCreateOrConnectWithoutFinancialAccountInput | Prisma.ExpenseCreateOrConnectWithoutFinancialAccountInput[]
+  upsert?: Prisma.ExpenseUpsertWithWhereUniqueWithoutFinancialAccountInput | Prisma.ExpenseUpsertWithWhereUniqueWithoutFinancialAccountInput[]
+  createMany?: Prisma.ExpenseCreateManyFinancialAccountInputEnvelope
+  set?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  disconnect?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  delete?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  connect?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  update?: Prisma.ExpenseUpdateWithWhereUniqueWithoutFinancialAccountInput | Prisma.ExpenseUpdateWithWhereUniqueWithoutFinancialAccountInput[]
+  updateMany?: Prisma.ExpenseUpdateManyWithWhereWithoutFinancialAccountInput | Prisma.ExpenseUpdateManyWithWhereWithoutFinancialAccountInput[]
+  deleteMany?: Prisma.ExpenseScalarWhereInput | Prisma.ExpenseScalarWhereInput[]
+}
+
+export type ExpenseUncheckedUpdateManyWithoutFinancialAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.ExpenseCreateWithoutFinancialAccountInput, Prisma.ExpenseUncheckedCreateWithoutFinancialAccountInput> | Prisma.ExpenseCreateWithoutFinancialAccountInput[] | Prisma.ExpenseUncheckedCreateWithoutFinancialAccountInput[]
+  connectOrCreate?: Prisma.ExpenseCreateOrConnectWithoutFinancialAccountInput | Prisma.ExpenseCreateOrConnectWithoutFinancialAccountInput[]
+  upsert?: Prisma.ExpenseUpsertWithWhereUniqueWithoutFinancialAccountInput | Prisma.ExpenseUpsertWithWhereUniqueWithoutFinancialAccountInput[]
+  createMany?: Prisma.ExpenseCreateManyFinancialAccountInputEnvelope
+  set?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  disconnect?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  delete?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  connect?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  update?: Prisma.ExpenseUpdateWithWhereUniqueWithoutFinancialAccountInput | Prisma.ExpenseUpdateWithWhereUniqueWithoutFinancialAccountInput[]
+  updateMany?: Prisma.ExpenseUpdateManyWithWhereWithoutFinancialAccountInput | Prisma.ExpenseUpdateManyWithWhereWithoutFinancialAccountInput[]
   deleteMany?: Prisma.ExpenseScalarWhereInput | Prisma.ExpenseScalarWhereInput[]
 }
 
@@ -657,6 +769,48 @@ export type EnumFrequencyTypeFieldUpdateOperationsInput = {
   set?: $Enums.FrequencyType
 }
 
+export type ExpenseCreateNestedManyWithoutRecurringExpenseInput = {
+  create?: Prisma.XOR<Prisma.ExpenseCreateWithoutRecurringExpenseInput, Prisma.ExpenseUncheckedCreateWithoutRecurringExpenseInput> | Prisma.ExpenseCreateWithoutRecurringExpenseInput[] | Prisma.ExpenseUncheckedCreateWithoutRecurringExpenseInput[]
+  connectOrCreate?: Prisma.ExpenseCreateOrConnectWithoutRecurringExpenseInput | Prisma.ExpenseCreateOrConnectWithoutRecurringExpenseInput[]
+  createMany?: Prisma.ExpenseCreateManyRecurringExpenseInputEnvelope
+  connect?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+}
+
+export type ExpenseUncheckedCreateNestedManyWithoutRecurringExpenseInput = {
+  create?: Prisma.XOR<Prisma.ExpenseCreateWithoutRecurringExpenseInput, Prisma.ExpenseUncheckedCreateWithoutRecurringExpenseInput> | Prisma.ExpenseCreateWithoutRecurringExpenseInput[] | Prisma.ExpenseUncheckedCreateWithoutRecurringExpenseInput[]
+  connectOrCreate?: Prisma.ExpenseCreateOrConnectWithoutRecurringExpenseInput | Prisma.ExpenseCreateOrConnectWithoutRecurringExpenseInput[]
+  createMany?: Prisma.ExpenseCreateManyRecurringExpenseInputEnvelope
+  connect?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+}
+
+export type ExpenseUpdateManyWithoutRecurringExpenseNestedInput = {
+  create?: Prisma.XOR<Prisma.ExpenseCreateWithoutRecurringExpenseInput, Prisma.ExpenseUncheckedCreateWithoutRecurringExpenseInput> | Prisma.ExpenseCreateWithoutRecurringExpenseInput[] | Prisma.ExpenseUncheckedCreateWithoutRecurringExpenseInput[]
+  connectOrCreate?: Prisma.ExpenseCreateOrConnectWithoutRecurringExpenseInput | Prisma.ExpenseCreateOrConnectWithoutRecurringExpenseInput[]
+  upsert?: Prisma.ExpenseUpsertWithWhereUniqueWithoutRecurringExpenseInput | Prisma.ExpenseUpsertWithWhereUniqueWithoutRecurringExpenseInput[]
+  createMany?: Prisma.ExpenseCreateManyRecurringExpenseInputEnvelope
+  set?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  disconnect?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  delete?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  connect?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  update?: Prisma.ExpenseUpdateWithWhereUniqueWithoutRecurringExpenseInput | Prisma.ExpenseUpdateWithWhereUniqueWithoutRecurringExpenseInput[]
+  updateMany?: Prisma.ExpenseUpdateManyWithWhereWithoutRecurringExpenseInput | Prisma.ExpenseUpdateManyWithWhereWithoutRecurringExpenseInput[]
+  deleteMany?: Prisma.ExpenseScalarWhereInput | Prisma.ExpenseScalarWhereInput[]
+}
+
+export type ExpenseUncheckedUpdateManyWithoutRecurringExpenseNestedInput = {
+  create?: Prisma.XOR<Prisma.ExpenseCreateWithoutRecurringExpenseInput, Prisma.ExpenseUncheckedCreateWithoutRecurringExpenseInput> | Prisma.ExpenseCreateWithoutRecurringExpenseInput[] | Prisma.ExpenseUncheckedCreateWithoutRecurringExpenseInput[]
+  connectOrCreate?: Prisma.ExpenseCreateOrConnectWithoutRecurringExpenseInput | Prisma.ExpenseCreateOrConnectWithoutRecurringExpenseInput[]
+  upsert?: Prisma.ExpenseUpsertWithWhereUniqueWithoutRecurringExpenseInput | Prisma.ExpenseUpsertWithWhereUniqueWithoutRecurringExpenseInput[]
+  createMany?: Prisma.ExpenseCreateManyRecurringExpenseInputEnvelope
+  set?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  disconnect?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  delete?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  connect?: Prisma.ExpenseWhereUniqueInput | Prisma.ExpenseWhereUniqueInput[]
+  update?: Prisma.ExpenseUpdateWithWhereUniqueWithoutRecurringExpenseInput | Prisma.ExpenseUpdateWithWhereUniqueWithoutRecurringExpenseInput[]
+  updateMany?: Prisma.ExpenseUpdateManyWithWhereWithoutRecurringExpenseInput | Prisma.ExpenseUpdateManyWithWhereWithoutRecurringExpenseInput[]
+  deleteMany?: Prisma.ExpenseScalarWhereInput | Prisma.ExpenseScalarWhereInput[]
+}
+
 export type ExpenseCreateWithoutUserInput = {
   id?: string
   title: string
@@ -670,7 +824,10 @@ export type ExpenseCreateWithoutUserInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   category: Prisma.CategoryCreateNestedOneWithoutExpensesInput
+  recurringExpense?: Prisma.RecurringExpenseCreateNestedOneWithoutExpensesInput
+  financialAccount: Prisma.FinancialAccountCreateNestedOneWithoutExpensesInput
 }
 
 export type ExpenseUncheckedCreateWithoutUserInput = {
@@ -687,6 +844,9 @@ export type ExpenseUncheckedCreateWithoutUserInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  financialAccountId: string
+  recurringExpenseId?: string | null
 }
 
 export type ExpenseCreateOrConnectWithoutUserInput = {
@@ -733,6 +893,73 @@ export type ExpenseScalarWhereInput = {
   notes?: Prisma.StringNullableFilter<"Expense"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Expense"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Expense"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Expense"> | Date | string | null
+  financialAccountId?: Prisma.StringFilter<"Expense"> | string
+  recurringExpenseId?: Prisma.StringNullableFilter<"Expense"> | string | null
+}
+
+export type ExpenseCreateWithoutFinancialAccountInput = {
+  id?: string
+  title: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  date: Date | string
+  expenseType: $Enums.ExpenseType
+  necessity: $Enums.NecessityType
+  frequency: $Enums.FrequencyType
+  isRecurring?: boolean
+  parentId?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutExpensesInput
+  category: Prisma.CategoryCreateNestedOneWithoutExpensesInput
+  recurringExpense?: Prisma.RecurringExpenseCreateNestedOneWithoutExpensesInput
+}
+
+export type ExpenseUncheckedCreateWithoutFinancialAccountInput = {
+  id?: string
+  userId: string
+  title: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  categoryId: string
+  date: Date | string
+  expenseType: $Enums.ExpenseType
+  necessity: $Enums.NecessityType
+  frequency: $Enums.FrequencyType
+  isRecurring?: boolean
+  parentId?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  recurringExpenseId?: string | null
+}
+
+export type ExpenseCreateOrConnectWithoutFinancialAccountInput = {
+  where: Prisma.ExpenseWhereUniqueInput
+  create: Prisma.XOR<Prisma.ExpenseCreateWithoutFinancialAccountInput, Prisma.ExpenseUncheckedCreateWithoutFinancialAccountInput>
+}
+
+export type ExpenseCreateManyFinancialAccountInputEnvelope = {
+  data: Prisma.ExpenseCreateManyFinancialAccountInput | Prisma.ExpenseCreateManyFinancialAccountInput[]
+  skipDuplicates?: boolean
+}
+
+export type ExpenseUpsertWithWhereUniqueWithoutFinancialAccountInput = {
+  where: Prisma.ExpenseWhereUniqueInput
+  update: Prisma.XOR<Prisma.ExpenseUpdateWithoutFinancialAccountInput, Prisma.ExpenseUncheckedUpdateWithoutFinancialAccountInput>
+  create: Prisma.XOR<Prisma.ExpenseCreateWithoutFinancialAccountInput, Prisma.ExpenseUncheckedCreateWithoutFinancialAccountInput>
+}
+
+export type ExpenseUpdateWithWhereUniqueWithoutFinancialAccountInput = {
+  where: Prisma.ExpenseWhereUniqueInput
+  data: Prisma.XOR<Prisma.ExpenseUpdateWithoutFinancialAccountInput, Prisma.ExpenseUncheckedUpdateWithoutFinancialAccountInput>
+}
+
+export type ExpenseUpdateManyWithWhereWithoutFinancialAccountInput = {
+  where: Prisma.ExpenseScalarWhereInput
+  data: Prisma.XOR<Prisma.ExpenseUpdateManyMutationInput, Prisma.ExpenseUncheckedUpdateManyWithoutFinancialAccountInput>
 }
 
 export type ExpenseCreateWithoutCategoryInput = {
@@ -748,7 +975,10 @@ export type ExpenseCreateWithoutCategoryInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutExpensesInput
+  recurringExpense?: Prisma.RecurringExpenseCreateNestedOneWithoutExpensesInput
+  financialAccount: Prisma.FinancialAccountCreateNestedOneWithoutExpensesInput
 }
 
 export type ExpenseUncheckedCreateWithoutCategoryInput = {
@@ -765,6 +995,9 @@ export type ExpenseUncheckedCreateWithoutCategoryInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  financialAccountId: string
+  recurringExpenseId?: string | null
 }
 
 export type ExpenseCreateOrConnectWithoutCategoryInput = {
@@ -793,6 +1026,70 @@ export type ExpenseUpdateManyWithWhereWithoutCategoryInput = {
   data: Prisma.XOR<Prisma.ExpenseUpdateManyMutationInput, Prisma.ExpenseUncheckedUpdateManyWithoutCategoryInput>
 }
 
+export type ExpenseCreateWithoutRecurringExpenseInput = {
+  id?: string
+  title: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  date: Date | string
+  expenseType: $Enums.ExpenseType
+  necessity: $Enums.NecessityType
+  frequency: $Enums.FrequencyType
+  isRecurring?: boolean
+  parentId?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutExpensesInput
+  category: Prisma.CategoryCreateNestedOneWithoutExpensesInput
+  financialAccount: Prisma.FinancialAccountCreateNestedOneWithoutExpensesInput
+}
+
+export type ExpenseUncheckedCreateWithoutRecurringExpenseInput = {
+  id?: string
+  userId: string
+  title: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  categoryId: string
+  date: Date | string
+  expenseType: $Enums.ExpenseType
+  necessity: $Enums.NecessityType
+  frequency: $Enums.FrequencyType
+  isRecurring?: boolean
+  parentId?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  financialAccountId: string
+}
+
+export type ExpenseCreateOrConnectWithoutRecurringExpenseInput = {
+  where: Prisma.ExpenseWhereUniqueInput
+  create: Prisma.XOR<Prisma.ExpenseCreateWithoutRecurringExpenseInput, Prisma.ExpenseUncheckedCreateWithoutRecurringExpenseInput>
+}
+
+export type ExpenseCreateManyRecurringExpenseInputEnvelope = {
+  data: Prisma.ExpenseCreateManyRecurringExpenseInput | Prisma.ExpenseCreateManyRecurringExpenseInput[]
+  skipDuplicates?: boolean
+}
+
+export type ExpenseUpsertWithWhereUniqueWithoutRecurringExpenseInput = {
+  where: Prisma.ExpenseWhereUniqueInput
+  update: Prisma.XOR<Prisma.ExpenseUpdateWithoutRecurringExpenseInput, Prisma.ExpenseUncheckedUpdateWithoutRecurringExpenseInput>
+  create: Prisma.XOR<Prisma.ExpenseCreateWithoutRecurringExpenseInput, Prisma.ExpenseUncheckedCreateWithoutRecurringExpenseInput>
+}
+
+export type ExpenseUpdateWithWhereUniqueWithoutRecurringExpenseInput = {
+  where: Prisma.ExpenseWhereUniqueInput
+  data: Prisma.XOR<Prisma.ExpenseUpdateWithoutRecurringExpenseInput, Prisma.ExpenseUncheckedUpdateWithoutRecurringExpenseInput>
+}
+
+export type ExpenseUpdateManyWithWhereWithoutRecurringExpenseInput = {
+  where: Prisma.ExpenseScalarWhereInput
+  data: Prisma.XOR<Prisma.ExpenseUpdateManyMutationInput, Prisma.ExpenseUncheckedUpdateManyWithoutRecurringExpenseInput>
+}
+
 export type ExpenseCreateManyUserInput = {
   id?: string
   title: string
@@ -807,6 +1104,9 @@ export type ExpenseCreateManyUserInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  financialAccountId: string
+  recurringExpenseId?: string | null
 }
 
 export type ExpenseUpdateWithoutUserInput = {
@@ -822,7 +1122,10 @@ export type ExpenseUpdateWithoutUserInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   category?: Prisma.CategoryUpdateOneRequiredWithoutExpensesNestedInput
+  recurringExpense?: Prisma.RecurringExpenseUpdateOneWithoutExpensesNestedInput
+  financialAccount?: Prisma.FinancialAccountUpdateOneRequiredWithoutExpensesNestedInput
 }
 
 export type ExpenseUncheckedUpdateWithoutUserInput = {
@@ -839,6 +1142,9 @@ export type ExpenseUncheckedUpdateWithoutUserInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  financialAccountId?: Prisma.StringFieldUpdateOperationsInput | string
+  recurringExpenseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ExpenseUncheckedUpdateManyWithoutUserInput = {
@@ -855,6 +1161,85 @@ export type ExpenseUncheckedUpdateManyWithoutUserInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  financialAccountId?: Prisma.StringFieldUpdateOperationsInput | string
+  recurringExpenseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ExpenseCreateManyFinancialAccountInput = {
+  id?: string
+  userId: string
+  title: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  categoryId: string
+  date: Date | string
+  expenseType: $Enums.ExpenseType
+  necessity: $Enums.NecessityType
+  frequency: $Enums.FrequencyType
+  isRecurring?: boolean
+  parentId?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  recurringExpenseId?: string | null
+}
+
+export type ExpenseUpdateWithoutFinancialAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expenseType?: Prisma.EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+  necessity?: Prisma.EnumNecessityTypeFieldUpdateOperationsInput | $Enums.NecessityType
+  frequency?: Prisma.EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+  isRecurring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutExpensesNestedInput
+  category?: Prisma.CategoryUpdateOneRequiredWithoutExpensesNestedInput
+  recurringExpense?: Prisma.RecurringExpenseUpdateOneWithoutExpensesNestedInput
+}
+
+export type ExpenseUncheckedUpdateWithoutFinancialAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expenseType?: Prisma.EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+  necessity?: Prisma.EnumNecessityTypeFieldUpdateOperationsInput | $Enums.NecessityType
+  frequency?: Prisma.EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+  isRecurring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  recurringExpenseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ExpenseUncheckedUpdateManyWithoutFinancialAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expenseType?: Prisma.EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+  necessity?: Prisma.EnumNecessityTypeFieldUpdateOperationsInput | $Enums.NecessityType
+  frequency?: Prisma.EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+  isRecurring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  recurringExpenseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ExpenseCreateManyCategoryInput = {
@@ -871,6 +1256,9 @@ export type ExpenseCreateManyCategoryInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  financialAccountId: string
+  recurringExpenseId?: string | null
 }
 
 export type ExpenseUpdateWithoutCategoryInput = {
@@ -886,7 +1274,10 @@ export type ExpenseUpdateWithoutCategoryInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutExpensesNestedInput
+  recurringExpense?: Prisma.RecurringExpenseUpdateOneWithoutExpensesNestedInput
+  financialAccount?: Prisma.FinancialAccountUpdateOneRequiredWithoutExpensesNestedInput
 }
 
 export type ExpenseUncheckedUpdateWithoutCategoryInput = {
@@ -903,6 +1294,9 @@ export type ExpenseUncheckedUpdateWithoutCategoryInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  financialAccountId?: Prisma.StringFieldUpdateOperationsInput | string
+  recurringExpenseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ExpenseUncheckedUpdateManyWithoutCategoryInput = {
@@ -919,6 +1313,85 @@ export type ExpenseUncheckedUpdateManyWithoutCategoryInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  financialAccountId?: Prisma.StringFieldUpdateOperationsInput | string
+  recurringExpenseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ExpenseCreateManyRecurringExpenseInput = {
+  id?: string
+  userId: string
+  title: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  categoryId: string
+  date: Date | string
+  expenseType: $Enums.ExpenseType
+  necessity: $Enums.NecessityType
+  frequency: $Enums.FrequencyType
+  isRecurring?: boolean
+  parentId?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  financialAccountId: string
+}
+
+export type ExpenseUpdateWithoutRecurringExpenseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expenseType?: Prisma.EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+  necessity?: Prisma.EnumNecessityTypeFieldUpdateOperationsInput | $Enums.NecessityType
+  frequency?: Prisma.EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+  isRecurring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutExpensesNestedInput
+  category?: Prisma.CategoryUpdateOneRequiredWithoutExpensesNestedInput
+  financialAccount?: Prisma.FinancialAccountUpdateOneRequiredWithoutExpensesNestedInput
+}
+
+export type ExpenseUncheckedUpdateWithoutRecurringExpenseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expenseType?: Prisma.EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+  necessity?: Prisma.EnumNecessityTypeFieldUpdateOperationsInput | $Enums.NecessityType
+  frequency?: Prisma.EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+  isRecurring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  financialAccountId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type ExpenseUncheckedUpdateManyWithoutRecurringExpenseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expenseType?: Prisma.EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+  necessity?: Prisma.EnumNecessityTypeFieldUpdateOperationsInput | $Enums.NecessityType
+  frequency?: Prisma.EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+  isRecurring?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  financialAccountId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -938,8 +1411,13 @@ export type ExpenseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
+  financialAccountId?: boolean
+  recurringExpenseId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  recurringExpense?: boolean | Prisma.Expense$recurringExpenseArgs<ExtArgs>
+  financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["expense"]>
 
 export type ExpenseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -957,8 +1435,13 @@ export type ExpenseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
+  financialAccountId?: boolean
+  recurringExpenseId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  recurringExpense?: boolean | Prisma.Expense$recurringExpenseArgs<ExtArgs>
+  financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["expense"]>
 
 export type ExpenseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -976,8 +1459,13 @@ export type ExpenseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
+  financialAccountId?: boolean
+  recurringExpenseId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  recurringExpense?: boolean | Prisma.Expense$recurringExpenseArgs<ExtArgs>
+  financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["expense"]>
 
 export type ExpenseSelectScalar = {
@@ -995,20 +1483,29 @@ export type ExpenseSelectScalar = {
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
+  financialAccountId?: boolean
+  recurringExpenseId?: boolean
 }
 
-export type ExpenseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "title" | "amount" | "categoryId" | "date" | "expenseType" | "necessity" | "frequency" | "isRecurring" | "parentId" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["expense"]>
+export type ExpenseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "title" | "amount" | "categoryId" | "date" | "expenseType" | "necessity" | "frequency" | "isRecurring" | "parentId" | "notes" | "createdAt" | "updatedAt" | "deletedAt" | "financialAccountId" | "recurringExpenseId", ExtArgs["result"]["expense"]>
 export type ExpenseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  recurringExpense?: boolean | Prisma.Expense$recurringExpenseArgs<ExtArgs>
+  financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }
 export type ExpenseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  recurringExpense?: boolean | Prisma.Expense$recurringExpenseArgs<ExtArgs>
+  financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }
 export type ExpenseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
+  recurringExpense?: boolean | Prisma.Expense$recurringExpenseArgs<ExtArgs>
+  financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }
 
 export type $ExpensePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1016,6 +1513,8 @@ export type $ExpensePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     category: Prisma.$CategoryPayload<ExtArgs>
+    recurringExpense: Prisma.$RecurringExpensePayload<ExtArgs> | null
+    financialAccount: Prisma.$FinancialAccountPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1032,6 +1531,9 @@ export type $ExpensePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     notes: string | null
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
+    financialAccountId: string
+    recurringExpenseId: string | null
   }, ExtArgs["result"]["expense"]>
   composites: {}
 }
@@ -1428,6 +1930,8 @@ export interface Prisma__ExpenseClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   category<T extends Prisma.CategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__CategoryClient<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  recurringExpense<T extends Prisma.Expense$recurringExpenseArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Expense$recurringExpenseArgs<ExtArgs>>): Prisma.Prisma__RecurringExpenseClient<runtime.Types.Result.GetResult<Prisma.$RecurringExpensePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  financialAccount<T extends Prisma.FinancialAccountDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinancialAccountDefaultArgs<ExtArgs>>): Prisma.Prisma__FinancialAccountClient<runtime.Types.Result.GetResult<Prisma.$FinancialAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1471,6 +1975,9 @@ export interface ExpenseFieldRefs {
   readonly notes: Prisma.FieldRef<"Expense", 'String'>
   readonly createdAt: Prisma.FieldRef<"Expense", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Expense", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"Expense", 'DateTime'>
+  readonly financialAccountId: Prisma.FieldRef<"Expense", 'String'>
+  readonly recurringExpenseId: Prisma.FieldRef<"Expense", 'String'>
 }
     
 
@@ -1869,6 +2376,25 @@ export type ExpenseDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Expenses to delete.
    */
   limit?: number
+}
+
+/**
+ * Expense.recurringExpense
+ */
+export type Expense$recurringExpenseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RecurringExpense
+   */
+  select?: Prisma.RecurringExpenseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RecurringExpense
+   */
+  omit?: Prisma.RecurringExpenseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecurringExpenseInclude<ExtArgs> | null
+  where?: Prisma.RecurringExpenseWhereInput
 }
 
 /**

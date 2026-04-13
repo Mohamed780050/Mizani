@@ -121,3 +121,13 @@ export type Subscription = Prisma.SubscriptionModel
  * 
  */
 export type UserPreference = Prisma.UserPreferenceModel
+/**
+ * Model RecurringExpense
+ * 
+ */
+export type RecurringExpense = Prisma.RecurringExpenseModel
+/**
+ * Model SettingsHistory
+ * 
+ */
+export type SettingsHistory = Prisma.SettingsHistoryModel

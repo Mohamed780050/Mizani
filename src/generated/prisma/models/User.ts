@@ -218,6 +218,8 @@ export type UserWhereInput = {
   budgetSetting?: Prisma.XOR<Prisma.BudgetSettingNullableScalarRelationFilter, Prisma.BudgetSettingWhereInput> | null
   subscription?: Prisma.XOR<Prisma.SubscriptionNullableScalarRelationFilter, Prisma.SubscriptionWhereInput> | null
   userPreference?: Prisma.XOR<Prisma.UserPreferenceNullableScalarRelationFilter, Prisma.UserPreferenceWhereInput> | null
+  recurringExpenses?: Prisma.RecurringExpenseListRelationFilter
+  settingsHistories?: Prisma.SettingsHistoryListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -241,6 +243,8 @@ export type UserOrderByWithRelationInput = {
   budgetSetting?: Prisma.BudgetSettingOrderByWithRelationInput
   subscription?: Prisma.SubscriptionOrderByWithRelationInput
   userPreference?: Prisma.UserPreferenceOrderByWithRelationInput
+  recurringExpenses?: Prisma.RecurringExpenseOrderByRelationAggregateInput
+  settingsHistories?: Prisma.SettingsHistoryOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -267,6 +271,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   budgetSetting?: Prisma.XOR<Prisma.BudgetSettingNullableScalarRelationFilter, Prisma.BudgetSettingWhereInput> | null
   subscription?: Prisma.XOR<Prisma.SubscriptionNullableScalarRelationFilter, Prisma.SubscriptionWhereInput> | null
   userPreference?: Prisma.XOR<Prisma.UserPreferenceNullableScalarRelationFilter, Prisma.UserPreferenceWhereInput> | null
+  recurringExpenses?: Prisma.RecurringExpenseListRelationFilter
+  settingsHistories?: Prisma.SettingsHistoryListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -318,6 +324,8 @@ export type UserCreateInput = {
   budgetSetting?: Prisma.BudgetSettingCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -341,6 +349,8 @@ export type UserUncheckedCreateInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -364,6 +374,8 @@ export type UserUpdateInput = {
   budgetSetting?: Prisma.BudgetSettingUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -387,6 +399,8 @@ export type UserUncheckedUpdateInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -644,6 +658,34 @@ export type UserUpdateOneRequiredWithoutUserPreferenceNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUserPreferenceInput, Prisma.UserUpdateWithoutUserPreferenceInput>, Prisma.UserUncheckedUpdateWithoutUserPreferenceInput>
 }
 
+export type UserCreateNestedOneWithoutRecurringExpensesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecurringExpensesInput, Prisma.UserUncheckedCreateWithoutRecurringExpensesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecurringExpensesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutRecurringExpensesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecurringExpensesInput, Prisma.UserUncheckedCreateWithoutRecurringExpensesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecurringExpensesInput
+  upsert?: Prisma.UserUpsertWithoutRecurringExpensesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRecurringExpensesInput, Prisma.UserUpdateWithoutRecurringExpensesInput>, Prisma.UserUncheckedUpdateWithoutRecurringExpensesInput>
+}
+
+export type UserCreateNestedOneWithoutSettingsHistoriesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSettingsHistoriesInput, Prisma.UserUncheckedCreateWithoutSettingsHistoriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSettingsHistoriesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSettingsHistoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSettingsHistoriesInput, Prisma.UserUncheckedCreateWithoutSettingsHistoriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSettingsHistoriesInput
+  upsert?: Prisma.UserUpsertWithoutSettingsHistoriesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSettingsHistoriesInput, Prisma.UserUpdateWithoutSettingsHistoriesInput>, Prisma.UserUncheckedUpdateWithoutSettingsHistoriesInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id: string
   name: string
@@ -664,6 +706,8 @@ export type UserCreateWithoutSessionsInput = {
   budgetSetting?: Prisma.BudgetSettingCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -686,6 +730,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -724,6 +770,8 @@ export type UserUpdateWithoutSessionsInput = {
   budgetSetting?: Prisma.BudgetSettingUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -746,6 +794,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -768,6 +818,8 @@ export type UserCreateWithoutAccountsInput = {
   budgetSetting?: Prisma.BudgetSettingCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -790,6 +842,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -828,6 +882,8 @@ export type UserUpdateWithoutAccountsInput = {
   budgetSetting?: Prisma.BudgetSettingUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -850,6 +906,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFinancialAccountsInput = {
@@ -872,6 +930,8 @@ export type UserCreateWithoutFinancialAccountsInput = {
   budgetSetting?: Prisma.BudgetSettingCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFinancialAccountsInput = {
@@ -894,6 +954,8 @@ export type UserUncheckedCreateWithoutFinancialAccountsInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFinancialAccountsInput = {
@@ -932,6 +994,8 @@ export type UserUpdateWithoutFinancialAccountsInput = {
   budgetSetting?: Prisma.BudgetSettingUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFinancialAccountsInput = {
@@ -954,6 +1018,8 @@ export type UserUncheckedUpdateWithoutFinancialAccountsInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCategoriesInput = {
@@ -976,6 +1042,8 @@ export type UserCreateWithoutCategoriesInput = {
   budgetSetting?: Prisma.BudgetSettingCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCategoriesInput = {
@@ -998,6 +1066,8 @@ export type UserUncheckedCreateWithoutCategoriesInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCategoriesInput = {
@@ -1036,6 +1106,8 @@ export type UserUpdateWithoutCategoriesInput = {
   budgetSetting?: Prisma.BudgetSettingUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCategoriesInput = {
@@ -1058,6 +1130,8 @@ export type UserUncheckedUpdateWithoutCategoriesInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutIncomesInput = {
@@ -1080,6 +1154,8 @@ export type UserCreateWithoutIncomesInput = {
   budgetSetting?: Prisma.BudgetSettingCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutIncomesInput = {
@@ -1102,6 +1178,8 @@ export type UserUncheckedCreateWithoutIncomesInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutIncomesInput = {
@@ -1140,6 +1218,8 @@ export type UserUpdateWithoutIncomesInput = {
   budgetSetting?: Prisma.BudgetSettingUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIncomesInput = {
@@ -1162,6 +1242,8 @@ export type UserUncheckedUpdateWithoutIncomesInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutExpensesInput = {
@@ -1184,6 +1266,8 @@ export type UserCreateWithoutExpensesInput = {
   budgetSetting?: Prisma.BudgetSettingCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutExpensesInput = {
@@ -1206,6 +1290,8 @@ export type UserUncheckedCreateWithoutExpensesInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutExpensesInput = {
@@ -1244,6 +1330,8 @@ export type UserUpdateWithoutExpensesInput = {
   budgetSetting?: Prisma.BudgetSettingUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutExpensesInput = {
@@ -1266,6 +1354,8 @@ export type UserUncheckedUpdateWithoutExpensesInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGoalsInput = {
@@ -1288,6 +1378,8 @@ export type UserCreateWithoutGoalsInput = {
   budgetSetting?: Prisma.BudgetSettingCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGoalsInput = {
@@ -1310,6 +1402,8 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGoalsInput = {
@@ -1348,6 +1442,8 @@ export type UserUpdateWithoutGoalsInput = {
   budgetSetting?: Prisma.BudgetSettingUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGoalsInput = {
@@ -1370,6 +1466,8 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBudgetsInput = {
@@ -1392,6 +1490,8 @@ export type UserCreateWithoutBudgetsInput = {
   budgetSetting?: Prisma.BudgetSettingCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBudgetsInput = {
@@ -1414,6 +1514,8 @@ export type UserUncheckedCreateWithoutBudgetsInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBudgetsInput = {
@@ -1452,6 +1554,8 @@ export type UserUpdateWithoutBudgetsInput = {
   budgetSetting?: Prisma.BudgetSettingUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBudgetsInput = {
@@ -1474,6 +1578,8 @@ export type UserUncheckedUpdateWithoutBudgetsInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -1496,6 +1602,8 @@ export type UserCreateWithoutNotificationsInput = {
   budgetSetting?: Prisma.BudgetSettingCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -1518,6 +1626,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -1556,6 +1666,8 @@ export type UserUpdateWithoutNotificationsInput = {
   budgetSetting?: Prisma.BudgetSettingUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -1578,6 +1690,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   budgetSetting?: Prisma.BudgetSettingUncheckedUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBudgetSettingInput = {
@@ -1600,6 +1714,8 @@ export type UserCreateWithoutBudgetSettingInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBudgetSettingInput = {
@@ -1622,6 +1738,8 @@ export type UserUncheckedCreateWithoutBudgetSettingInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBudgetSettingInput = {
@@ -1660,6 +1778,8 @@ export type UserUpdateWithoutBudgetSettingInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBudgetSettingInput = {
@@ -1682,6 +1802,8 @@ export type UserUncheckedUpdateWithoutBudgetSettingInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSubscriptionInput = {
@@ -1704,6 +1826,8 @@ export type UserCreateWithoutSubscriptionInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   budgetSetting?: Prisma.BudgetSettingCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -1726,6 +1850,8 @@ export type UserUncheckedCreateWithoutSubscriptionInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   budgetSetting?: Prisma.BudgetSettingUncheckedCreateNestedOneWithoutUserInput
   userPreference?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -1764,6 +1890,8 @@ export type UserUpdateWithoutSubscriptionInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   budgetSetting?: Prisma.BudgetSettingUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -1786,6 +1914,8 @@ export type UserUncheckedUpdateWithoutSubscriptionInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   budgetSetting?: Prisma.BudgetSettingUncheckedUpdateOneWithoutUserNestedInput
   userPreference?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutUserPreferenceInput = {
@@ -1808,6 +1938,8 @@ export type UserCreateWithoutUserPreferenceInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   budgetSetting?: Prisma.BudgetSettingCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUserPreferenceInput = {
@@ -1830,6 +1962,8 @@ export type UserUncheckedCreateWithoutUserPreferenceInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   budgetSetting?: Prisma.BudgetSettingUncheckedCreateNestedOneWithoutUserInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUserPreferenceInput = {
@@ -1868,6 +2002,8 @@ export type UserUpdateWithoutUserPreferenceInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   budgetSetting?: Prisma.BudgetSettingUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUserPreferenceInput = {
@@ -1890,6 +2026,232 @@ export type UserUncheckedUpdateWithoutUserPreferenceInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   budgetSetting?: Prisma.BudgetSettingUncheckedUpdateOneWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutRecurringExpensesInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  dodoCustomerId?: string | null
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  incomes?: Prisma.IncomeCreateNestedManyWithoutUserInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  budgets?: Prisma.BudgetCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  budgetSetting?: Prisma.BudgetSettingCreateNestedOneWithoutUserInput
+  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  userPreference?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutRecurringExpensesInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  dodoCustomerId?: string | null
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  incomes?: Prisma.IncomeUncheckedCreateNestedManyWithoutUserInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  budgets?: Prisma.BudgetUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  budgetSetting?: Prisma.BudgetSettingUncheckedCreateNestedOneWithoutUserInput
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  userPreference?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutRecurringExpensesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecurringExpensesInput, Prisma.UserUncheckedCreateWithoutRecurringExpensesInput>
+}
+
+export type UserUpsertWithoutRecurringExpensesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRecurringExpensesInput, Prisma.UserUncheckedUpdateWithoutRecurringExpensesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecurringExpensesInput, Prisma.UserUncheckedCreateWithoutRecurringExpensesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRecurringExpensesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRecurringExpensesInput, Prisma.UserUncheckedUpdateWithoutRecurringExpensesInput>
+}
+
+export type UserUpdateWithoutRecurringExpensesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  incomes?: Prisma.IncomeUpdateManyWithoutUserNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  budgets?: Prisma.BudgetUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  budgetSetting?: Prisma.BudgetSettingUpdateOneWithoutUserNestedInput
+  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  userPreference?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRecurringExpensesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  incomes?: Prisma.IncomeUncheckedUpdateManyWithoutUserNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  budgets?: Prisma.BudgetUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  budgetSetting?: Prisma.BudgetSettingUncheckedUpdateOneWithoutUserNestedInput
+  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  userPreference?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  settingsHistories?: Prisma.SettingsHistoryUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSettingsHistoriesInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  dodoCustomerId?: string | null
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  financialAccounts?: Prisma.FinancialAccountCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  incomes?: Prisma.IncomeCreateNestedManyWithoutUserInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  budgets?: Prisma.BudgetCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  budgetSetting?: Prisma.BudgetSettingCreateNestedOneWithoutUserInput
+  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  userPreference?: Prisma.UserPreferenceCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSettingsHistoriesInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  dodoCustomerId?: string | null
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  financialAccounts?: Prisma.FinancialAccountUncheckedCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  incomes?: Prisma.IncomeUncheckedCreateNestedManyWithoutUserInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  budgets?: Prisma.BudgetUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  budgetSetting?: Prisma.BudgetSettingUncheckedCreateNestedOneWithoutUserInput
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  userPreference?: Prisma.UserPreferenceUncheckedCreateNestedOneWithoutUserInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSettingsHistoriesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSettingsHistoriesInput, Prisma.UserUncheckedCreateWithoutSettingsHistoriesInput>
+}
+
+export type UserUpsertWithoutSettingsHistoriesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSettingsHistoriesInput, Prisma.UserUncheckedUpdateWithoutSettingsHistoriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSettingsHistoriesInput, Prisma.UserUncheckedCreateWithoutSettingsHistoriesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSettingsHistoriesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSettingsHistoriesInput, Prisma.UserUncheckedUpdateWithoutSettingsHistoriesInput>
+}
+
+export type UserUpdateWithoutSettingsHistoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  financialAccounts?: Prisma.FinancialAccountUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  incomes?: Prisma.IncomeUpdateManyWithoutUserNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  budgets?: Prisma.BudgetUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  budgetSetting?: Prisma.BudgetSettingUpdateOneWithoutUserNestedInput
+  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  userPreference?: Prisma.UserPreferenceUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSettingsHistoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  financialAccounts?: Prisma.FinancialAccountUncheckedUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  incomes?: Prisma.IncomeUncheckedUpdateManyWithoutUserNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  budgets?: Prisma.BudgetUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  budgetSetting?: Prisma.BudgetSettingUncheckedUpdateOneWithoutUserNestedInput
+  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  userPreference?: Prisma.UserPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1907,6 +2269,8 @@ export type UserCountOutputType = {
   goals: number
   budgets: number
   notifications: number
+  recurringExpenses: number
+  settingsHistories: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1919,6 +2283,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   goals?: boolean | UserCountOutputTypeCountGoalsArgs
   budgets?: boolean | UserCountOutputTypeCountBudgetsArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+  recurringExpenses?: boolean | UserCountOutputTypeCountRecurringExpensesArgs
+  settingsHistories?: boolean | UserCountOutputTypeCountSettingsHistoriesArgs
 }
 
 /**
@@ -1994,6 +2360,20 @@ export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.NotificationWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRecurringExpensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecurringExpenseWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSettingsHistoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SettingsHistoryWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2016,6 +2396,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   budgetSetting?: boolean | Prisma.User$budgetSettingArgs<ExtArgs>
   subscription?: boolean | Prisma.User$subscriptionArgs<ExtArgs>
   userPreference?: boolean | Prisma.User$userPreferenceArgs<ExtArgs>
+  recurringExpenses?: boolean | Prisma.User$recurringExpensesArgs<ExtArgs>
+  settingsHistories?: boolean | Prisma.User$settingsHistoriesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2066,6 +2448,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   budgetSetting?: boolean | Prisma.User$budgetSettingArgs<ExtArgs>
   subscription?: boolean | Prisma.User$subscriptionArgs<ExtArgs>
   userPreference?: boolean | Prisma.User$userPreferenceArgs<ExtArgs>
+  recurringExpenses?: boolean | Prisma.User$recurringExpensesArgs<ExtArgs>
+  settingsHistories?: boolean | Prisma.User$settingsHistoriesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2086,6 +2470,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     budgetSetting: Prisma.$BudgetSettingPayload<ExtArgs> | null
     subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
     userPreference: Prisma.$UserPreferencePayload<ExtArgs> | null
+    recurringExpenses: Prisma.$RecurringExpensePayload<ExtArgs>[]
+    settingsHistories: Prisma.$SettingsHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2502,6 +2888,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   budgetSetting<T extends Prisma.User$budgetSettingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$budgetSettingArgs<ExtArgs>>): Prisma.Prisma__BudgetSettingClient<runtime.Types.Result.GetResult<Prisma.$BudgetSettingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   subscription<T extends Prisma.User$subscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subscriptionArgs<ExtArgs>>): Prisma.Prisma__SubscriptionClient<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   userPreference<T extends Prisma.User$userPreferenceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$userPreferenceArgs<ExtArgs>>): Prisma.Prisma__UserPreferenceClient<runtime.Types.Result.GetResult<Prisma.$UserPreferencePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  recurringExpenses<T extends Prisma.User$recurringExpensesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recurringExpensesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecurringExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  settingsHistories<T extends Prisma.User$settingsHistoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$settingsHistoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SettingsHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3202,6 +3590,54 @@ export type User$userPreferenceArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   include?: Prisma.UserPreferenceInclude<ExtArgs> | null
   where?: Prisma.UserPreferenceWhereInput
+}
+
+/**
+ * User.recurringExpenses
+ */
+export type User$recurringExpensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RecurringExpense
+   */
+  select?: Prisma.RecurringExpenseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RecurringExpense
+   */
+  omit?: Prisma.RecurringExpenseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecurringExpenseInclude<ExtArgs> | null
+  where?: Prisma.RecurringExpenseWhereInput
+  orderBy?: Prisma.RecurringExpenseOrderByWithRelationInput | Prisma.RecurringExpenseOrderByWithRelationInput[]
+  cursor?: Prisma.RecurringExpenseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecurringExpenseScalarFieldEnum | Prisma.RecurringExpenseScalarFieldEnum[]
+}
+
+/**
+ * User.settingsHistories
+ */
+export type User$settingsHistoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SettingsHistory
+   */
+  select?: Prisma.SettingsHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SettingsHistory
+   */
+  omit?: Prisma.SettingsHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingsHistoryInclude<ExtArgs> | null
+  where?: Prisma.SettingsHistoryWhereInput
+  orderBy?: Prisma.SettingsHistoryOrderByWithRelationInput | Prisma.SettingsHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.SettingsHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SettingsHistoryScalarFieldEnum | Prisma.SettingsHistoryScalarFieldEnum[]
 }
 
 /**

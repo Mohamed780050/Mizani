@@ -42,6 +42,7 @@ export type AllocationMinAggregateOutputType = {
   financialAccountId: string | null
   amount: runtime.Decimal | null
   percentage: runtime.Decimal | null
+  deletedAt: Date | null
 }
 
 export type AllocationMaxAggregateOutputType = {
@@ -50,6 +51,7 @@ export type AllocationMaxAggregateOutputType = {
   financialAccountId: string | null
   amount: runtime.Decimal | null
   percentage: runtime.Decimal | null
+  deletedAt: Date | null
 }
 
 export type AllocationCountAggregateOutputType = {
@@ -58,6 +60,7 @@ export type AllocationCountAggregateOutputType = {
   financialAccountId: number
   amount: number
   percentage: number
+  deletedAt: number
   _all: number
 }
 
@@ -78,6 +81,7 @@ export type AllocationMinAggregateInputType = {
   financialAccountId?: true
   amount?: true
   percentage?: true
+  deletedAt?: true
 }
 
 export type AllocationMaxAggregateInputType = {
@@ -86,6 +90,7 @@ export type AllocationMaxAggregateInputType = {
   financialAccountId?: true
   amount?: true
   percentage?: true
+  deletedAt?: true
 }
 
 export type AllocationCountAggregateInputType = {
@@ -94,6 +99,7 @@ export type AllocationCountAggregateInputType = {
   financialAccountId?: true
   amount?: true
   percentage?: true
+  deletedAt?: true
   _all?: true
 }
 
@@ -189,6 +195,7 @@ export type AllocationGroupByOutputType = {
   financialAccountId: string
   amount: runtime.Decimal
   percentage: runtime.Decimal
+  deletedAt: Date | null
   _count: AllocationCountAggregateOutputType | null
   _avg: AllocationAvgAggregateOutputType | null
   _sum: AllocationSumAggregateOutputType | null
@@ -220,6 +227,7 @@ export type AllocationWhereInput = {
   financialAccountId?: Prisma.StringFilter<"Allocation"> | string
   amount?: Prisma.DecimalFilter<"Allocation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage?: Prisma.DecimalFilter<"Allocation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Allocation"> | Date | string | null
   income?: Prisma.XOR<Prisma.IncomeScalarRelationFilter, Prisma.IncomeWhereInput>
   financialAccount?: Prisma.XOR<Prisma.FinancialAccountScalarRelationFilter, Prisma.FinancialAccountWhereInput>
 }
@@ -230,6 +238,7 @@ export type AllocationOrderByWithRelationInput = {
   financialAccountId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   percentage?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   income?: Prisma.IncomeOrderByWithRelationInput
   financialAccount?: Prisma.FinancialAccountOrderByWithRelationInput
 }
@@ -243,6 +252,7 @@ export type AllocationWhereUniqueInput = Prisma.AtLeast<{
   financialAccountId?: Prisma.StringFilter<"Allocation"> | string
   amount?: Prisma.DecimalFilter<"Allocation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage?: Prisma.DecimalFilter<"Allocation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Allocation"> | Date | string | null
   income?: Prisma.XOR<Prisma.IncomeScalarRelationFilter, Prisma.IncomeWhereInput>
   financialAccount?: Prisma.XOR<Prisma.FinancialAccountScalarRelationFilter, Prisma.FinancialAccountWhereInput>
 }, "id">
@@ -253,6 +263,7 @@ export type AllocationOrderByWithAggregationInput = {
   financialAccountId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   percentage?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AllocationCountOrderByAggregateInput
   _avg?: Prisma.AllocationAvgOrderByAggregateInput
   _max?: Prisma.AllocationMaxOrderByAggregateInput
@@ -269,12 +280,14 @@ export type AllocationScalarWhereWithAggregatesInput = {
   financialAccountId?: Prisma.StringWithAggregatesFilter<"Allocation"> | string
   amount?: Prisma.DecimalWithAggregatesFilter<"Allocation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage?: Prisma.DecimalWithAggregatesFilter<"Allocation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Allocation"> | Date | string | null
 }
 
 export type AllocationCreateInput = {
   id?: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Date | string | null
   income: Prisma.IncomeCreateNestedOneWithoutAllocationsInput
   financialAccount: Prisma.FinancialAccountCreateNestedOneWithoutAllocationsInput
 }
@@ -285,12 +298,14 @@ export type AllocationUncheckedCreateInput = {
   financialAccountId: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Date | string | null
 }
 
 export type AllocationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   income?: Prisma.IncomeUpdateOneRequiredWithoutAllocationsNestedInput
   financialAccount?: Prisma.FinancialAccountUpdateOneRequiredWithoutAllocationsNestedInput
 }
@@ -301,6 +316,7 @@ export type AllocationUncheckedUpdateInput = {
   financialAccountId?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AllocationCreateManyInput = {
@@ -309,12 +325,14 @@ export type AllocationCreateManyInput = {
   financialAccountId: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Date | string | null
 }
 
 export type AllocationUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AllocationUncheckedUpdateManyInput = {
@@ -323,6 +341,7 @@ export type AllocationUncheckedUpdateManyInput = {
   financialAccountId?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AllocationListRelationFilter = {
@@ -341,6 +360,7 @@ export type AllocationCountOrderByAggregateInput = {
   financialAccountId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   percentage?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type AllocationAvgOrderByAggregateInput = {
@@ -354,6 +374,7 @@ export type AllocationMaxOrderByAggregateInput = {
   financialAccountId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   percentage?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type AllocationMinOrderByAggregateInput = {
@@ -362,6 +383,7 @@ export type AllocationMinOrderByAggregateInput = {
   financialAccountId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   percentage?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type AllocationSumOrderByAggregateInput = {
@@ -457,6 +479,7 @@ export type AllocationCreateWithoutFinancialAccountInput = {
   id?: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Date | string | null
   income: Prisma.IncomeCreateNestedOneWithoutAllocationsInput
 }
 
@@ -465,6 +488,7 @@ export type AllocationUncheckedCreateWithoutFinancialAccountInput = {
   incomeId: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Date | string | null
 }
 
 export type AllocationCreateOrConnectWithoutFinancialAccountInput = {
@@ -502,12 +526,14 @@ export type AllocationScalarWhereInput = {
   financialAccountId?: Prisma.StringFilter<"Allocation"> | string
   amount?: Prisma.DecimalFilter<"Allocation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage?: Prisma.DecimalFilter<"Allocation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Allocation"> | Date | string | null
 }
 
 export type AllocationCreateWithoutIncomeInput = {
   id?: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Date | string | null
   financialAccount: Prisma.FinancialAccountCreateNestedOneWithoutAllocationsInput
 }
 
@@ -516,6 +542,7 @@ export type AllocationUncheckedCreateWithoutIncomeInput = {
   financialAccountId: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Date | string | null
 }
 
 export type AllocationCreateOrConnectWithoutIncomeInput = {
@@ -549,12 +576,14 @@ export type AllocationCreateManyFinancialAccountInput = {
   incomeId: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Date | string | null
 }
 
 export type AllocationUpdateWithoutFinancialAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   income?: Prisma.IncomeUpdateOneRequiredWithoutAllocationsNestedInput
 }
 
@@ -563,6 +592,7 @@ export type AllocationUncheckedUpdateWithoutFinancialAccountInput = {
   incomeId?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AllocationUncheckedUpdateManyWithoutFinancialAccountInput = {
@@ -570,6 +600,7 @@ export type AllocationUncheckedUpdateManyWithoutFinancialAccountInput = {
   incomeId?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AllocationCreateManyIncomeInput = {
@@ -577,12 +608,14 @@ export type AllocationCreateManyIncomeInput = {
   financialAccountId: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Date | string | null
 }
 
 export type AllocationUpdateWithoutIncomeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   financialAccount?: Prisma.FinancialAccountUpdateOneRequiredWithoutAllocationsNestedInput
 }
 
@@ -591,6 +624,7 @@ export type AllocationUncheckedUpdateWithoutIncomeInput = {
   financialAccountId?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AllocationUncheckedUpdateManyWithoutIncomeInput = {
@@ -598,6 +632,7 @@ export type AllocationUncheckedUpdateManyWithoutIncomeInput = {
   financialAccountId?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   percentage?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -608,6 +643,7 @@ export type AllocationSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   financialAccountId?: boolean
   amount?: boolean
   percentage?: boolean
+  deletedAt?: boolean
   income?: boolean | Prisma.IncomeDefaultArgs<ExtArgs>
   financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["allocation"]>
@@ -618,6 +654,7 @@ export type AllocationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   financialAccountId?: boolean
   amount?: boolean
   percentage?: boolean
+  deletedAt?: boolean
   income?: boolean | Prisma.IncomeDefaultArgs<ExtArgs>
   financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["allocation"]>
@@ -628,6 +665,7 @@ export type AllocationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   financialAccountId?: boolean
   amount?: boolean
   percentage?: boolean
+  deletedAt?: boolean
   income?: boolean | Prisma.IncomeDefaultArgs<ExtArgs>
   financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["allocation"]>
@@ -638,9 +676,10 @@ export type AllocationSelectScalar = {
   financialAccountId?: boolean
   amount?: boolean
   percentage?: boolean
+  deletedAt?: boolean
 }
 
-export type AllocationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "incomeId" | "financialAccountId" | "amount" | "percentage", ExtArgs["result"]["allocation"]>
+export type AllocationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "incomeId" | "financialAccountId" | "amount" | "percentage" | "deletedAt", ExtArgs["result"]["allocation"]>
 export type AllocationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   income?: boolean | Prisma.IncomeDefaultArgs<ExtArgs>
   financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
@@ -666,6 +705,7 @@ export type $AllocationPayload<ExtArgs extends runtime.Types.Extensions.Internal
     financialAccountId: string
     amount: runtime.Decimal
     percentage: runtime.Decimal
+    deletedAt: Date | null
   }, ExtArgs["result"]["allocation"]>
   composites: {}
 }
@@ -1096,6 +1136,7 @@ export interface AllocationFieldRefs {
   readonly financialAccountId: Prisma.FieldRef<"Allocation", 'String'>
   readonly amount: Prisma.FieldRef<"Allocation", 'Decimal'>
   readonly percentage: Prisma.FieldRef<"Allocation", 'Decimal'>
+  readonly deletedAt: Prisma.FieldRef<"Allocation", 'DateTime'>
 }
     
 

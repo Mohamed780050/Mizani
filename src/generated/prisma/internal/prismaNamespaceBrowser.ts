@@ -66,7 +66,9 @@ export const ModelName = {
   Notification: 'Notification',
   BudgetSetting: 'BudgetSetting',
   Subscription: 'Subscription',
-  UserPreference: 'UserPreference'
+  UserPreference: 'UserPreference',
+  RecurringExpense: 'RecurringExpense',
+  SettingsHistory: 'SettingsHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -152,7 +154,9 @@ export const FinancialAccountScalarFieldEnum = {
   initialBalance: 'initialBalance',
   targetPct: 'targetPct',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  currency: 'currency',
+  version: 'version'
 } as const
 
 export type FinancialAccountScalarFieldEnum = (typeof FinancialAccountScalarFieldEnum)[keyof typeof FinancialAccountScalarFieldEnum]
@@ -165,7 +169,10 @@ export const CategoryScalarFieldEnum = {
   emoji: 'emoji',
   isDefault: 'isDefault',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isArchived: 'isArchived',
+  archivedAt: 'archivedAt',
+  deletedAt: 'deletedAt'
 } as const
 
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
@@ -190,7 +197,8 @@ export const AllocationScalarFieldEnum = {
   incomeId: 'incomeId',
   financialAccountId: 'financialAccountId',
   amount: 'amount',
-  percentage: 'percentage'
+  percentage: 'percentage',
+  deletedAt: 'deletedAt'
 } as const
 
 export type AllocationScalarFieldEnum = (typeof AllocationScalarFieldEnum)[keyof typeof AllocationScalarFieldEnum]
@@ -210,7 +218,10 @@ export const ExpenseScalarFieldEnum = {
   parentId: 'parentId',
   notes: 'notes',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  financialAccountId: 'financialAccountId',
+  recurringExpenseId: 'recurringExpenseId'
 } as const
 
 export type ExpenseScalarFieldEnum = (typeof ExpenseScalarFieldEnum)[keyof typeof ExpenseScalarFieldEnum]
@@ -224,7 +235,10 @@ export const TransactionLedgerScalarFieldEnum = {
   refType: 'refType',
   refId: 'refId',
   note: 'note',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  balanceAfter: 'balanceAfter',
+  currency: 'currency',
+  idempotencyKey: 'idempotencyKey'
 } as const
 
 export type TransactionLedgerScalarFieldEnum = (typeof TransactionLedgerScalarFieldEnum)[keyof typeof TransactionLedgerScalarFieldEnum]
@@ -240,7 +254,8 @@ export const GoalScalarFieldEnum = {
   deadline: 'deadline',
   isCompleted: 'isCompleted',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  version: 'version'
 } as const
 
 export type GoalScalarFieldEnum = (typeof GoalScalarFieldEnum)[keyof typeof GoalScalarFieldEnum]
@@ -249,8 +264,9 @@ export type GoalScalarFieldEnum = (typeof GoalScalarFieldEnum)[keyof typeof Goal
 export const BudgetScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  category: 'category',
+  categoryId: 'categoryId',
   limit: 'limit',
+  limitType: 'limitType',
   month: 'month',
   year: 'year',
   createdAt: 'createdAt',
@@ -317,12 +333,46 @@ export const UserPreferenceScalarFieldEnum = {
 export type UserPreferenceScalarFieldEnum = (typeof UserPreferenceScalarFieldEnum)[keyof typeof UserPreferenceScalarFieldEnum]
 
 
+export const RecurringExpenseScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  amount: 'amount',
+  categoryId: 'categoryId',
+  financialAccountId: 'financialAccountId',
+  interval: 'interval',
+  startDate: 'startDate',
+  nextRunDate: 'nextRunDate',
+  lastRunDate: 'lastRunDate',
+  isActive: 'isActive'
+} as const
+
+export type RecurringExpenseScalarFieldEnum = (typeof RecurringExpenseScalarFieldEnum)[keyof typeof RecurringExpenseScalarFieldEnum]
+
+
+export const SettingsHistoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  changeLog: 'changeLog',
+  createdAt: 'createdAt'
+} as const
+
+export type SettingsHistoryScalarFieldEnum = (typeof SettingsHistoryScalarFieldEnum)[keyof typeof SettingsHistoryScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -339,4 +389,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

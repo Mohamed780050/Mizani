@@ -30,12 +30,14 @@ export type FinancialAccountAvgAggregateOutputType = {
   balance: runtime.Decimal | null
   initialBalance: runtime.Decimal | null
   targetPct: runtime.Decimal | null
+  version: number | null
 }
 
 export type FinancialAccountSumAggregateOutputType = {
   balance: runtime.Decimal | null
   initialBalance: runtime.Decimal | null
   targetPct: runtime.Decimal | null
+  version: number | null
 }
 
 export type FinancialAccountMinAggregateOutputType = {
@@ -47,6 +49,8 @@ export type FinancialAccountMinAggregateOutputType = {
   targetPct: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
+  currency: $Enums.Currency | null
+  version: number | null
 }
 
 export type FinancialAccountMaxAggregateOutputType = {
@@ -58,6 +62,8 @@ export type FinancialAccountMaxAggregateOutputType = {
   targetPct: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
+  currency: $Enums.Currency | null
+  version: number | null
 }
 
 export type FinancialAccountCountAggregateOutputType = {
@@ -69,6 +75,8 @@ export type FinancialAccountCountAggregateOutputType = {
   targetPct: number
   createdAt: number
   updatedAt: number
+  currency: number
+  version: number
   _all: number
 }
 
@@ -77,12 +85,14 @@ export type FinancialAccountAvgAggregateInputType = {
   balance?: true
   initialBalance?: true
   targetPct?: true
+  version?: true
 }
 
 export type FinancialAccountSumAggregateInputType = {
   balance?: true
   initialBalance?: true
   targetPct?: true
+  version?: true
 }
 
 export type FinancialAccountMinAggregateInputType = {
@@ -94,6 +104,8 @@ export type FinancialAccountMinAggregateInputType = {
   targetPct?: true
   createdAt?: true
   updatedAt?: true
+  currency?: true
+  version?: true
 }
 
 export type FinancialAccountMaxAggregateInputType = {
@@ -105,6 +117,8 @@ export type FinancialAccountMaxAggregateInputType = {
   targetPct?: true
   createdAt?: true
   updatedAt?: true
+  currency?: true
+  version?: true
 }
 
 export type FinancialAccountCountAggregateInputType = {
@@ -116,6 +130,8 @@ export type FinancialAccountCountAggregateInputType = {
   targetPct?: true
   createdAt?: true
   updatedAt?: true
+  currency?: true
+  version?: true
   _all?: true
 }
 
@@ -214,6 +230,8 @@ export type FinancialAccountGroupByOutputType = {
   targetPct: runtime.Decimal
   createdAt: Date
   updatedAt: Date
+  currency: $Enums.Currency
+  version: number
   _count: FinancialAccountCountAggregateOutputType | null
   _avg: FinancialAccountAvgAggregateOutputType | null
   _sum: FinancialAccountSumAggregateOutputType | null
@@ -248,10 +266,14 @@ export type FinancialAccountWhereInput = {
   targetPct?: Prisma.DecimalFilter<"FinancialAccount"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"FinancialAccount"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FinancialAccount"> | Date | string
+  currency?: Prisma.EnumCurrencyFilter<"FinancialAccount"> | $Enums.Currency
+  version?: Prisma.IntFilter<"FinancialAccount"> | number
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   allocations?: Prisma.AllocationListRelationFilter
   transactions?: Prisma.TransactionLedgerListRelationFilter
   goals?: Prisma.GoalListRelationFilter
+  recurringExpenses?: Prisma.RecurringExpenseListRelationFilter
+  expenses?: Prisma.ExpenseListRelationFilter
 }
 
 export type FinancialAccountOrderByWithRelationInput = {
@@ -263,10 +285,14 @@ export type FinancialAccountOrderByWithRelationInput = {
   targetPct?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  version?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   allocations?: Prisma.AllocationOrderByRelationAggregateInput
   transactions?: Prisma.TransactionLedgerOrderByRelationAggregateInput
   goals?: Prisma.GoalOrderByRelationAggregateInput
+  recurringExpenses?: Prisma.RecurringExpenseOrderByRelationAggregateInput
+  expenses?: Prisma.ExpenseOrderByRelationAggregateInput
 }
 
 export type FinancialAccountWhereUniqueInput = Prisma.AtLeast<{
@@ -282,10 +308,14 @@ export type FinancialAccountWhereUniqueInput = Prisma.AtLeast<{
   targetPct?: Prisma.DecimalFilter<"FinancialAccount"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"FinancialAccount"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FinancialAccount"> | Date | string
+  currency?: Prisma.EnumCurrencyFilter<"FinancialAccount"> | $Enums.Currency
+  version?: Prisma.IntFilter<"FinancialAccount"> | number
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   allocations?: Prisma.AllocationListRelationFilter
   transactions?: Prisma.TransactionLedgerListRelationFilter
   goals?: Prisma.GoalListRelationFilter
+  recurringExpenses?: Prisma.RecurringExpenseListRelationFilter
+  expenses?: Prisma.ExpenseListRelationFilter
 }, "id" | "userId_type">
 
 export type FinancialAccountOrderByWithAggregationInput = {
@@ -297,6 +327,8 @@ export type FinancialAccountOrderByWithAggregationInput = {
   targetPct?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  version?: Prisma.SortOrder
   _count?: Prisma.FinancialAccountCountOrderByAggregateInput
   _avg?: Prisma.FinancialAccountAvgOrderByAggregateInput
   _max?: Prisma.FinancialAccountMaxOrderByAggregateInput
@@ -316,6 +348,8 @@ export type FinancialAccountScalarWhereWithAggregatesInput = {
   targetPct?: Prisma.DecimalWithAggregatesFilter<"FinancialAccount"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"FinancialAccount"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"FinancialAccount"> | Date | string
+  currency?: Prisma.EnumCurrencyWithAggregatesFilter<"FinancialAccount"> | $Enums.Currency
+  version?: Prisma.IntWithAggregatesFilter<"FinancialAccount"> | number
 }
 
 export type FinancialAccountCreateInput = {
@@ -326,10 +360,14 @@ export type FinancialAccountCreateInput = {
   targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
   user: Prisma.UserCreateNestedOneWithoutFinancialAccountsInput
   allocations?: Prisma.AllocationCreateNestedManyWithoutFinancialAccountInput
   transactions?: Prisma.TransactionLedgerCreateNestedManyWithoutFinancialAccountInput
   goals?: Prisma.GoalCreateNestedManyWithoutFinancialAccountInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutFinancialAccountInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutFinancialAccountInput
 }
 
 export type FinancialAccountUncheckedCreateInput = {
@@ -341,9 +379,13 @@ export type FinancialAccountUncheckedCreateInput = {
   targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
   allocations?: Prisma.AllocationUncheckedCreateNestedManyWithoutFinancialAccountInput
   transactions?: Prisma.TransactionLedgerUncheckedCreateNestedManyWithoutFinancialAccountInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutFinancialAccountInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutFinancialAccountInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutFinancialAccountInput
 }
 
 export type FinancialAccountUpdateInput = {
@@ -354,10 +396,14 @@ export type FinancialAccountUpdateInput = {
   targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutFinancialAccountsNestedInput
   allocations?: Prisma.AllocationUpdateManyWithoutFinancialAccountNestedInput
   transactions?: Prisma.TransactionLedgerUpdateManyWithoutFinancialAccountNestedInput
   goals?: Prisma.GoalUpdateManyWithoutFinancialAccountNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutFinancialAccountNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutFinancialAccountNestedInput
 }
 
 export type FinancialAccountUncheckedUpdateInput = {
@@ -369,9 +415,13 @@ export type FinancialAccountUncheckedUpdateInput = {
   targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   allocations?: Prisma.AllocationUncheckedUpdateManyWithoutFinancialAccountNestedInput
   transactions?: Prisma.TransactionLedgerUncheckedUpdateManyWithoutFinancialAccountNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutFinancialAccountNestedInput
 }
 
 export type FinancialAccountCreateManyInput = {
@@ -383,6 +433,8 @@ export type FinancialAccountCreateManyInput = {
   targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
 }
 
 export type FinancialAccountUpdateManyMutationInput = {
@@ -393,6 +445,8 @@ export type FinancialAccountUpdateManyMutationInput = {
   targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type FinancialAccountUncheckedUpdateManyInput = {
@@ -404,6 +458,8 @@ export type FinancialAccountUncheckedUpdateManyInput = {
   targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type FinancialAccountListRelationFilter = {
@@ -430,12 +486,15 @@ export type FinancialAccountCountOrderByAggregateInput = {
   targetPct?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  version?: Prisma.SortOrder
 }
 
 export type FinancialAccountAvgOrderByAggregateInput = {
   balance?: Prisma.SortOrder
   initialBalance?: Prisma.SortOrder
   targetPct?: Prisma.SortOrder
+  version?: Prisma.SortOrder
 }
 
 export type FinancialAccountMaxOrderByAggregateInput = {
@@ -447,6 +506,8 @@ export type FinancialAccountMaxOrderByAggregateInput = {
   targetPct?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  version?: Prisma.SortOrder
 }
 
 export type FinancialAccountMinOrderByAggregateInput = {
@@ -458,12 +519,15 @@ export type FinancialAccountMinOrderByAggregateInput = {
   targetPct?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  version?: Prisma.SortOrder
 }
 
 export type FinancialAccountSumOrderByAggregateInput = {
   balance?: Prisma.SortOrder
   initialBalance?: Prisma.SortOrder
   targetPct?: Prisma.SortOrder
+  version?: Prisma.SortOrder
 }
 
 export type FinancialAccountScalarRelationFilter = {
@@ -525,6 +589,18 @@ export type DecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type EnumCurrencyFieldUpdateOperationsInput = {
+  set?: $Enums.Currency
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type FinancialAccountCreateNestedOneWithoutAllocationsInput = {
   create?: Prisma.XOR<Prisma.FinancialAccountCreateWithoutAllocationsInput, Prisma.FinancialAccountUncheckedCreateWithoutAllocationsInput>
   connectOrCreate?: Prisma.FinancialAccountCreateOrConnectWithoutAllocationsInput
@@ -537,6 +613,20 @@ export type FinancialAccountUpdateOneRequiredWithoutAllocationsNestedInput = {
   upsert?: Prisma.FinancialAccountUpsertWithoutAllocationsInput
   connect?: Prisma.FinancialAccountWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.FinancialAccountUpdateToOneWithWhereWithoutAllocationsInput, Prisma.FinancialAccountUpdateWithoutAllocationsInput>, Prisma.FinancialAccountUncheckedUpdateWithoutAllocationsInput>
+}
+
+export type FinancialAccountCreateNestedOneWithoutExpensesInput = {
+  create?: Prisma.XOR<Prisma.FinancialAccountCreateWithoutExpensesInput, Prisma.FinancialAccountUncheckedCreateWithoutExpensesInput>
+  connectOrCreate?: Prisma.FinancialAccountCreateOrConnectWithoutExpensesInput
+  connect?: Prisma.FinancialAccountWhereUniqueInput
+}
+
+export type FinancialAccountUpdateOneRequiredWithoutExpensesNestedInput = {
+  create?: Prisma.XOR<Prisma.FinancialAccountCreateWithoutExpensesInput, Prisma.FinancialAccountUncheckedCreateWithoutExpensesInput>
+  connectOrCreate?: Prisma.FinancialAccountCreateOrConnectWithoutExpensesInput
+  upsert?: Prisma.FinancialAccountUpsertWithoutExpensesInput
+  connect?: Prisma.FinancialAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FinancialAccountUpdateToOneWithWhereWithoutExpensesInput, Prisma.FinancialAccountUpdateWithoutExpensesInput>, Prisma.FinancialAccountUncheckedUpdateWithoutExpensesInput>
 }
 
 export type FinancialAccountCreateNestedOneWithoutTransactionsInput = {
@@ -567,6 +657,20 @@ export type FinancialAccountUpdateOneRequiredWithoutGoalsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.FinancialAccountUpdateToOneWithWhereWithoutGoalsInput, Prisma.FinancialAccountUpdateWithoutGoalsInput>, Prisma.FinancialAccountUncheckedUpdateWithoutGoalsInput>
 }
 
+export type FinancialAccountCreateNestedOneWithoutRecurringExpensesInput = {
+  create?: Prisma.XOR<Prisma.FinancialAccountCreateWithoutRecurringExpensesInput, Prisma.FinancialAccountUncheckedCreateWithoutRecurringExpensesInput>
+  connectOrCreate?: Prisma.FinancialAccountCreateOrConnectWithoutRecurringExpensesInput
+  connect?: Prisma.FinancialAccountWhereUniqueInput
+}
+
+export type FinancialAccountUpdateOneRequiredWithoutRecurringExpensesNestedInput = {
+  create?: Prisma.XOR<Prisma.FinancialAccountCreateWithoutRecurringExpensesInput, Prisma.FinancialAccountUncheckedCreateWithoutRecurringExpensesInput>
+  connectOrCreate?: Prisma.FinancialAccountCreateOrConnectWithoutRecurringExpensesInput
+  upsert?: Prisma.FinancialAccountUpsertWithoutRecurringExpensesInput
+  connect?: Prisma.FinancialAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FinancialAccountUpdateToOneWithWhereWithoutRecurringExpensesInput, Prisma.FinancialAccountUpdateWithoutRecurringExpensesInput>, Prisma.FinancialAccountUncheckedUpdateWithoutRecurringExpensesInput>
+}
+
 export type FinancialAccountCreateWithoutUserInput = {
   id?: string
   type: $Enums.AccountType
@@ -575,9 +679,13 @@ export type FinancialAccountCreateWithoutUserInput = {
   targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
   allocations?: Prisma.AllocationCreateNestedManyWithoutFinancialAccountInput
   transactions?: Prisma.TransactionLedgerCreateNestedManyWithoutFinancialAccountInput
   goals?: Prisma.GoalCreateNestedManyWithoutFinancialAccountInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutFinancialAccountInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutFinancialAccountInput
 }
 
 export type FinancialAccountUncheckedCreateWithoutUserInput = {
@@ -588,9 +696,13 @@ export type FinancialAccountUncheckedCreateWithoutUserInput = {
   targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
   allocations?: Prisma.AllocationUncheckedCreateNestedManyWithoutFinancialAccountInput
   transactions?: Prisma.TransactionLedgerUncheckedCreateNestedManyWithoutFinancialAccountInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutFinancialAccountInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutFinancialAccountInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutFinancialAccountInput
 }
 
 export type FinancialAccountCreateOrConnectWithoutUserInput = {
@@ -631,6 +743,8 @@ export type FinancialAccountScalarWhereInput = {
   targetPct?: Prisma.DecimalFilter<"FinancialAccount"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"FinancialAccount"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FinancialAccount"> | Date | string
+  currency?: Prisma.EnumCurrencyFilter<"FinancialAccount"> | $Enums.Currency
+  version?: Prisma.IntFilter<"FinancialAccount"> | number
 }
 
 export type FinancialAccountCreateWithoutAllocationsInput = {
@@ -641,9 +755,13 @@ export type FinancialAccountCreateWithoutAllocationsInput = {
   targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
   user: Prisma.UserCreateNestedOneWithoutFinancialAccountsInput
   transactions?: Prisma.TransactionLedgerCreateNestedManyWithoutFinancialAccountInput
   goals?: Prisma.GoalCreateNestedManyWithoutFinancialAccountInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutFinancialAccountInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutFinancialAccountInput
 }
 
 export type FinancialAccountUncheckedCreateWithoutAllocationsInput = {
@@ -655,8 +773,12 @@ export type FinancialAccountUncheckedCreateWithoutAllocationsInput = {
   targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
   transactions?: Prisma.TransactionLedgerUncheckedCreateNestedManyWithoutFinancialAccountInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutFinancialAccountInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutFinancialAccountInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutFinancialAccountInput
 }
 
 export type FinancialAccountCreateOrConnectWithoutAllocationsInput = {
@@ -683,9 +805,13 @@ export type FinancialAccountUpdateWithoutAllocationsInput = {
   targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutFinancialAccountsNestedInput
   transactions?: Prisma.TransactionLedgerUpdateManyWithoutFinancialAccountNestedInput
   goals?: Prisma.GoalUpdateManyWithoutFinancialAccountNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutFinancialAccountNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutFinancialAccountNestedInput
 }
 
 export type FinancialAccountUncheckedUpdateWithoutAllocationsInput = {
@@ -697,8 +823,96 @@ export type FinancialAccountUncheckedUpdateWithoutAllocationsInput = {
   targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   transactions?: Prisma.TransactionLedgerUncheckedUpdateManyWithoutFinancialAccountNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutFinancialAccountNestedInput
+}
+
+export type FinancialAccountCreateWithoutExpensesInput = {
+  id?: string
+  type: $Enums.AccountType
+  balance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  initialBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
+  user: Prisma.UserCreateNestedOneWithoutFinancialAccountsInput
+  allocations?: Prisma.AllocationCreateNestedManyWithoutFinancialAccountInput
+  transactions?: Prisma.TransactionLedgerCreateNestedManyWithoutFinancialAccountInput
+  goals?: Prisma.GoalCreateNestedManyWithoutFinancialAccountInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutFinancialAccountInput
+}
+
+export type FinancialAccountUncheckedCreateWithoutExpensesInput = {
+  id?: string
+  userId: string
+  type: $Enums.AccountType
+  balance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  initialBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
+  allocations?: Prisma.AllocationUncheckedCreateNestedManyWithoutFinancialAccountInput
+  transactions?: Prisma.TransactionLedgerUncheckedCreateNestedManyWithoutFinancialAccountInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutFinancialAccountInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutFinancialAccountInput
+}
+
+export type FinancialAccountCreateOrConnectWithoutExpensesInput = {
+  where: Prisma.FinancialAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.FinancialAccountCreateWithoutExpensesInput, Prisma.FinancialAccountUncheckedCreateWithoutExpensesInput>
+}
+
+export type FinancialAccountUpsertWithoutExpensesInput = {
+  update: Prisma.XOR<Prisma.FinancialAccountUpdateWithoutExpensesInput, Prisma.FinancialAccountUncheckedUpdateWithoutExpensesInput>
+  create: Prisma.XOR<Prisma.FinancialAccountCreateWithoutExpensesInput, Prisma.FinancialAccountUncheckedCreateWithoutExpensesInput>
+  where?: Prisma.FinancialAccountWhereInput
+}
+
+export type FinancialAccountUpdateToOneWithWhereWithoutExpensesInput = {
+  where?: Prisma.FinancialAccountWhereInput
+  data: Prisma.XOR<Prisma.FinancialAccountUpdateWithoutExpensesInput, Prisma.FinancialAccountUncheckedUpdateWithoutExpensesInput>
+}
+
+export type FinancialAccountUpdateWithoutExpensesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  initialBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  user?: Prisma.UserUpdateOneRequiredWithoutFinancialAccountsNestedInput
+  allocations?: Prisma.AllocationUpdateManyWithoutFinancialAccountNestedInput
+  transactions?: Prisma.TransactionLedgerUpdateManyWithoutFinancialAccountNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutFinancialAccountNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutFinancialAccountNestedInput
+}
+
+export type FinancialAccountUncheckedUpdateWithoutExpensesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  initialBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  allocations?: Prisma.AllocationUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  transactions?: Prisma.TransactionLedgerUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutFinancialAccountNestedInput
 }
 
 export type FinancialAccountCreateWithoutTransactionsInput = {
@@ -709,9 +923,13 @@ export type FinancialAccountCreateWithoutTransactionsInput = {
   targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
   user: Prisma.UserCreateNestedOneWithoutFinancialAccountsInput
   allocations?: Prisma.AllocationCreateNestedManyWithoutFinancialAccountInput
   goals?: Prisma.GoalCreateNestedManyWithoutFinancialAccountInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutFinancialAccountInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutFinancialAccountInput
 }
 
 export type FinancialAccountUncheckedCreateWithoutTransactionsInput = {
@@ -723,8 +941,12 @@ export type FinancialAccountUncheckedCreateWithoutTransactionsInput = {
   targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
   allocations?: Prisma.AllocationUncheckedCreateNestedManyWithoutFinancialAccountInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutFinancialAccountInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutFinancialAccountInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutFinancialAccountInput
 }
 
 export type FinancialAccountCreateOrConnectWithoutTransactionsInput = {
@@ -751,9 +973,13 @@ export type FinancialAccountUpdateWithoutTransactionsInput = {
   targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutFinancialAccountsNestedInput
   allocations?: Prisma.AllocationUpdateManyWithoutFinancialAccountNestedInput
   goals?: Prisma.GoalUpdateManyWithoutFinancialAccountNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutFinancialAccountNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutFinancialAccountNestedInput
 }
 
 export type FinancialAccountUncheckedUpdateWithoutTransactionsInput = {
@@ -765,8 +991,12 @@ export type FinancialAccountUncheckedUpdateWithoutTransactionsInput = {
   targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   allocations?: Prisma.AllocationUncheckedUpdateManyWithoutFinancialAccountNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutFinancialAccountNestedInput
 }
 
 export type FinancialAccountCreateWithoutGoalsInput = {
@@ -777,9 +1007,13 @@ export type FinancialAccountCreateWithoutGoalsInput = {
   targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
   user: Prisma.UserCreateNestedOneWithoutFinancialAccountsInput
   allocations?: Prisma.AllocationCreateNestedManyWithoutFinancialAccountInput
   transactions?: Prisma.TransactionLedgerCreateNestedManyWithoutFinancialAccountInput
+  recurringExpenses?: Prisma.RecurringExpenseCreateNestedManyWithoutFinancialAccountInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutFinancialAccountInput
 }
 
 export type FinancialAccountUncheckedCreateWithoutGoalsInput = {
@@ -791,8 +1025,12 @@ export type FinancialAccountUncheckedCreateWithoutGoalsInput = {
   targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
   allocations?: Prisma.AllocationUncheckedCreateNestedManyWithoutFinancialAccountInput
   transactions?: Prisma.TransactionLedgerUncheckedCreateNestedManyWithoutFinancialAccountInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedCreateNestedManyWithoutFinancialAccountInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutFinancialAccountInput
 }
 
 export type FinancialAccountCreateOrConnectWithoutGoalsInput = {
@@ -819,9 +1057,13 @@ export type FinancialAccountUpdateWithoutGoalsInput = {
   targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutFinancialAccountsNestedInput
   allocations?: Prisma.AllocationUpdateManyWithoutFinancialAccountNestedInput
   transactions?: Prisma.TransactionLedgerUpdateManyWithoutFinancialAccountNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutFinancialAccountNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutFinancialAccountNestedInput
 }
 
 export type FinancialAccountUncheckedUpdateWithoutGoalsInput = {
@@ -833,8 +1075,96 @@ export type FinancialAccountUncheckedUpdateWithoutGoalsInput = {
   targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   allocations?: Prisma.AllocationUncheckedUpdateManyWithoutFinancialAccountNestedInput
   transactions?: Prisma.TransactionLedgerUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutFinancialAccountNestedInput
+}
+
+export type FinancialAccountCreateWithoutRecurringExpensesInput = {
+  id?: string
+  type: $Enums.AccountType
+  balance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  initialBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
+  user: Prisma.UserCreateNestedOneWithoutFinancialAccountsInput
+  allocations?: Prisma.AllocationCreateNestedManyWithoutFinancialAccountInput
+  transactions?: Prisma.TransactionLedgerCreateNestedManyWithoutFinancialAccountInput
+  goals?: Prisma.GoalCreateNestedManyWithoutFinancialAccountInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutFinancialAccountInput
+}
+
+export type FinancialAccountUncheckedCreateWithoutRecurringExpensesInput = {
+  id?: string
+  userId: string
+  type: $Enums.AccountType
+  balance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  initialBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
+  allocations?: Prisma.AllocationUncheckedCreateNestedManyWithoutFinancialAccountInput
+  transactions?: Prisma.TransactionLedgerUncheckedCreateNestedManyWithoutFinancialAccountInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutFinancialAccountInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutFinancialAccountInput
+}
+
+export type FinancialAccountCreateOrConnectWithoutRecurringExpensesInput = {
+  where: Prisma.FinancialAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.FinancialAccountCreateWithoutRecurringExpensesInput, Prisma.FinancialAccountUncheckedCreateWithoutRecurringExpensesInput>
+}
+
+export type FinancialAccountUpsertWithoutRecurringExpensesInput = {
+  update: Prisma.XOR<Prisma.FinancialAccountUpdateWithoutRecurringExpensesInput, Prisma.FinancialAccountUncheckedUpdateWithoutRecurringExpensesInput>
+  create: Prisma.XOR<Prisma.FinancialAccountCreateWithoutRecurringExpensesInput, Prisma.FinancialAccountUncheckedCreateWithoutRecurringExpensesInput>
+  where?: Prisma.FinancialAccountWhereInput
+}
+
+export type FinancialAccountUpdateToOneWithWhereWithoutRecurringExpensesInput = {
+  where?: Prisma.FinancialAccountWhereInput
+  data: Prisma.XOR<Prisma.FinancialAccountUpdateWithoutRecurringExpensesInput, Prisma.FinancialAccountUncheckedUpdateWithoutRecurringExpensesInput>
+}
+
+export type FinancialAccountUpdateWithoutRecurringExpensesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  initialBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  user?: Prisma.UserUpdateOneRequiredWithoutFinancialAccountsNestedInput
+  allocations?: Prisma.AllocationUpdateManyWithoutFinancialAccountNestedInput
+  transactions?: Prisma.TransactionLedgerUpdateManyWithoutFinancialAccountNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutFinancialAccountNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutFinancialAccountNestedInput
+}
+
+export type FinancialAccountUncheckedUpdateWithoutRecurringExpensesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  balance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  initialBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  allocations?: Prisma.AllocationUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  transactions?: Prisma.TransactionLedgerUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutFinancialAccountNestedInput
 }
 
 export type FinancialAccountCreateManyUserInput = {
@@ -845,6 +1175,8 @@ export type FinancialAccountCreateManyUserInput = {
   targetPct?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  currency?: $Enums.Currency
+  version?: number
 }
 
 export type FinancialAccountUpdateWithoutUserInput = {
@@ -855,9 +1187,13 @@ export type FinancialAccountUpdateWithoutUserInput = {
   targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   allocations?: Prisma.AllocationUpdateManyWithoutFinancialAccountNestedInput
   transactions?: Prisma.TransactionLedgerUpdateManyWithoutFinancialAccountNestedInput
   goals?: Prisma.GoalUpdateManyWithoutFinancialAccountNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUpdateManyWithoutFinancialAccountNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutFinancialAccountNestedInput
 }
 
 export type FinancialAccountUncheckedUpdateWithoutUserInput = {
@@ -868,9 +1204,13 @@ export type FinancialAccountUncheckedUpdateWithoutUserInput = {
   targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   allocations?: Prisma.AllocationUncheckedUpdateManyWithoutFinancialAccountNestedInput
   transactions?: Prisma.TransactionLedgerUncheckedUpdateManyWithoutFinancialAccountNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  recurringExpenses?: Prisma.RecurringExpenseUncheckedUpdateManyWithoutFinancialAccountNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutFinancialAccountNestedInput
 }
 
 export type FinancialAccountUncheckedUpdateManyWithoutUserInput = {
@@ -881,6 +1221,8 @@ export type FinancialAccountUncheckedUpdateManyWithoutUserInput = {
   targetPct?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  version?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -892,12 +1234,16 @@ export type FinancialAccountCountOutputType = {
   allocations: number
   transactions: number
   goals: number
+  recurringExpenses: number
+  expenses: number
 }
 
 export type FinancialAccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   allocations?: boolean | FinancialAccountCountOutputTypeCountAllocationsArgs
   transactions?: boolean | FinancialAccountCountOutputTypeCountTransactionsArgs
   goals?: boolean | FinancialAccountCountOutputTypeCountGoalsArgs
+  recurringExpenses?: boolean | FinancialAccountCountOutputTypeCountRecurringExpensesArgs
+  expenses?: boolean | FinancialAccountCountOutputTypeCountExpensesArgs
 }
 
 /**
@@ -931,6 +1277,20 @@ export type FinancialAccountCountOutputTypeCountGoalsArgs<ExtArgs extends runtim
   where?: Prisma.GoalWhereInput
 }
 
+/**
+ * FinancialAccountCountOutputType without action
+ */
+export type FinancialAccountCountOutputTypeCountRecurringExpensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecurringExpenseWhereInput
+}
+
+/**
+ * FinancialAccountCountOutputType without action
+ */
+export type FinancialAccountCountOutputTypeCountExpensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExpenseWhereInput
+}
+
 
 export type FinancialAccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -941,10 +1301,14 @@ export type FinancialAccountSelect<ExtArgs extends runtime.Types.Extensions.Inte
   targetPct?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  currency?: boolean
+  version?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   allocations?: boolean | Prisma.FinancialAccount$allocationsArgs<ExtArgs>
   transactions?: boolean | Prisma.FinancialAccount$transactionsArgs<ExtArgs>
   goals?: boolean | Prisma.FinancialAccount$goalsArgs<ExtArgs>
+  recurringExpenses?: boolean | Prisma.FinancialAccount$recurringExpensesArgs<ExtArgs>
+  expenses?: boolean | Prisma.FinancialAccount$expensesArgs<ExtArgs>
   _count?: boolean | Prisma.FinancialAccountCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["financialAccount"]>
 
@@ -957,6 +1321,8 @@ export type FinancialAccountSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   targetPct?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  currency?: boolean
+  version?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["financialAccount"]>
 
@@ -969,6 +1335,8 @@ export type FinancialAccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   targetPct?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  currency?: boolean
+  version?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["financialAccount"]>
 
@@ -981,14 +1349,18 @@ export type FinancialAccountSelectScalar = {
   targetPct?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  currency?: boolean
+  version?: boolean
 }
 
-export type FinancialAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "type" | "balance" | "initialBalance" | "targetPct" | "createdAt" | "updatedAt", ExtArgs["result"]["financialAccount"]>
+export type FinancialAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "type" | "balance" | "initialBalance" | "targetPct" | "createdAt" | "updatedAt" | "currency" | "version", ExtArgs["result"]["financialAccount"]>
 export type FinancialAccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   allocations?: boolean | Prisma.FinancialAccount$allocationsArgs<ExtArgs>
   transactions?: boolean | Prisma.FinancialAccount$transactionsArgs<ExtArgs>
   goals?: boolean | Prisma.FinancialAccount$goalsArgs<ExtArgs>
+  recurringExpenses?: boolean | Prisma.FinancialAccount$recurringExpensesArgs<ExtArgs>
+  expenses?: boolean | Prisma.FinancialAccount$expensesArgs<ExtArgs>
   _count?: boolean | Prisma.FinancialAccountCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FinancialAccountIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1005,6 +1377,8 @@ export type $FinancialAccountPayload<ExtArgs extends runtime.Types.Extensions.In
     allocations: Prisma.$AllocationPayload<ExtArgs>[]
     transactions: Prisma.$TransactionLedgerPayload<ExtArgs>[]
     goals: Prisma.$GoalPayload<ExtArgs>[]
+    recurringExpenses: Prisma.$RecurringExpensePayload<ExtArgs>[]
+    expenses: Prisma.$ExpensePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1015,6 +1389,8 @@ export type $FinancialAccountPayload<ExtArgs extends runtime.Types.Extensions.In
     targetPct: runtime.Decimal
     createdAt: Date
     updatedAt: Date
+    currency: $Enums.Currency
+    version: number
   }, ExtArgs["result"]["financialAccount"]>
   composites: {}
 }
@@ -1413,6 +1789,8 @@ export interface Prisma__FinancialAccountClient<T, Null = never, ExtArgs extends
   allocations<T extends Prisma.FinancialAccount$allocationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinancialAccount$allocationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AllocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   transactions<T extends Prisma.FinancialAccount$transactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinancialAccount$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionLedgerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   goals<T extends Prisma.FinancialAccount$goalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinancialAccount$goalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recurringExpenses<T extends Prisma.FinancialAccount$recurringExpensesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinancialAccount$recurringExpensesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecurringExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  expenses<T extends Prisma.FinancialAccount$expensesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FinancialAccount$expensesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1450,6 +1828,8 @@ export interface FinancialAccountFieldRefs {
   readonly targetPct: Prisma.FieldRef<"FinancialAccount", 'Decimal'>
   readonly createdAt: Prisma.FieldRef<"FinancialAccount", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"FinancialAccount", 'DateTime'>
+  readonly currency: Prisma.FieldRef<"FinancialAccount", 'Currency'>
+  readonly version: Prisma.FieldRef<"FinancialAccount", 'Int'>
 }
     
 
@@ -1920,6 +2300,54 @@ export type FinancialAccount$goalsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.GoalScalarFieldEnum | Prisma.GoalScalarFieldEnum[]
+}
+
+/**
+ * FinancialAccount.recurringExpenses
+ */
+export type FinancialAccount$recurringExpensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RecurringExpense
+   */
+  select?: Prisma.RecurringExpenseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RecurringExpense
+   */
+  omit?: Prisma.RecurringExpenseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecurringExpenseInclude<ExtArgs> | null
+  where?: Prisma.RecurringExpenseWhereInput
+  orderBy?: Prisma.RecurringExpenseOrderByWithRelationInput | Prisma.RecurringExpenseOrderByWithRelationInput[]
+  cursor?: Prisma.RecurringExpenseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecurringExpenseScalarFieldEnum | Prisma.RecurringExpenseScalarFieldEnum[]
+}
+
+/**
+ * FinancialAccount.expenses
+ */
+export type FinancialAccount$expensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Expense
+   */
+  select?: Prisma.ExpenseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Expense
+   */
+  omit?: Prisma.ExpenseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExpenseInclude<ExtArgs> | null
+  where?: Prisma.ExpenseWhereInput
+  orderBy?: Prisma.ExpenseOrderByWithRelationInput | Prisma.ExpenseOrderByWithRelationInput[]
+  cursor?: Prisma.ExpenseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExpenseScalarFieldEnum | Prisma.ExpenseScalarFieldEnum[]
 }
 
 /**

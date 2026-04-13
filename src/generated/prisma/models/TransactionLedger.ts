@@ -28,10 +28,12 @@ export type AggregateTransactionLedger = {
 
 export type TransactionLedgerAvgAggregateOutputType = {
   amount: runtime.Decimal | null
+  balanceAfter: runtime.Decimal | null
 }
 
 export type TransactionLedgerSumAggregateOutputType = {
   amount: runtime.Decimal | null
+  balanceAfter: runtime.Decimal | null
 }
 
 export type TransactionLedgerMinAggregateOutputType = {
@@ -43,6 +45,9 @@ export type TransactionLedgerMinAggregateOutputType = {
   refId: string | null
   note: string | null
   createdAt: Date | null
+  balanceAfter: runtime.Decimal | null
+  currency: $Enums.Currency | null
+  idempotencyKey: string | null
 }
 
 export type TransactionLedgerMaxAggregateOutputType = {
@@ -54,6 +59,9 @@ export type TransactionLedgerMaxAggregateOutputType = {
   refId: string | null
   note: string | null
   createdAt: Date | null
+  balanceAfter: runtime.Decimal | null
+  currency: $Enums.Currency | null
+  idempotencyKey: string | null
 }
 
 export type TransactionLedgerCountAggregateOutputType = {
@@ -65,16 +73,21 @@ export type TransactionLedgerCountAggregateOutputType = {
   refId: number
   note: number
   createdAt: number
+  balanceAfter: number
+  currency: number
+  idempotencyKey: number
   _all: number
 }
 
 
 export type TransactionLedgerAvgAggregateInputType = {
   amount?: true
+  balanceAfter?: true
 }
 
 export type TransactionLedgerSumAggregateInputType = {
   amount?: true
+  balanceAfter?: true
 }
 
 export type TransactionLedgerMinAggregateInputType = {
@@ -86,6 +99,9 @@ export type TransactionLedgerMinAggregateInputType = {
   refId?: true
   note?: true
   createdAt?: true
+  balanceAfter?: true
+  currency?: true
+  idempotencyKey?: true
 }
 
 export type TransactionLedgerMaxAggregateInputType = {
@@ -97,6 +113,9 @@ export type TransactionLedgerMaxAggregateInputType = {
   refId?: true
   note?: true
   createdAt?: true
+  balanceAfter?: true
+  currency?: true
+  idempotencyKey?: true
 }
 
 export type TransactionLedgerCountAggregateInputType = {
@@ -108,6 +127,9 @@ export type TransactionLedgerCountAggregateInputType = {
   refId?: true
   note?: true
   createdAt?: true
+  balanceAfter?: true
+  currency?: true
+  idempotencyKey?: true
   _all?: true
 }
 
@@ -206,6 +228,9 @@ export type TransactionLedgerGroupByOutputType = {
   refId: string | null
   note: string | null
   createdAt: Date
+  balanceAfter: runtime.Decimal
+  currency: $Enums.Currency
+  idempotencyKey: string | null
   _count: TransactionLedgerCountAggregateOutputType | null
   _avg: TransactionLedgerAvgAggregateOutputType | null
   _sum: TransactionLedgerSumAggregateOutputType | null
@@ -240,6 +265,9 @@ export type TransactionLedgerWhereInput = {
   refId?: Prisma.StringNullableFilter<"TransactionLedger"> | string | null
   note?: Prisma.StringNullableFilter<"TransactionLedger"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TransactionLedger"> | Date | string
+  balanceAfter?: Prisma.DecimalFilter<"TransactionLedger"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.EnumCurrencyFilter<"TransactionLedger"> | $Enums.Currency
+  idempotencyKey?: Prisma.StringNullableFilter<"TransactionLedger"> | string | null
   financialAccount?: Prisma.XOR<Prisma.FinancialAccountScalarRelationFilter, Prisma.FinancialAccountWhereInput>
 }
 
@@ -252,11 +280,15 @@ export type TransactionLedgerOrderByWithRelationInput = {
   refId?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  balanceAfter?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrderInput | Prisma.SortOrder
   financialAccount?: Prisma.FinancialAccountOrderByWithRelationInput
 }
 
 export type TransactionLedgerWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  idempotencyKey?: string
   AND?: Prisma.TransactionLedgerWhereInput | Prisma.TransactionLedgerWhereInput[]
   OR?: Prisma.TransactionLedgerWhereInput[]
   NOT?: Prisma.TransactionLedgerWhereInput | Prisma.TransactionLedgerWhereInput[]
@@ -267,8 +299,10 @@ export type TransactionLedgerWhereUniqueInput = Prisma.AtLeast<{
   refId?: Prisma.StringNullableFilter<"TransactionLedger"> | string | null
   note?: Prisma.StringNullableFilter<"TransactionLedger"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TransactionLedger"> | Date | string
+  balanceAfter?: Prisma.DecimalFilter<"TransactionLedger"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.EnumCurrencyFilter<"TransactionLedger"> | $Enums.Currency
   financialAccount?: Prisma.XOR<Prisma.FinancialAccountScalarRelationFilter, Prisma.FinancialAccountWhereInput>
-}, "id">
+}, "id" | "idempotencyKey">
 
 export type TransactionLedgerOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -279,6 +313,9 @@ export type TransactionLedgerOrderByWithAggregationInput = {
   refId?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  balanceAfter?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.TransactionLedgerCountOrderByAggregateInput
   _avg?: Prisma.TransactionLedgerAvgOrderByAggregateInput
   _max?: Prisma.TransactionLedgerMaxOrderByAggregateInput
@@ -298,6 +335,9 @@ export type TransactionLedgerScalarWhereWithAggregatesInput = {
   refId?: Prisma.StringNullableWithAggregatesFilter<"TransactionLedger"> | string | null
   note?: Prisma.StringNullableWithAggregatesFilter<"TransactionLedger"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TransactionLedger"> | Date | string
+  balanceAfter?: Prisma.DecimalWithAggregatesFilter<"TransactionLedger"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.EnumCurrencyWithAggregatesFilter<"TransactionLedger"> | $Enums.Currency
+  idempotencyKey?: Prisma.StringNullableWithAggregatesFilter<"TransactionLedger"> | string | null
 }
 
 export type TransactionLedgerCreateInput = {
@@ -308,6 +348,9 @@ export type TransactionLedgerCreateInput = {
   refId?: string | null
   note?: string | null
   createdAt?: Date | string
+  balanceAfter: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: $Enums.Currency
+  idempotencyKey?: string | null
   financialAccount: Prisma.FinancialAccountCreateNestedOneWithoutTransactionsInput
 }
 
@@ -320,6 +363,9 @@ export type TransactionLedgerUncheckedCreateInput = {
   refId?: string | null
   note?: string | null
   createdAt?: Date | string
+  balanceAfter: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: $Enums.Currency
+  idempotencyKey?: string | null
 }
 
 export type TransactionLedgerUpdateInput = {
@@ -330,6 +376,9 @@ export type TransactionLedgerUpdateInput = {
   refId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  balanceAfter?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   financialAccount?: Prisma.FinancialAccountUpdateOneRequiredWithoutTransactionsNestedInput
 }
 
@@ -342,6 +391,9 @@ export type TransactionLedgerUncheckedUpdateInput = {
   refId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  balanceAfter?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TransactionLedgerCreateManyInput = {
@@ -353,6 +405,9 @@ export type TransactionLedgerCreateManyInput = {
   refId?: string | null
   note?: string | null
   createdAt?: Date | string
+  balanceAfter: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: $Enums.Currency
+  idempotencyKey?: string | null
 }
 
 export type TransactionLedgerUpdateManyMutationInput = {
@@ -363,6 +418,9 @@ export type TransactionLedgerUpdateManyMutationInput = {
   refId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  balanceAfter?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TransactionLedgerUncheckedUpdateManyInput = {
@@ -374,6 +432,9 @@ export type TransactionLedgerUncheckedUpdateManyInput = {
   refId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  balanceAfter?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TransactionLedgerListRelationFilter = {
@@ -395,10 +456,14 @@ export type TransactionLedgerCountOrderByAggregateInput = {
   refId?: Prisma.SortOrder
   note?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  balanceAfter?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrder
 }
 
 export type TransactionLedgerAvgOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+  balanceAfter?: Prisma.SortOrder
 }
 
 export type TransactionLedgerMaxOrderByAggregateInput = {
@@ -410,6 +475,9 @@ export type TransactionLedgerMaxOrderByAggregateInput = {
   refId?: Prisma.SortOrder
   note?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  balanceAfter?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrder
 }
 
 export type TransactionLedgerMinOrderByAggregateInput = {
@@ -421,10 +489,14 @@ export type TransactionLedgerMinOrderByAggregateInput = {
   refId?: Prisma.SortOrder
   note?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  balanceAfter?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrder
 }
 
 export type TransactionLedgerSumOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+  balanceAfter?: Prisma.SortOrder
 }
 
 export type TransactionLedgerCreateNestedManyWithoutFinancialAccountInput = {
@@ -481,6 +553,9 @@ export type TransactionLedgerCreateWithoutFinancialAccountInput = {
   refId?: string | null
   note?: string | null
   createdAt?: Date | string
+  balanceAfter: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: $Enums.Currency
+  idempotencyKey?: string | null
 }
 
 export type TransactionLedgerUncheckedCreateWithoutFinancialAccountInput = {
@@ -491,6 +566,9 @@ export type TransactionLedgerUncheckedCreateWithoutFinancialAccountInput = {
   refId?: string | null
   note?: string | null
   createdAt?: Date | string
+  balanceAfter: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: $Enums.Currency
+  idempotencyKey?: string | null
 }
 
 export type TransactionLedgerCreateOrConnectWithoutFinancialAccountInput = {
@@ -531,6 +609,9 @@ export type TransactionLedgerScalarWhereInput = {
   refId?: Prisma.StringNullableFilter<"TransactionLedger"> | string | null
   note?: Prisma.StringNullableFilter<"TransactionLedger"> | string | null
   createdAt?: Prisma.DateTimeFilter<"TransactionLedger"> | Date | string
+  balanceAfter?: Prisma.DecimalFilter<"TransactionLedger"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.EnumCurrencyFilter<"TransactionLedger"> | $Enums.Currency
+  idempotencyKey?: Prisma.StringNullableFilter<"TransactionLedger"> | string | null
 }
 
 export type TransactionLedgerCreateManyFinancialAccountInput = {
@@ -541,6 +622,9 @@ export type TransactionLedgerCreateManyFinancialAccountInput = {
   refId?: string | null
   note?: string | null
   createdAt?: Date | string
+  balanceAfter: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: $Enums.Currency
+  idempotencyKey?: string | null
 }
 
 export type TransactionLedgerUpdateWithoutFinancialAccountInput = {
@@ -551,6 +635,9 @@ export type TransactionLedgerUpdateWithoutFinancialAccountInput = {
   refId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  balanceAfter?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TransactionLedgerUncheckedUpdateWithoutFinancialAccountInput = {
@@ -561,6 +648,9 @@ export type TransactionLedgerUncheckedUpdateWithoutFinancialAccountInput = {
   refId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  balanceAfter?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TransactionLedgerUncheckedUpdateManyWithoutFinancialAccountInput = {
@@ -571,6 +661,9 @@ export type TransactionLedgerUncheckedUpdateManyWithoutFinancialAccountInput = {
   refId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  balanceAfter?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -584,6 +677,9 @@ export type TransactionLedgerSelect<ExtArgs extends runtime.Types.Extensions.Int
   refId?: boolean
   note?: boolean
   createdAt?: boolean
+  balanceAfter?: boolean
+  currency?: boolean
+  idempotencyKey?: boolean
   financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["transactionLedger"]>
 
@@ -596,6 +692,9 @@ export type TransactionLedgerSelectCreateManyAndReturn<ExtArgs extends runtime.T
   refId?: boolean
   note?: boolean
   createdAt?: boolean
+  balanceAfter?: boolean
+  currency?: boolean
+  idempotencyKey?: boolean
   financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["transactionLedger"]>
 
@@ -608,6 +707,9 @@ export type TransactionLedgerSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   refId?: boolean
   note?: boolean
   createdAt?: boolean
+  balanceAfter?: boolean
+  currency?: boolean
+  idempotencyKey?: boolean
   financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["transactionLedger"]>
 
@@ -620,9 +722,12 @@ export type TransactionLedgerSelectScalar = {
   refId?: boolean
   note?: boolean
   createdAt?: boolean
+  balanceAfter?: boolean
+  currency?: boolean
+  idempotencyKey?: boolean
 }
 
-export type TransactionLedgerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "financialAccountId" | "amount" | "type" | "refType" | "refId" | "note" | "createdAt", ExtArgs["result"]["transactionLedger"]>
+export type TransactionLedgerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "financialAccountId" | "amount" | "type" | "refType" | "refId" | "note" | "createdAt" | "balanceAfter" | "currency" | "idempotencyKey", ExtArgs["result"]["transactionLedger"]>
 export type TransactionLedgerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }
@@ -647,6 +752,9 @@ export type $TransactionLedgerPayload<ExtArgs extends runtime.Types.Extensions.I
     refId: string | null
     note: string | null
     createdAt: Date
+    balanceAfter: runtime.Decimal
+    currency: $Enums.Currency
+    idempotencyKey: string | null
   }, ExtArgs["result"]["transactionLedger"]>
   composites: {}
 }
@@ -1079,6 +1187,9 @@ export interface TransactionLedgerFieldRefs {
   readonly refId: Prisma.FieldRef<"TransactionLedger", 'String'>
   readonly note: Prisma.FieldRef<"TransactionLedger", 'String'>
   readonly createdAt: Prisma.FieldRef<"TransactionLedger", 'DateTime'>
+  readonly balanceAfter: Prisma.FieldRef<"TransactionLedger", 'Decimal'>
+  readonly currency: Prisma.FieldRef<"TransactionLedger", 'Currency'>
+  readonly idempotencyKey: Prisma.FieldRef<"TransactionLedger", 'String'>
 }
     
 

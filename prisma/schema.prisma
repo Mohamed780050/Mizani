@@ -45,6 +45,11 @@ enum Currency {
   // يمكن إضافة المزيد لاحقاً
 }
 
+enum LimitType {
+  FIXED // مبلغ ثابت (مثال: 2000 جنيه)
+  PERCENTAGE // نسبة مئوية (مثال: 20% من حساب النفقات)
+}
+
 // ─── BETTER-AUTH MODELS ──────────────────────────────────────────
 model User {
   id            String   @id
@@ -71,6 +76,8 @@ model User {
   budgetSetting     BudgetSetting?
   subscription      Subscription?
   userPreference    UserPreference?
+  recurringExpenses RecurringExpense[]
+  settingsHistories SettingsHistory[]
 
   @@unique([email])
   @@map("users")
@@ -138,10 +145,12 @@ model FinancialAccount {
   currency       Currency    @default(EGP)
   version        Int         @default(0)
 
-  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
-  allocations  Allocation[]
-  transactions TransactionLedger[]
-  goals        Goal[]
+  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  allocations       Allocation[]
+  transactions      TransactionLedger[]
+  goals             Goal[]
+  recurringExpenses RecurringExpense[]
+  expenses          Expense[]
 
   @@unique([userId, type])
   @@index([userId])
@@ -161,9 +170,10 @@ model Category {
   archivedAt DateTime?
   deletedAt  DateTime?
 
-  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  expenses Expense[]
-  budgets  Budget[]
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expenses          Expense[]
+  budgets           Budget[]
+  recurringExpenses RecurringExpense[]
 
   @@unique([userId, name])
   @@index([userId])
@@ -188,11 +198,12 @@ model Income {
 }
 
 model Allocation {
-  id                 String  @id @default(cuid())
+  id                 String    @id @default(cuid())
   incomeId           String
   financialAccountId String
-  amount             Decimal @db.Decimal(12, 2)
-  percentage         Decimal @db.Decimal(5, 2)
+  amount             Decimal   @db.Decimal(12, 2)
+  percentage         Decimal   @db.Decimal(5, 2)
+  deletedAt          DateTime?
 
   income           Income           @relation(fields: [incomeId], references: [id], onDelete: Cascade)
   financialAccount FinancialAccount @relation(fields: [financialAccountId], references: [id], onDelete: Cascade)
@@ -218,10 +229,14 @@ model Expense {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 
-  deletedAt DateTime?
+  deletedAt          DateTime?
+  financialAccountId String
+  recurringExpenseId String?
 
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  category Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category         Category          @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  recurringExpense RecurringExpense? @relation(fields: [recurringExpenseId], references: [id], onDelete: SetNull)
+  financialAccount FinancialAccount  @relation(fields: [financialAccountId], references: [id])
 
   @@index([userId, date]) // Composite index for dashboard/reports
   @@index([userId, categoryId])
@@ -261,6 +276,8 @@ model Goal {
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
 
+  version Int @default(0)
+
   user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   financialAccount FinancialAccount @relation(fields: [financialAccountId], references: [id], onDelete: Cascade)
 
@@ -269,14 +286,15 @@ model Goal {
 }
 
 model Budget {
-  id         String   @id @default(cuid())
+  id         String    @id @default(cuid())
   userId     String
   categoryId String // تم الربط بالمعرف الفريد للفئة
-  limit      Decimal  @db.Decimal(12, 2)
-  month      Int      @db.SmallInt
-  year       Int      @db.SmallInt
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  limit      Decimal   @db.Decimal(12, 2)
+  limitType  LimitType @default(FIXED)
+  month      Int       @db.SmallInt
+  year       Int       @db.SmallInt
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
@@ -345,4 +363,49 @@ model UserPreference {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("user_preferences")
+}
+
+// 1. دعم أتمتة النفقات المتكررة (Automation)
+// 1. القالب الخاص بالعمليات التلقائية
+
+model RecurringExpense {
+  id         String  @id @default(cuid())
+  userId     String
+  title      String
+  amount     Decimal @db.Decimal(12, 2)
+  categoryId String
+
+  // الحساب المالي الذي سيتم الخصم منه تلقائياً (جديد)
+  financialAccountId String
+
+  interval    FrequencyType // MONTHLY, WEEKLY
+  startDate   DateTime
+  nextRunDate DateTime // التاريخ القادم للتنفيذ
+  lastRunDate DateTime? // تاريخ آخر مرة نجح فيها الخصم
+  isActive    Boolean       @default(true)
+
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category         Category         @relation(fields: [categoryId], references: [id])
+  financialAccount FinancialAccount @relation(fields: [financialAccountId], references: [id])
+  expenses         Expense[]
+
+  @@index([nextRunDate, isActive])
+  @@map("recurring_expenses")
+}
+
+// 2. سجل تتبع التغييرات في النسب المالية
+model SettingsHistory {
+  id     String @id @default(cuid())
+  userId String
+
+  // تخزين الحقول التي تغيرت (مثلاً: {"savingsPct": [20, 25]})
+  // نستخدم JSON لمرونة تخزين أي تغييرات مستقبلية
+  changeLog Json
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@map("settings_history")
 }

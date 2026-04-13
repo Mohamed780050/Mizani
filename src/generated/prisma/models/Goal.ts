@@ -29,11 +29,13 @@ export type AggregateGoal = {
 export type GoalAvgAggregateOutputType = {
   targetAmount: runtime.Decimal | null
   currentAmount: runtime.Decimal | null
+  version: number | null
 }
 
 export type GoalSumAggregateOutputType = {
   targetAmount: runtime.Decimal | null
   currentAmount: runtime.Decimal | null
+  version: number | null
 }
 
 export type GoalMinAggregateOutputType = {
@@ -47,6 +49,7 @@ export type GoalMinAggregateOutputType = {
   isCompleted: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  version: number | null
 }
 
 export type GoalMaxAggregateOutputType = {
@@ -60,6 +63,7 @@ export type GoalMaxAggregateOutputType = {
   isCompleted: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  version: number | null
 }
 
 export type GoalCountAggregateOutputType = {
@@ -73,6 +77,7 @@ export type GoalCountAggregateOutputType = {
   isCompleted: number
   createdAt: number
   updatedAt: number
+  version: number
   _all: number
 }
 
@@ -80,11 +85,13 @@ export type GoalCountAggregateOutputType = {
 export type GoalAvgAggregateInputType = {
   targetAmount?: true
   currentAmount?: true
+  version?: true
 }
 
 export type GoalSumAggregateInputType = {
   targetAmount?: true
   currentAmount?: true
+  version?: true
 }
 
 export type GoalMinAggregateInputType = {
@@ -98,6 +105,7 @@ export type GoalMinAggregateInputType = {
   isCompleted?: true
   createdAt?: true
   updatedAt?: true
+  version?: true
 }
 
 export type GoalMaxAggregateInputType = {
@@ -111,6 +119,7 @@ export type GoalMaxAggregateInputType = {
   isCompleted?: true
   createdAt?: true
   updatedAt?: true
+  version?: true
 }
 
 export type GoalCountAggregateInputType = {
@@ -124,6 +133,7 @@ export type GoalCountAggregateInputType = {
   isCompleted?: true
   createdAt?: true
   updatedAt?: true
+  version?: true
   _all?: true
 }
 
@@ -224,6 +234,7 @@ export type GoalGroupByOutputType = {
   isCompleted: boolean
   createdAt: Date
   updatedAt: Date
+  version: number
   _count: GoalCountAggregateOutputType | null
   _avg: GoalAvgAggregateOutputType | null
   _sum: GoalSumAggregateOutputType | null
@@ -260,6 +271,7 @@ export type GoalWhereInput = {
   isCompleted?: Prisma.BoolFilter<"Goal"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Goal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Goal"> | Date | string
+  version?: Prisma.IntFilter<"Goal"> | number
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   financialAccount?: Prisma.XOR<Prisma.FinancialAccountScalarRelationFilter, Prisma.FinancialAccountWhereInput>
 }
@@ -275,6 +287,7 @@ export type GoalOrderByWithRelationInput = {
   isCompleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  version?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   financialAccount?: Prisma.FinancialAccountOrderByWithRelationInput
 }
@@ -293,6 +306,7 @@ export type GoalWhereUniqueInput = Prisma.AtLeast<{
   isCompleted?: Prisma.BoolFilter<"Goal"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Goal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Goal"> | Date | string
+  version?: Prisma.IntFilter<"Goal"> | number
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   financialAccount?: Prisma.XOR<Prisma.FinancialAccountScalarRelationFilter, Prisma.FinancialAccountWhereInput>
 }, "id">
@@ -308,6 +322,7 @@ export type GoalOrderByWithAggregationInput = {
   isCompleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  version?: Prisma.SortOrder
   _count?: Prisma.GoalCountOrderByAggregateInput
   _avg?: Prisma.GoalAvgOrderByAggregateInput
   _max?: Prisma.GoalMaxOrderByAggregateInput
@@ -329,6 +344,7 @@ export type GoalScalarWhereWithAggregatesInput = {
   isCompleted?: Prisma.BoolWithAggregatesFilter<"Goal"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Goal"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Goal"> | Date | string
+  version?: Prisma.IntWithAggregatesFilter<"Goal"> | number
 }
 
 export type GoalCreateInput = {
@@ -340,6 +356,7 @@ export type GoalCreateInput = {
   isCompleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  version?: number
   user: Prisma.UserCreateNestedOneWithoutGoalsInput
   financialAccount: Prisma.FinancialAccountCreateNestedOneWithoutGoalsInput
 }
@@ -355,6 +372,7 @@ export type GoalUncheckedCreateInput = {
   isCompleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  version?: number
 }
 
 export type GoalUpdateInput = {
@@ -366,6 +384,7 @@ export type GoalUpdateInput = {
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutGoalsNestedInput
   financialAccount?: Prisma.FinancialAccountUpdateOneRequiredWithoutGoalsNestedInput
 }
@@ -381,6 +400,7 @@ export type GoalUncheckedUpdateInput = {
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type GoalCreateManyInput = {
@@ -394,6 +414,7 @@ export type GoalCreateManyInput = {
   isCompleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  version?: number
 }
 
 export type GoalUpdateManyMutationInput = {
@@ -405,6 +426,7 @@ export type GoalUpdateManyMutationInput = {
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type GoalUncheckedUpdateManyInput = {
@@ -418,6 +440,7 @@ export type GoalUncheckedUpdateManyInput = {
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type GoalListRelationFilter = {
@@ -441,11 +464,13 @@ export type GoalCountOrderByAggregateInput = {
   isCompleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  version?: Prisma.SortOrder
 }
 
 export type GoalAvgOrderByAggregateInput = {
   targetAmount?: Prisma.SortOrder
   currentAmount?: Prisma.SortOrder
+  version?: Prisma.SortOrder
 }
 
 export type GoalMaxOrderByAggregateInput = {
@@ -459,6 +484,7 @@ export type GoalMaxOrderByAggregateInput = {
   isCompleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  version?: Prisma.SortOrder
 }
 
 export type GoalMinOrderByAggregateInput = {
@@ -472,11 +498,13 @@ export type GoalMinOrderByAggregateInput = {
   isCompleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  version?: Prisma.SortOrder
 }
 
 export type GoalSumOrderByAggregateInput = {
   targetAmount?: Prisma.SortOrder
   currentAmount?: Prisma.SortOrder
+  version?: Prisma.SortOrder
 }
 
 export type GoalCreateNestedManyWithoutUserInput = {
@@ -572,6 +600,7 @@ export type GoalCreateWithoutUserInput = {
   isCompleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  version?: number
   financialAccount: Prisma.FinancialAccountCreateNestedOneWithoutGoalsInput
 }
 
@@ -585,6 +614,7 @@ export type GoalUncheckedCreateWithoutUserInput = {
   isCompleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  version?: number
 }
 
 export type GoalCreateOrConnectWithoutUserInput = {
@@ -627,6 +657,7 @@ export type GoalScalarWhereInput = {
   isCompleted?: Prisma.BoolFilter<"Goal"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Goal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Goal"> | Date | string
+  version?: Prisma.IntFilter<"Goal"> | number
 }
 
 export type GoalCreateWithoutFinancialAccountInput = {
@@ -638,6 +669,7 @@ export type GoalCreateWithoutFinancialAccountInput = {
   isCompleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  version?: number
   user: Prisma.UserCreateNestedOneWithoutGoalsInput
 }
 
@@ -651,6 +683,7 @@ export type GoalUncheckedCreateWithoutFinancialAccountInput = {
   isCompleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  version?: number
 }
 
 export type GoalCreateOrConnectWithoutFinancialAccountInput = {
@@ -689,6 +722,7 @@ export type GoalCreateManyUserInput = {
   isCompleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  version?: number
 }
 
 export type GoalUpdateWithoutUserInput = {
@@ -700,6 +734,7 @@ export type GoalUpdateWithoutUserInput = {
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   financialAccount?: Prisma.FinancialAccountUpdateOneRequiredWithoutGoalsNestedInput
 }
 
@@ -713,6 +748,7 @@ export type GoalUncheckedUpdateWithoutUserInput = {
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type GoalUncheckedUpdateManyWithoutUserInput = {
@@ -725,6 +761,7 @@ export type GoalUncheckedUpdateManyWithoutUserInput = {
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type GoalCreateManyFinancialAccountInput = {
@@ -737,6 +774,7 @@ export type GoalCreateManyFinancialAccountInput = {
   isCompleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  version?: number
 }
 
 export type GoalUpdateWithoutFinancialAccountInput = {
@@ -748,6 +786,7 @@ export type GoalUpdateWithoutFinancialAccountInput = {
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutGoalsNestedInput
 }
 
@@ -761,6 +800,7 @@ export type GoalUncheckedUpdateWithoutFinancialAccountInput = {
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type GoalUncheckedUpdateManyWithoutFinancialAccountInput = {
@@ -773,6 +813,7 @@ export type GoalUncheckedUpdateManyWithoutFinancialAccountInput = {
   isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -788,6 +829,7 @@ export type GoalSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isCompleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  version?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["goal"]>
@@ -803,6 +845,7 @@ export type GoalSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isCompleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  version?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["goal"]>
@@ -818,6 +861,7 @@ export type GoalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isCompleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  version?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["goal"]>
@@ -833,9 +877,10 @@ export type GoalSelectScalar = {
   isCompleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  version?: boolean
 }
 
-export type GoalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "financialAccountId" | "title" | "targetAmount" | "currentAmount" | "deadline" | "isCompleted" | "createdAt" | "updatedAt", ExtArgs["result"]["goal"]>
+export type GoalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "financialAccountId" | "title" | "targetAmount" | "currentAmount" | "deadline" | "isCompleted" | "createdAt" | "updatedAt" | "version", ExtArgs["result"]["goal"]>
 export type GoalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   financialAccount?: boolean | Prisma.FinancialAccountDefaultArgs<ExtArgs>
@@ -866,6 +911,7 @@ export type $GoalPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isCompleted: boolean
     createdAt: Date
     updatedAt: Date
+    version: number
   }, ExtArgs["result"]["goal"]>
   composites: {}
 }
@@ -1301,6 +1347,7 @@ export interface GoalFieldRefs {
   readonly isCompleted: Prisma.FieldRef<"Goal", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Goal", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Goal", 'DateTime'>
+  readonly version: Prisma.FieldRef<"Goal", 'Int'>
 }
     
 

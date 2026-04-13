@@ -399,7 +399,9 @@ export const ModelName = {
   Notification: 'Notification',
   BudgetSetting: 'BudgetSetting',
   Subscription: 'Subscription',
-  UserPreference: 'UserPreference'
+  UserPreference: 'UserPreference',
+  RecurringExpense: 'RecurringExpense',
+  SettingsHistory: 'SettingsHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -415,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "financialAccount" | "category" | "income" | "allocation" | "expense" | "transactionLedger" | "goal" | "budget" | "notification" | "budgetSetting" | "subscription" | "userPreference"
+    modelProps: "user" | "session" | "account" | "verification" | "financialAccount" | "category" | "income" | "allocation" | "expense" | "transactionLedger" | "goal" | "budget" | "notification" | "budgetSetting" | "subscription" | "userPreference" | "recurringExpense" | "settingsHistory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1603,6 +1605,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    RecurringExpense: {
+      payload: Prisma.$RecurringExpensePayload<ExtArgs>
+      fields: Prisma.RecurringExpenseFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RecurringExpenseFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringExpensePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RecurringExpenseFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringExpensePayload>
+        }
+        findFirst: {
+          args: Prisma.RecurringExpenseFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringExpensePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RecurringExpenseFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringExpensePayload>
+        }
+        findMany: {
+          args: Prisma.RecurringExpenseFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringExpensePayload>[]
+        }
+        create: {
+          args: Prisma.RecurringExpenseCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringExpensePayload>
+        }
+        createMany: {
+          args: Prisma.RecurringExpenseCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RecurringExpenseCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringExpensePayload>[]
+        }
+        delete: {
+          args: Prisma.RecurringExpenseDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringExpensePayload>
+        }
+        update: {
+          args: Prisma.RecurringExpenseUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringExpensePayload>
+        }
+        deleteMany: {
+          args: Prisma.RecurringExpenseDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RecurringExpenseUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RecurringExpenseUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringExpensePayload>[]
+        }
+        upsert: {
+          args: Prisma.RecurringExpenseUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecurringExpensePayload>
+        }
+        aggregate: {
+          args: Prisma.RecurringExpenseAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRecurringExpense>
+        }
+        groupBy: {
+          args: Prisma.RecurringExpenseGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecurringExpenseGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RecurringExpenseCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecurringExpenseCountAggregateOutputType> | number
+        }
+      }
+    }
+    SettingsHistory: {
+      payload: Prisma.$SettingsHistoryPayload<ExtArgs>
+      fields: Prisma.SettingsHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SettingsHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SettingsHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.SettingsHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SettingsHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.SettingsHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.SettingsHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.SettingsHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SettingsHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.SettingsHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsHistoryPayload>
+        }
+        update: {
+          args: Prisma.SettingsHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.SettingsHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SettingsHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SettingsHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.SettingsHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SettingsHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.SettingsHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSettingsHistory>
+        }
+        groupBy: {
+          args: Prisma.SettingsHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SettingsHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SettingsHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SettingsHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1709,7 +1859,9 @@ export const FinancialAccountScalarFieldEnum = {
   initialBalance: 'initialBalance',
   targetPct: 'targetPct',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  currency: 'currency',
+  version: 'version'
 } as const
 
 export type FinancialAccountScalarFieldEnum = (typeof FinancialAccountScalarFieldEnum)[keyof typeof FinancialAccountScalarFieldEnum]
@@ -1722,7 +1874,10 @@ export const CategoryScalarFieldEnum = {
   emoji: 'emoji',
   isDefault: 'isDefault',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isArchived: 'isArchived',
+  archivedAt: 'archivedAt',
+  deletedAt: 'deletedAt'
 } as const
 
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
@@ -1747,7 +1902,8 @@ export const AllocationScalarFieldEnum = {
   incomeId: 'incomeId',
   financialAccountId: 'financialAccountId',
   amount: 'amount',
-  percentage: 'percentage'
+  percentage: 'percentage',
+  deletedAt: 'deletedAt'
 } as const
 
 export type AllocationScalarFieldEnum = (typeof AllocationScalarFieldEnum)[keyof typeof AllocationScalarFieldEnum]
@@ -1767,7 +1923,10 @@ export const ExpenseScalarFieldEnum = {
   parentId: 'parentId',
   notes: 'notes',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  financialAccountId: 'financialAccountId',
+  recurringExpenseId: 'recurringExpenseId'
 } as const
 
 export type ExpenseScalarFieldEnum = (typeof ExpenseScalarFieldEnum)[keyof typeof ExpenseScalarFieldEnum]
@@ -1781,7 +1940,10 @@ export const TransactionLedgerScalarFieldEnum = {
   refType: 'refType',
   refId: 'refId',
   note: 'note',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  balanceAfter: 'balanceAfter',
+  currency: 'currency',
+  idempotencyKey: 'idempotencyKey'
 } as const
 
 export type TransactionLedgerScalarFieldEnum = (typeof TransactionLedgerScalarFieldEnum)[keyof typeof TransactionLedgerScalarFieldEnum]
@@ -1797,7 +1959,8 @@ export const GoalScalarFieldEnum = {
   deadline: 'deadline',
   isCompleted: 'isCompleted',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  version: 'version'
 } as const
 
 export type GoalScalarFieldEnum = (typeof GoalScalarFieldEnum)[keyof typeof GoalScalarFieldEnum]
@@ -1806,8 +1969,9 @@ export type GoalScalarFieldEnum = (typeof GoalScalarFieldEnum)[keyof typeof Goal
 export const BudgetScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  category: 'category',
+  categoryId: 'categoryId',
   limit: 'limit',
+  limitType: 'limitType',
   month: 'month',
   year: 'year',
   createdAt: 'createdAt',
@@ -1874,12 +2038,46 @@ export const UserPreferenceScalarFieldEnum = {
 export type UserPreferenceScalarFieldEnum = (typeof UserPreferenceScalarFieldEnum)[keyof typeof UserPreferenceScalarFieldEnum]
 
 
+export const RecurringExpenseScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  amount: 'amount',
+  categoryId: 'categoryId',
+  financialAccountId: 'financialAccountId',
+  interval: 'interval',
+  startDate: 'startDate',
+  nextRunDate: 'nextRunDate',
+  lastRunDate: 'lastRunDate',
+  isActive: 'isActive'
+} as const
+
+export type RecurringExpenseScalarFieldEnum = (typeof RecurringExpenseScalarFieldEnum)[keyof typeof RecurringExpenseScalarFieldEnum]
+
+
+export const SettingsHistoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  changeLog: 'changeLog',
+  createdAt: 'createdAt'
+} as const
+
+export type SettingsHistoryScalarFieldEnum = (typeof SettingsHistoryScalarFieldEnum)[keyof typeof SettingsHistoryScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -1896,6 +2094,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -1968,6 +2175,34 @@ export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMo
 
 
 /**
+ * Reference to a field of type 'Currency'
+ */
+export type EnumCurrencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Currency'>
+    
+
+
+/**
+ * Reference to a field of type 'Currency[]'
+ */
+export type ListEnumCurrencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Currency[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
  * Reference to a field of type 'ExpenseType'
  */
 export type EnumExpenseTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExpenseType'>
@@ -2024,16 +2259,30 @@ export type ListEnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputTy
 
 
 /**
- * Reference to a field of type 'Int'
+ * Reference to a field of type 'LimitType'
  */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+export type EnumLimitTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LimitType'>
     
 
 
 /**
- * Reference to a field of type 'Int[]'
+ * Reference to a field of type 'LimitType[]'
  */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+export type ListEnumLimitTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LimitType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -2161,6 +2410,8 @@ export type GlobalOmitConfig = {
   budgetSetting?: Prisma.BudgetSettingOmit
   subscription?: Prisma.SubscriptionOmit
   userPreference?: Prisma.UserPreferenceOmit
+  recurringExpense?: Prisma.RecurringExpenseOmit
+  settingsHistory?: Prisma.SettingsHistoryOmit
 }
 
 /* Types for Logging */
