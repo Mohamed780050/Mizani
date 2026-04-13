@@ -136,20 +136,20 @@ export function SignUpForm() {
         </label>
       </div>
 
-      <button
+      <Button
         type="submit"
-        className="w-full py-4 bg-gradient-to-l from-primary to-primary-container text-white font-bold text-lg rounded-xl shadow-lg shadow-primary/20 hover:opacity-95 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed disabled:active:scale-100"
+        className="w-full py-8 bg-primary text-white font-bold text-lg rounded-xl shadow-lg shadow-primary/20 hover:opacity-95 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed disabled:active:scale-100"
         disabled={isPending}
       >
         {isPending ? (
           <Loader2 className="size-5 animate-spin" />
         ) : (
           <>
-            <span>Join Mizani</span>
+            <span>{t("signUpButton")}</span>
             <ArrowRight className="size-5 group-hover:rtl:-translate-x-1 group-hover:ltr:translate-x-1 transition-transform rtl:rotate-180" />
           </>
         )}
-      </button>
+      </Button>
 
       <div className="mt-8 pt-6 border-t border-border text-center">
         <p className="text-muted-foreground">
