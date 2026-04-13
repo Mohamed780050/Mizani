@@ -365,9 +365,6 @@ model UserPreference {
   @@map("user_preferences")
 }
 
-// 1. دعم أتمتة النفقات المتكررة (Automation)
-// 1. القالب الخاص بالعمليات التلقائية
-
 model RecurringExpense {
   id         String  @id @default(cuid())
   userId     String
