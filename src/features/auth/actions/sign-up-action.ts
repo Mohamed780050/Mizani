@@ -1,6 +1,7 @@
 "use server";
 
-import { authClient } from "@/lib/auth-client";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import { SignUpSchema } from "../schemas";
 import { AuthActionState } from "../types";
 
@@ -20,27 +21,23 @@ export async function signUpAction(
       fieldErrors: validatedFields.error.flatten().fieldErrors,
     };
   }
-
   try {
-    const { data, error } = await authClient.signUp.email({
-      email,
-      password,
-      name,
-      callbackURL: "/sign-in", // Redirect to sign-in after sign-up (since we require email verification)
+    const res = await auth.api.signUpEmail({
+      body: {
+        email,
+        password,
+        name,
+        callbackURL: "/sign-in", // Redirect to sign-in after sign-up (since we require email verification)
+      },
+      headers: await headers()
     });
-
-    if (error) {
-      return {
-        error: error.message || "Failed to create account.",
-      };
-    }
 
     return {
       success: "Account created successfully! Please check your email to verify your account.",
     };
-  } catch (err) {
+  } catch (err: any) {
     return {
-      error: "An unexpected error occurred. Please try again later.",
+      error: err?.message || "Failed to create account.",
     };
   }
 }

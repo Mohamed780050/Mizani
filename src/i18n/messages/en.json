@@ -1,7 +1,7 @@
 {
   "Emails": {
     "EmailLinkVerification": {
-      "projectName": "Auth Template",
+      "projectName": "Mizani",
       "title": "Verify your email",
       "greeting": "Hello,",
       "greetingDefault": "Hello",
@@ -10,10 +10,10 @@
       "fallback": "Or copy and paste this URL into your browser:",
       "ignore": "If you didn't request this email, you can safely ignore it.",
       "secure": "This is a secure, automated email.",
-      "copyright": "© 2026 Auth Template. All rights reserved."
+      "copyright": "© 2026 Mizani. All rights reserved."
     },
     "ResetPasswordEmail": {
-      "projectName": "Auth Template",
+      "projectName": "Mizani",
       "title": "Reset your password",
       "greeting": "Hello,",
       "greetingDefault": "Hello",
@@ -21,7 +21,7 @@
       "otpLabel": "OTP Code",
       "ignore": "If you didn't request this email, you can safely ignore it.",
       "secure": "This is a secure, automated email.",
-      "copyright": "© 2026 Auth Template. All rights reserved."
+      "copyright": "© 2026 Mizani. All rights reserved."
     }
   },
   "Auth": {

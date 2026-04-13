@@ -51,8 +51,8 @@ export default function layout({ children }: { children: React.ReactNode }) {
       </main>
 
       {/* Background Subtle Accents */}
-      <div className="fixed top-0 start-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 -translate-x-1/2 -translate-y-1/2" />
-      <div className="fixed bottom-0 end-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10 translate-x-1/3 translate-y-1/3" />
+      <div className="fixed top-0 inset-s-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 -translate-x-1/2 -translate-y-1/2" />
+      <div className="fixed bottom-0 inset-e-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10 translate-x-1/3 translate-y-1/3" />
     </div>
   );
 }

@@ -10,24 +10,23 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function sendEmailVerification(
   url: string,
   name: string,
-  email: string
+  email: string,
 ) {
   const t = await getSafeTranslations("Emails.EmailLinkVerification", {
-    projectName: "Auth Template",
+    projectName: "Mizani",
     title: "Verify your email",
     greeting: "Hello,",
     greetingDefault: "Hello",
-    instruction:
-      "Please verify your email address by clicking the link below.",
+    instruction: "Please verify your email address by clicking the link below.",
     button: "Verify Email",
     fallback: "Or copy and paste this URL into your browser:",
     ignore: "If you didn't request this email, you can safely ignore it.",
     secure: "This is a secure, automated email.",
-    copyright: `© ${new Date().getFullYear()} Auth Template. All rights reserved.`,
+    copyright: `© ${new Date().getFullYear()} Mizani. All rights reserved.`,
   });
 
   await resend.emails.send({
-    from: `Auth Template <${process.env.RESEND_FROM_EMAIL || "noreply@example.com"}>`,
+    from: `Mizani <${process.env.RESEND_FROM_EMAIL || "noreply@example.com"}>`,
     to: email,
     subject: t("title"),
     react: EmailLinkVerification({
@@ -53,7 +52,7 @@ export async function sendEmailVerification(
 
 export async function sendOTPToChangePassword(email: string, otp: string) {
   const t = await getSafeTranslations("Emails.ResetPasswordEmail", {
-    projectName: "Auth Template",
+    projectName: "Mizani",
     title: "Reset your password",
     greeting: "Hello,",
     greetingDefault: "Hello",
@@ -61,11 +60,11 @@ export async function sendOTPToChangePassword(email: string, otp: string) {
     otpLabel: "OTP Code",
     ignore: "If you didn't request this email, you can safely ignore it.",
     secure: "This is a secure, automated email.",
-    copyright: `© ${new Date().getFullYear()} Auth Template. All rights reserved.`,
+    copyright: `© ${new Date().getFullYear()} Mizani. All rights reserved.`,
   });
 
   await resend.emails.send({
-    from: `Auth Template <${process.env.RESEND_FROM_EMAIL || "noreply@example.com"}>`,
+    from: `Mizani <${process.env.RESEND_FROM_EMAIL || "noreply@example.com"}>`,
     to: email,
     subject: t("title"),
     react: ResetPasswordEmail({
@@ -94,7 +93,7 @@ export async function sendOTPToChangePassword(email: string, otp: string) {
  */
 async function getSafeTranslations<T extends Record<string, string>>(
   namespace: string,
-  fallback: T
+  fallback: T,
 ): Promise<(key: keyof T) => string> {
   try {
     const locale = await getLocale();

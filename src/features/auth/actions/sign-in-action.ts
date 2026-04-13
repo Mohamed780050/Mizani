@@ -1,6 +1,7 @@
 "use server";
 
-import { authClient } from "@/lib/auth-client";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import { SignInSchema } from "../schemas";
 import { AuthActionState } from "../types";
 
@@ -20,24 +21,21 @@ export async function signInAction(
   }
 
   try {
-    const { data, error } = await authClient.signIn.email({
-      email,
-      password,
-      callbackURL: "/dashboard", // Or whatever redirect you want
+    const res = await auth.api.signInEmail({
+      body: {
+        email,
+        password,
+        callbackURL: "/dashboard", // Or whatever redirect you want
+      },
+      headers: await headers()
     });
-
-    if (error) {
-      return {
-        error: error.message || "Failed to sign in. Please check your credentials.",
-      };
-    }
 
     return {
       success: "Successfully signed in!",
     };
-  } catch (err) {
+  } catch (err: any) {
     return {
-      error: "An unexpected error occurred. Please try again later.",
+      error: err?.message || "Failed to sign in. Please check your credentials.",
     };
   }
 }

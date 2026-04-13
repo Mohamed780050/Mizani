@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { signUpAction } from "../actions/sign-up-action";
-import { Loader2, ArrowRight, User, Mail, Lock, Shield } from "lucide-react";
+import { Loader2, ArrowRight, User, Mail, Lock, Shield, Eye, EyeOff } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface FieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -15,23 +15,38 @@ interface FieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Field = ({ label, icon: Icon, error, className, ...props }: FieldProps) => {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const isPassword = props.type === "password";
+  const inputType = isPassword ? (showPassword ? "text" : "password") : props.type;
+
   return (
     <div className="space-y-2">
       <label className="block text-sm font-semibold text-muted-foreground mx-1">
         {label}
       </label>
       <div className="relative">
-        <span className="absolute start-4 top-1/2 -translate-y-1/2 text-muted-foreground/60 transition-colors peer-focus:text-primary">
+        <span className="absolute inset-s-4 top-1/2 -translate-y-1/2 text-muted-foreground/60 transition-colors peer-focus:text-primary">
           <Icon className="size-5" />
         </span>
         <input
+          {...props}
+          type={inputType}
           className={cn(
-            "w-full peer ps-12 pe-4 py-4 bg-secondary border-none rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-card transition-all text-foreground placeholder:text-muted-foreground/50",
+            "w-full peer ps-12 pe-12 py-4 bg-secondary border-none rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-card transition-all text-foreground placeholder:text-muted-foreground/50",
             error && "ring-2 ring-destructive/50 bg-destructive/5",
             className
           )}
-          {...props}
         />
+        {isPassword && (
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute inset-e-4 top-1/2 -translate-y-1/2 text-muted-foreground/60 hover:text-primary transition-colors focus:outline-none"
+            tabIndex={-1}
+          >
+            {showPassword ? <EyeOff className="size-5" /> : <Eye className="size-5" />}
+          </button>
+        )}
       </div>
       {error && (
         <p className="text-xs text-destructive mx-1 animate-in fade-in slide-in-from-top-1 duration-200">

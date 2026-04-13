@@ -1,7 +1,7 @@
 {
   "Emails": {
     "EmailLinkVerification": {
-      "projectName": "Auth Template",
+      "projectName": "Mizani",
       "title": "تأكيد بريدك الإلكتروني",
       "greeting": "مرحبًا،",
       "greetingDefault": "مرحبًا",
@@ -10,10 +10,10 @@
       "fallback": "أو انسخ والصق هذا الرابط في متصفحك:",
       "ignore": "إذا لم تطلب هذا البريد، يمكنك تجاهله بأمان.",
       "secure": "هذا بريد إلكتروني آمن ومُرسَل تلقائيًا.",
-      "copyright": "© 2026 Auth Template. جميع الحقوق محفوظة."
+      "copyright": "© 2026 Mizani. جميع الحقوق محفوظة."
     },
     "ResetPasswordEmail": {
-      "projectName": "Auth Template",
+      "projectName": "Mizani",
       "title": "إعادة تعيين كلمة المرور",
       "greeting": "مرحبًا،",
       "greetingDefault": "مرحبًا",
@@ -21,7 +21,7 @@
       "otpLabel": "رمز OTP",
       "ignore": "إذا لم تطلب هذا البريد، يمكنك تجاهله بأمان.",
       "secure": "هذا بريد إلكتروني آمن ومُرسَل تلقائيًا.",
-      "copyright": "© 2026 Auth Template. جميع الحقوق محفوظة."
+      "copyright": "© 2026 Mizani. جميع الحقوق محفوظة."
     }
   },
   "Auth": {
