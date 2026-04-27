@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useTransition } from "react";
+import { useState, useEffect, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import {
   Popover,
@@ -8,7 +8,10 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Bell, Check, Info, AlertTriangle, AlertCircle } from "lucide-react";
-import { getNotificationsAction, markNotificationsReadAction } from "../actions/notification-actions";
+import {
+  getNotificationsAction,
+  markNotificationsReadAction,
+} from "../actions/notification-actions";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 type Notification = {
@@ -20,7 +23,11 @@ type Notification = {
   createdAt: string | Date;
 };
 
-export function NotificationBell({ initialCount = 0 }: { initialCount?: number }) {
+export function NotificationBell({
+  initialCount = 0,
+}: {
+  initialCount?: number;
+}) {
   const [open, setOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(initialCount);
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -43,7 +50,7 @@ export function NotificationBell({ initialCount = 0 }: { initialCount?: number }
     startTransition(async () => {
       await markNotificationsReadAction();
       setUnreadCount(0);
-      setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
+      setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
     });
   };
 
@@ -72,49 +79,58 @@ export function NotificationBell({ initialCount = 0 }: { initialCount?: number }
           )}
         </button>
       </PopoverTrigger>
-      <PopoverContent 
-        align="end" 
+      <PopoverContent
+        align="end"
         className="w-80 md:w-96 p-0 bg-[#f7f9ff] dark:bg-[#080b0e] border-border/50 shadow-2xl rounded-2xl overflow-hidden"
       >
         <div className="p-4 bg-card border-b border-border/50 flex items-center justify-between">
-           <h3 className="font-bold tracking-tight">{t("title")}</h3>
-           {unreadCount > 0 && (
-             <button 
-               onClick={handleMarkAsRead}
-               disabled={isPending}
-               className="text-xs text-primary font-semibold hover:underline"
-             >
-               {t("markAllRead")}
-             </button>
-           )}
+          <h3 className="font-bold tracking-tight">{t("title")}</h3>
+          {unreadCount > 0 && (
+            <button
+              onClick={handleMarkAsRead}
+              disabled={isPending}
+              className="text-xs text-primary font-semibold hover:underline"
+            >
+              {t("markAllRead")}
+            </button>
+          )}
         </div>
-        
+
         <ScrollArea className="h-80">
-           {notifications.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-full py-10 px-4 text-center">
-                 <Bell className="size-8 text-muted-foreground/30 mb-3" />
-                 <p className="text-sm font-medium text-muted-foreground">{t("emptyState")}</p>
-              </div>
-           ) : (
-             <div className="divide-y divide-border/30">
-                {notifications.map((n) => (
-                  <div key={n.id} className={`p-4 transition-colors hover:bg-secondary/20 flex gap-4 ${n.isRead ? 'opacity-70' : 'bg-primary/5'}`}>
-                     <div className="mt-1 flex-shrink-0">
-                       <div className="size-8 rounded-full bg-card border border-border shadow-sm flex flex-col items-center justify-center">
-                         {getIcon(n.type)}
-                       </div>
-                     </div>
-                     <div className="space-y-1">
-                        <h4 className="text-sm font-bold leading-tight">{n.title}</h4>
-                        <p className="text-xs text-muted-foreground leading-relaxed">{n.body}</p>
-                        <p className="text-[10px] text-muted-foreground font-mono uppercase font-bold pt-1">
-                          {new Date(n.createdAt).toLocaleDateString()}
-                        </p>
-                     </div>
+          {notifications.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full py-10 px-4 text-center">
+              <Bell className="size-8 text-muted-foreground/30 mb-3" />
+              <p className="text-sm font-medium text-muted-foreground">
+                {t("emptyState")}
+              </p>
+            </div>
+          ) : (
+            <div className="divide-y divide-border/30">
+              {notifications.map((n) => (
+                <div
+                  key={n.id}
+                  className={`p-4 transition-colors hover:bg-secondary/20 flex gap-4 ${n.isRead ? "opacity-70" : "bg-primary/5"}`}
+                >
+                  <div className="mt-1 shrink-0">
+                    <div className="size-8 rounded-full bg-card border border-border shadow-sm flex flex-col items-center justify-center">
+                      {getIcon(n.type)}
+                    </div>
                   </div>
-                ))}
-             </div>
-           )}
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-bold leading-tight">
+                      {n.title}
+                    </h4>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {n.body}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground font-mono uppercase font-bold pt-1">
+                      {new Date(n.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </ScrollArea>
       </PopoverContent>
     </Popover>

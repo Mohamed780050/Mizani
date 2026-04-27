@@ -30,6 +30,12 @@ export default async function GoalsPage({
     })
   ]);
 
+  const serializedGoals = goals.map(goal => ({
+    ...goal,
+    targetAmount: Number(goal.targetAmount),
+    currentAmount: Number(goal.currentAmount)
+  }));
+
   const savingsBalance = savingsAccount ? Number(savingsAccount.balance) : 0;
 
   return (
@@ -43,7 +49,7 @@ export default async function GoalsPage({
          </p>
        </div>
 
-       <GoalGrid goals={goals as any} savingsBalance={savingsBalance} />
+       <GoalGrid goals={serializedGoals as any} savingsBalance={savingsBalance} />
     </div>
   );
 }

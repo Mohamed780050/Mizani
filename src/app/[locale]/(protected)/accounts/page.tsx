@@ -30,6 +30,12 @@ export default async function AccountsPage({
     }
   });
 
+  const serializedEntries = ledgerEntries.map(entry => ({
+    ...entry,
+    amount: Number(entry.amount),
+    balanceAfter: Number(entry.balanceAfter),
+  }));
+
   return (
     <div className="space-y-8 animate-in fade-in duration-500 max-w-6xl mx-auto pb-12 w-full pt-6 px-4 md:px-0">
        <div className="flex flex-col gap-2">
@@ -41,7 +47,7 @@ export default async function AccountsPage({
          </p>
        </div>
 
-       <LedgerTable entries={ledgerEntries as any} />
+       <LedgerTable entries={serializedEntries as any} />
     </div>
   );
 }

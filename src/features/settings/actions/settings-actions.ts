@@ -1,10 +1,10 @@
 "use server";
 
-import db from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
+import { settingsModel } from "../model/settings-model";
 
 const updateAllocationsSchema = z.object({
   EXPENSES: z.number().min(0).max(100),
@@ -44,19 +44,7 @@ export async function updateAllocationsAction(
     const parsed = updateAllocationsSchema.safeParse(JSON.parse(rawData));
     if (!parsed.success) return { success: false, error: "Validation failed" };
 
-    const { EXPENSES, INVESTMENT, SAVINGS, CHARITY } = parsed.data;
-
-    await db.budgetSetting.update({
-      where: { userId },
-      data: {
-        expensesPct: EXPENSES,
-        investmentPct: INVESTMENT,
-        savingsPct: SAVINGS,
-        charityPct: CHARITY,
-      }
-    });
-
-    // Optionally record to SettingsHistory if needed in the future
+    await settingsModel.updateAllocations(userId, parsed.data);
 
     revalidatePath("/(protected)/settings", "page");
     return { success: true, data: { status: "COMPLETED" } };
@@ -83,24 +71,7 @@ export async function updatePreferencesAction(
     const parsed = updatePrefsSchema.safeParse(JSON.parse(rawData));
     if (!parsed.success) return { success: false, error: "Validation failed" };
 
-    const { notifRecurring, notifBudgetAlert, notifGoal, theme } = parsed.data;
-
-    await db.userPreference.upsert({
-      where: { userId },
-      update: {
-        notifRecurring,
-        notifBudgetAlert,
-        notifGoal,
-        theme,
-      },
-      create: {
-        userId,
-        notifRecurring,
-        notifBudgetAlert,
-        notifGoal,
-        theme,
-      }
-    });
+    await settingsModel.updatePreferences(userId, parsed.data);
 
     revalidatePath("/(protected)/settings", "page");
     return { success: true, data: { status: "COMPLETED" } };

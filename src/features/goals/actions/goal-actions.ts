@@ -1,10 +1,11 @@
 "use server";
 
-import db from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
+import { goalModel } from "../model/goal-model";
+import { PlanLimitError, NotFoundError, InsufficientFundsError } from "@/lib/errors";
 
 const createGoalSchema = z.object({
   title: z.string().min(1).max(100),
@@ -41,27 +42,24 @@ export async function createGoalAction(
       return { success: false, error: "Validation failed", fieldErrors: parsed.error.flatten().fieldErrors };
     }
 
-    const { title, targetAmount, deadline } = parsed.data;
+    // Check plan limits (throws PlanLimitError)
+    await goalModel.checkPlanLimits(userId);
 
-    const savingsAccount = await db.financialAccount.findUnique({
-      where: { userId_type: { userId, type: "SAVINGS" } }
-    });
-
-    if (!savingsAccount) return { success: false, error: "Savings account not initialized." };
-
-    const newGoal = await db.goal.create({
-      data: {
-        userId,
-        financialAccountId: savingsAccount.id,
-        title,
-        targetAmount,
-        deadline,
-      }
-    });
+    const newGoal = await goalModel.create(userId, parsed.data);
 
     revalidatePath("/(protected)/goals", "page");
-    return { success: true, data: newGoal };
+    return { 
+      success: true, 
+      data: {
+        ...newGoal,
+        targetAmount: Number(newGoal.targetAmount),
+        currentAmount: Number(newGoal.currentAmount)
+      }
+    };
   } catch (error: any) {
+    if (error instanceof PlanLimitError) {
+      return { success: false, error: error.message };
+    }
     console.error("Create goal failed:", error);
     return { success: false, error: error.message };
   }
@@ -85,79 +83,16 @@ export async function fundGoalAction(
     const parsed = fundGoalSchema.safeParse(JSON.parse(rawData));
     if (!parsed.success) return { success: false, error: "Validation failed" };
 
-    const { goalId, amount } = parsed.data;
-
-    await db.$transaction(async (tx) => {
-      // 1. Lock the goal row
-      const goal = await tx.goal.findUnique({
-        where: { id: goalId, userId }
-      });
-
-      if (!goal) throw new Error("Goal not found");
-      if (goal.isCompleted) throw new Error("Goal already completed");
-
-      // 2. Fetch and check Savings account
-      const savingsAccount = await tx.financialAccount.findUnique({
-        where: { id: goal.financialAccountId }
-      });
-
-      if (!savingsAccount) throw new Error("Savings account missing");
-      if (Number(savingsAccount.balance) < amount) {
-        throw new Error("Insufficient free funds in your Savings account to allocate to this goal.");
-      }
-
-      // 3. Deduct from Savings
-      const updatedSavings = await tx.financialAccount.update({
-        where: { id: savingsAccount.id },
-        data: { balance: { decrement: amount } }
-      });
-
-      // 4. Increment the Goal
-      const updatedGoal = await tx.goal.update({
-        where: { id: goalId },
-        data: { currentAmount: { increment: amount } }
-      });
-
-      // 5. Determine completion
-      if (Number(updatedGoal.currentAmount) >= Number(updatedGoal.targetAmount)) {
-        await tx.goal.update({
-          where: { id: goalId },
-          data: { isCompleted: true }
-        });
-
-        // 6. Notify the user they reached the milestone
-        await tx.notification.create({
-          data: {
-            userId,
-            type: "GOAL_REACHED",
-            title: "Milestone Achieved",
-            body: `Congratulations! You successfully fully funded: ${goal.title}.`,
-          }
-        });
-      }
-
-      // 7. Write Ledger (Internal Transfer from unallocated Savings to allocated Goal)
-      // Represented generally as a DEBIT from generic savings. 
-      // (Money is technically still in the overall SAVINGS pile conceptually, but we track it accurately here)
-      await tx.transactionLedger.create({
-        data: {
-          financialAccountId: savingsAccount.id,
-          amount,
-          type: "DEBIT",
-          refType: "goal_funding",
-          refId: goal.id,
-          note: `Transferred to Goal: ${goal.title}`,
-          balanceAfter: updatedSavings.balance,
-          currency: savingsAccount.currency,
-        }
-      });
-    });
+    await goalModel.fund(userId, parsed.data);
 
     revalidatePath("/(protected)/goals", "page");
     revalidatePath("/(protected)/accounts", "page");
 
     return { success: true, data: { status: "COMPLETED" } };
   } catch (error: any) {
+    if (error instanceof InsufficientFundsError || error instanceof NotFoundError) {
+      return { success: false, error: error.message };
+    }
     console.error("Fund goal failed:", error);
     return { success: false, error: error.message };
   }

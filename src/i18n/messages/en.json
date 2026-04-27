@@ -137,6 +137,7 @@
   "Sidebar": {
     "dashboard": "Sanctuary",
     "accounts": "Ledger & Accounts",
+    "budgets": "Budgets",
     "goals": "Wealth Goals",
     "settings": "Governance"
   },
@@ -195,5 +196,25 @@
     "charity": "Charity",
     "recentActivity": "Recent Ledger Activity",
     "emptyActivity": "The sanctuary ledger is currently peaceful. Log revenue to begin."
+  },
+  "Budget": {
+    "pageTitle": "Category Budgets",
+    "pageDesc": "Set monthly spending limits per category. Get notified when you approach or exceed your limits.",
+    "activeBudgets": "Active Budgets",
+    "categories": "categories this month",
+    "addBudget": "Set Budget",
+    "newTitle": "New Budget",
+    "newDesc": "Set a monthly spending ceiling for a specific category.",
+    "categoryLabel": "Category",
+    "categoryPlaceholder": "Select a category",
+    "limitLabel": "Monthly Limit (EGP)",
+    "periodLabel": "Budget Period",
+    "saveButton": "Save Budget",
+    "consumed": "Consumed",
+    "emptyTitle": "No budgets set",
+    "emptyDesc": "Create your first category budget to start tracking your spending limits.",
+    "createFirst": "Create First Budget",
+    "errorLimit": "Free plan is limited to 3 category budgets. Upgrade to Pro for unlimited.",
+    "errorDefault": "Failed to save budget"
   }
 }

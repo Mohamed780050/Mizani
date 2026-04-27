@@ -5,6 +5,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 import {
   LayoutDashboard,
   Wallet,
+  BarChart3,
   Target,
   Settings,
   type LucideIcon,
@@ -13,6 +14,7 @@ import {
 const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, labelKey: "dashboard" },
   { href: "/accounts", icon: Wallet, labelKey: "accounts" },
+  { href: "/budgets", icon: BarChart3, labelKey: "budgets" },
   { href: "/goals", icon: Target, labelKey: "goals" },
   { href: "/settings", icon: Settings, labelKey: "settings" },
 ] as const;

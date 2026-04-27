@@ -94,7 +94,7 @@ function AllocationPanel({ budgetSettings }: { budgetSettings: any }) {
               onValueChange={(val) => setAllocations(prev => ({ ...prev, [key]: val[0] }))}
               max={100}
               step={1}
-              className="[&_[role=slider]]:bg-emerald-500 [&_[role=slider]]:border-emerald-500 [&_.bg-primary]:bg-emerald-500 h-2 bg-secondary/50 rounded-full"
+              className="**:[[role=slider]]:bg-emerald-500 **:[[role=slider]]:border-emerald-500 [&_.bg-primary]:bg-emerald-500 h-2 bg-secondary/50 rounded-full"
             />
           </div>
         ))}

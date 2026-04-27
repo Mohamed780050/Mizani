@@ -1,11 +1,10 @@
 "use server";
 
-import db from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { z } from "zod";
-import { AccountType, TransactionType } from "@/generated/prisma/enums";
 import { revalidatePath } from "next/cache";
+import { incomeModel } from "../model/income-model";
 
 const createIncomeSchema = z.object({
   amount: z.number().positive().multipleOf(0.01),
@@ -56,79 +55,8 @@ export async function addIncomeAction(
       };
     }
 
-    const { amount, source, date, notes, allocations } = parsed.data;
+    await incomeModel.create(userId, parsed.data);
 
-    // We do atomic multi-step DB persistence
-    await db.$transaction(async (tx) => {
-      // 1. Create Income Record
-      const income = await tx.income.create({
-        data: {
-          userId,
-          amount,
-          source,
-          date,
-          notes,
-        },
-      });
-
-      // 2. Fetch all 4 target accounts (Fail if not initialized)
-      const accounts = await tx.financialAccount.findMany({
-        where: { userId },
-      });
-
-      if (accounts.length < 4) {
-        throw new Error("Financial framework is not fully initialized.");
-      }
-
-      const accountTypes = [
-        AccountType.EXPENSES,
-        AccountType.INVESTMENT,
-        AccountType.SAVINGS,
-        AccountType.CHARITY,
-      ];
-
-      for (const type of accountTypes) {
-        const percentage = allocations[type];
-        if (percentage === 0) continue;
-
-        const allocatedAmount = Number(amount) * (percentage / 100);
-        const account = accounts.find((a) => a.type === type);
-
-        if (!account) throw new Error(`Missing ${type} account.`);
-
-        // a) Record the Allocation Split
-        await tx.allocation.create({
-          data: {
-            incomeId: income.id,
-            financialAccountId: account.id,
-            amount: allocatedAmount,
-            percentage: percentage,
-          },
-        });
-
-        // b) Increment the balance mathematically
-        const updatedAccount = await tx.financialAccount.update({
-          where: { id: account.id },
-          data: { balance: { increment: allocatedAmount } },
-        });
-
-        // c) Write the immutable ledger entry
-        await tx.transactionLedger.create({
-          data: {
-            financialAccountId: account.id,
-            amount: allocatedAmount,
-            type: TransactionType.CREDIT,
-            refType: "income",
-            refId: income.id,
-            note: `Income: ${source} (${percentage}%)`,
-            balanceAfter: updatedAccount.balance,
-            currency: account.currency,
-          },
-        });
-      }
-    });
-
-    // Revalidate paths correctly instead of responding with error on navigation
     revalidatePath("/(protected)/dashboard", "page");
     revalidatePath("/(protected)/accounts", "page");
 
