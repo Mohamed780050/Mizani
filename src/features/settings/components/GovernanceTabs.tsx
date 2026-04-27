@@ -21,14 +21,14 @@ export function GovernanceTabs({
   const t = useTranslations("Governance");
   return (
     <Tabs defaultValue="allocations" className="w-full">
-      <TabsList className="bg-secondary/40 p-1 flex justify-start rounded-2xl w-full max-w-sm mb-8 h-auto overflow-hidden border border-border/50">
-        <TabsTrigger value="allocations" className="rounded-xl py-3 text-xs uppercase font-bold tracking-widest flex-1 px-4">
+      <TabsList className="bg-secondary/40 p-1 flex rounded-2xl w-full max-w-md mb-8 h-auto border border-border/50 overflow-x-auto no-scrollbar">
+        <TabsTrigger value="allocations" className="rounded-xl py-3 text-[10px] sm:text-xs uppercase font-bold tracking-widest flex-1 px-2 sm:px-4">
           {t("tabAllocations")}
         </TabsTrigger>
-        <TabsTrigger value="preferences" className="rounded-xl py-3 text-xs uppercase font-bold tracking-widest flex-1 px-4">
+        <TabsTrigger value="preferences" className="rounded-xl py-3 text-[10px] sm:text-xs uppercase font-bold tracking-widest flex-1 px-2 sm:px-4">
           {t("tabPreferences")}
         </TabsTrigger>
-        <TabsTrigger value="subscription" className="rounded-xl py-3 text-xs uppercase font-bold tracking-widest flex-1 px-4">
+        <TabsTrigger value="subscription" className="rounded-xl py-3 text-[10px] sm:text-xs uppercase font-bold tracking-widest flex-1 px-2 sm:px-4">
           {t("tabBilling")}
         </TabsTrigger>
       </TabsList>
@@ -74,7 +74,7 @@ function AllocationPanel({ budgetSettings }: { budgetSettings: any }) {
   };
 
   return (
-    <div className="bg-card border border-border/50 p-8 rounded-[32px] shadow-sm max-w-2xl">
+    <div className="bg-card border border-border/50 p-5 sm:p-8 rounded-[32px] shadow-sm max-w-2xl">
       <h3 className="text-xl font-bold mb-2">{t("allocTitle")}</h3>
       <p className="text-muted-foreground text-sm font-medium mb-8">
         {t("allocDesc")}
@@ -100,7 +100,7 @@ function AllocationPanel({ budgetSettings }: { budgetSettings: any }) {
         ))}
       </div>
 
-      <div className="mt-12 flex items-center justify-between border-t border-border/50 pt-8">
+      <div className="mt-12 flex flex-col sm:flex-row items-center justify-between border-t border-border/50 pt-8 gap-6">
          <div className="flex items-center gap-3">
            <span className="text-xs uppercase font-bold tracking-wider text-muted-foreground">{t("calibration")}</span>
            <span className={`font-mono font-black text-xl ${isValid ? "text-emerald-500" : "text-rose-500"}`}>{total}%</span>
@@ -110,7 +110,7 @@ function AllocationPanel({ budgetSettings }: { budgetSettings: any }) {
          <Button 
            onClick={handleSave} 
            disabled={!isValid || isPending}
-           className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl px-8 py-6 shadow-lg shadow-emerald-500/20 active:scale-95"
+           className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl px-8 py-6 shadow-lg shadow-emerald-500/20 active:scale-95"
          >
            {isPending ? <Loader2 className="size-5 animate-spin" /> : <Save className="size-4 mr-2" />}
            {t("save")}
@@ -142,7 +142,7 @@ function PreferencesPanel({ preferences }: { preferences: any }) {
   };
 
   return (
-    <div className="bg-card border border-border/50 p-8 rounded-[32px] shadow-sm max-w-2xl space-y-8">
+    <div className="bg-card border border-border/50 p-5 sm:p-8 rounded-[32px] shadow-sm max-w-2xl space-y-8">
       <div>
         <h3 className="text-xl font-bold mb-2">{t("prefTitle")}</h3>
         <p className="text-muted-foreground text-sm font-medium mb-8">
@@ -184,7 +184,7 @@ function SubscriptionPanel({ subscription }: { subscription: any }) {
   const isPro = subscription?.plan === "pro";
 
   return (
-    <div className="bg-card border border-border/50 p-8 rounded-[32px] shadow-sm max-w-2xl relative overflow-hidden">
+    <div className="bg-card border border-border/50 p-5 sm:p-8 rounded-[32px] shadow-sm max-w-2xl relative overflow-hidden">
       {isPro && <div className="absolute -top-10 -right-10 size-40 bg-amber-500/10 blur-3xl rounded-full" />}
       
       <div className="relative z-10">

@@ -6,6 +6,7 @@ import { AddIncomeSheet } from "@/features/income/components/AddIncomeSheet";
 import { AddExpenseSheet } from "@/features/expense/components/AddExpenseSheet";
 import { NotificationBell } from "@/features/notifications/components/NotificationBell";
 import { Sidebar } from "./components/Sidebar";
+import { MobileNav } from "./components/MobileNav";
 
 export default async function ProtectedLayout({
   children,
@@ -47,9 +48,13 @@ export default async function ProtectedLayout({
       {/* Main Container */}
       <main className="flex-1 flex flex-col min-w-0 relative">
         {/* Top Header */}
-        <header className="h-20 px-8 flex items-center justify-between z-10 w-full">
-           <div className="lg:hidden font-bold text-lg">Mizani</div>
-           <div className="flex items-center gap-4 ms-auto">
+        <header className="h-20 px-4 lg:px-8 flex items-center justify-between z-10 w-full shrink-0">
+           <div className="flex items-center gap-4">
+              <MobileNav user={{ name: session.user.name, email: session.user.email }} />
+              <div className="lg:hidden font-black text-xl tracking-tight text-emerald-950 dark:text-emerald-50">Mizani</div>
+           </div>
+
+           <div className="flex items-center gap-2 sm:gap-4 ms-auto">
               {/* Notification Bell */}
               <NotificationBell initialCount={unreadCount} />
 

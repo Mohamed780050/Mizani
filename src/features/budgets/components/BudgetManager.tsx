@@ -68,7 +68,7 @@ export function BudgetManager({
   return (
     <div className="space-y-6">
       {/* Summary Bar */}
-      <div className="flex items-center justify-between bg-card border border-border/50 p-6 rounded-3xl shadow-sm">
+      <div className="flex items-center justify-between bg-card border border-border/50 p-4 sm:p-6 rounded-3xl shadow-sm">
         <div>
           <p className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-1">
             {t("activeBudgets")}
@@ -85,9 +85,9 @@ export function BudgetManager({
 
         <Sheet open={openCreate} onOpenChange={setOpenCreate}>
           <SheetTrigger asChild>
-            <Button className="bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-full px-6 py-6 shadow-lg shadow-amber-500/20 active:scale-95 transition-transform">
-              <Plus className="size-5 me-2" />
-              {t("addBudget")}
+            <Button className="bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-full p-2.5 sm:px-6 sm:py-6 shadow-lg shadow-amber-500/20 active:scale-95 transition-transform shrink-0">
+              <Plus className="size-5 sm:me-2" />
+              <span className="hidden sm:inline">{t("addBudget")}</span>
             </Button>
           </SheetTrigger>
           <SheetContent className="w-full sm:max-w-md bg-[#f7f9ff] dark:bg-[#080b0e] border-s-border/50 px-4">

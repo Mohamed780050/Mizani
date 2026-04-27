@@ -48,56 +48,58 @@ export function LedgerTable({ entries }: { entries: LedgerEntry[] }) {
 
   return (
     <div className="bg-card rounded-3xl border border-border/50 overflow-hidden shadow-sm">
-      <Table>
-        <TableHeader className="bg-secondary/20">
-          <TableRow className="hover:bg-transparent">
-            <TableHead className="w-[100px] py-5 pl-6">{t("colType")}</TableHead>
-            <TableHead className="py-5">{t("colDesc")}</TableHead>
-            <TableHead className="py-5">{t("colAccount")}</TableHead>
-            <TableHead className="py-5">{t("colAmount")}</TableHead>
-            <TableHead className="py-5 text-right pr-6">{t("colRolling")}</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {entries.map((entry) => (
-            <TableRow key={entry.id} className="transition-colors hover:bg-secondary/10">
-              <TableCell className="font-medium pl-6 py-4">
-                {entry.type === "CREDIT" ? (
-                  <div className="size-10 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
-                    <ArrowDownRight className="size-5" />
-                  </div>
-                ) : (
-                  <div className="size-10 rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center">
-                    <ArrowUpRight className="size-5" />
-                  </div>
-                )}
-              </TableCell>
-              <TableCell className="py-4">
-                <div className="font-bold text-[15px]">
-                  {entry.note || t("generalTx")}
-                </div>
-                <div className="text-xs font-semibold text-muted-foreground monochrome font-mono mt-1 opacity-70">
-                  {new Date(entry.createdAt).toLocaleString()} • REF: {entry.refType.toUpperCase()}
-                </div>
-              </TableCell>
-              <TableCell className="py-4">
-                <Badge variant="outline" className="bg-background text-xs font-bold uppercase tracking-wider">
-                  {td(entry.financialAccount.type.toLowerCase() as any)}
-                </Badge>
-              </TableCell>
-              <TableCell className="py-4 font-mono font-bold text-[15px]">
-                <span className={entry.type === "CREDIT" ? "text-emerald-500" : "text-rose-500"}>
-                  {entry.type === "CREDIT" ? "+" : "-"}
-                  {Number(entry.amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                </span>
-              </TableCell>
-              <TableCell className="text-right pr-6 py-4 font-mono font-black text-primary text-base">
-                {Number(entry.balanceAfter).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              </TableCell>
+      <div className="overflow-x-auto no-scrollbar">
+        <Table className="min-w-[600px] lg:min-w-0">
+          <TableHeader className="bg-secondary/20">
+            <TableRow className="hover:bg-transparent">
+              <TableHead className="w-[80px] py-5 pl-6">{t("colType")}</TableHead>
+              <TableHead className="py-5">{t("colDesc")}</TableHead>
+              <TableHead className="py-5 hidden sm:table-cell">{t("colAccount")}</TableHead>
+              <TableHead className="py-5">{t("colAmount")}</TableHead>
+              <TableHead className="py-5 text-right pr-6 hidden md:table-cell">{t("colRolling")}</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {entries.map((entry) => (
+              <TableRow key={entry.id} className="transition-colors hover:bg-secondary/10">
+                <TableCell className="font-medium pl-6 py-4">
+                  {entry.type === "CREDIT" ? (
+                    <div className="size-9 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+                      <ArrowDownRight className="size-4" />
+                    </div>
+                  ) : (
+                    <div className="size-9 rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center">
+                      <ArrowUpRight className="size-4" />
+                    </div>
+                  )}
+                </TableCell>
+                <TableCell className="py-4">
+                  <div className="font-bold text-[14px] sm:text-[15px] truncate max-w-[120px] sm:max-w-[200px]">
+                    {entry.note || t("generalTx")}
+                  </div>
+                  <div className="text-[10px] font-semibold text-muted-foreground monochrome font-mono mt-0.5 opacity-70">
+                    {new Date(entry.createdAt).toLocaleDateString()} • {entry.refType.toUpperCase()}
+                  </div>
+                </TableCell>
+                <TableCell className="py-4 hidden sm:table-cell">
+                  <Badge variant="outline" className="bg-background text-[10px] font-bold uppercase tracking-wider">
+                    {td(entry.financialAccount.type.toLowerCase() as any)}
+                  </Badge>
+                </TableCell>
+                <TableCell className="py-4 font-mono font-bold text-[14px] sm:text-[15px]">
+                  <span className={entry.type === "CREDIT" ? "text-emerald-500" : "text-rose-500"}>
+                    {entry.type === "CREDIT" ? "+" : "-"}
+                    {Number(entry.amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </span>
+                </TableCell>
+                <TableCell className="text-right pr-6 py-4 font-mono font-black text-primary text-sm sm:text-base hidden md:table-cell">
+                  {Number(entry.balanceAfter).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

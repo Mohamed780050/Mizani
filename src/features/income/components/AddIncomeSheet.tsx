@@ -91,9 +91,9 @@ export function AddIncomeSheet({
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <button className="flex items-center gap-2 bg-emerald-950 dark:bg-emerald-50 text-white dark:text-emerald-950 font-bold px-4 py-2.5 rounded-full hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-[0_4px_16px_-4px_rgba(4,43,38,0.3)]">
+        <button className="flex items-center gap-2 bg-emerald-950 dark:bg-emerald-50 text-white dark:text-emerald-950 font-bold p-2.5 sm:px-4 rounded-full hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-[0_4px_16px_-4px_rgba(4,43,38,0.3)]">
           <Plus className="size-4" />
-          <span>{t("trigger")}</span>
+          <span className="hidden sm:inline">{t("trigger")}</span>
         </button>
       </SheetTrigger>
       <SheetContent
