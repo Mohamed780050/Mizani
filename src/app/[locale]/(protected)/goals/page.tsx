@@ -1,9 +1,9 @@
-import React from "react";
-import db from "@/lib/db";
+import React, { Suspense } from "react";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { GoalGrid } from "@/features/goals/components/GoalGrid";
+import { GoalsContent } from "./components/GoalsContent";
+import { GoalsSkeleton } from "./components/GoalsSkeleton";
 
 export default async function GoalsPage({
   params,
@@ -20,24 +20,6 @@ export default async function GoalsPage({
 
   if (!session) return null;
 
-  const [goals, savingsAccount] = await Promise.all([
-    db.goal.findMany({
-      where: { userId: session.user.id },
-      orderBy: { createdAt: "desc" },
-    }),
-    db.financialAccount.findUnique({
-      where: { userId_type: { userId: session.user.id, type: "SAVINGS" } }
-    })
-  ]);
-
-  const serializedGoals = goals.map(goal => ({
-    ...goal,
-    targetAmount: Number(goal.targetAmount),
-    currentAmount: Number(goal.currentAmount)
-  }));
-
-  const savingsBalance = savingsAccount ? Number(savingsAccount.balance) : 0;
-
   return (
     <div className="space-y-8 animate-in fade-in duration-500 max-w-6xl mx-auto pb-12 w-full pt-6 px-4 md:px-0">
        <div className="flex flex-col gap-2">
@@ -49,7 +31,9 @@ export default async function GoalsPage({
          </p>
        </div>
 
-       <GoalGrid goals={serializedGoals as any} savingsBalance={savingsBalance} />
+       <Suspense fallback={<GoalsSkeleton />}>
+          <GoalsContent userId={session.user.id} />
+       </Suspense>
     </div>
   );
 }
