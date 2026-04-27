@@ -7,14 +7,20 @@ import { AuthActionState } from "../types";
 
 export async function signUpAction(
   prevState: AuthActionState,
-  formData: FormData
+  formData: FormData,
 ): Promise<AuthActionState> {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const confirmPassword = formData.get("confirmPassword") as string;
 
-  const validatedFields = SignUpSchema.safeParse({ name, email, password, confirmPassword });
+  const validatedFields = SignUpSchema.safeParse({
+    name,
+    email,
+    password,
+    confirmPassword,
+  });
+  console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {
@@ -22,18 +28,18 @@ export async function signUpAction(
     };
   }
   try {
-    const res = await auth.api.signUpEmail({
+    await auth.api.signUpEmail({
       body: {
         email,
         password,
         name,
         callbackURL: "/sign-in", // Redirect to sign-in after sign-up (since we require email verification)
       },
-      headers: await headers()
+      headers: await headers(),
     });
-
     return {
-      success: "Account created successfully! Please check your email to verify your account.",
+      success:
+        "Account created successfully! Please check your email to verify your account.",
     };
   } catch (err: any) {
     return {

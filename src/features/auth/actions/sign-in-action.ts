@@ -21,7 +21,7 @@ export async function signInAction(
   }
 
   try {
-    const res = await auth.api.signInEmail({
+    await auth.api.signInEmail({
       body: {
         email,
         password,

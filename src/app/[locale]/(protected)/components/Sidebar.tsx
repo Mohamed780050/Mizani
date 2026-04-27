@@ -1,0 +1,89 @@
+"use client";
+
+import React from "react";
+import { Link, usePathname } from "@/i18n/navigation";
+import {
+  LayoutDashboard,
+  Wallet,
+  Target,
+  Settings,
+  type LucideIcon,
+} from "lucide-react";
+
+const navItems = [
+  { href: "/dashboard", icon: LayoutDashboard, labelKey: "Sanctuary" },
+  { href: "/accounts", icon: Wallet, labelKey: "Ledger & Accounts" },
+  { href: "/goals", icon: Target, labelKey: "Wealth Goals" },
+  { href: "/settings", icon: Settings, labelKey: "Governance" },
+] as const;
+
+export function Sidebar({ user }: { user: { name: string; email: string } }) {
+  const pathname = usePathname();
+
+  return (
+    <aside className="w-72 flex-shrink-0 relative hidden lg:flex flex-col bg-card border-e border-border/50">
+      <div className="p-8">
+        <div className="flex items-center gap-3">
+          <div className="size-8 rounded-xl bg-primary flex items-center justify-center">
+            <span className="text-white font-black text-xl">M</span>
+          </div>
+          <h1 className="font-extrabold text-2xl text-emerald-950 dark:text-emerald-50 tracking-tight">
+            Mizani
+          </h1>
+        </div>
+      </div>
+
+      <nav className="flex-1 px-4 space-y-2 mt-4 overflow-y-auto">
+        {navItems.map((item) => (
+          <SidebarLink
+            key={item.href}
+            href={item.href}
+            icon={item.icon}
+            label={item.labelKey}
+            active={pathname === item.href}
+          />
+        ))}
+      </nav>
+
+      <div className="p-6 border-t border-border/50 mt-auto">
+        <div className="bg-secondary/40 rounded-2xl p-4 flex items-center gap-3">
+          <div className="size-10 rounded-full bg-emerald-100 flex items-center justify-center font-bold text-emerald-700">
+            {user.name.charAt(0).toUpperCase()}
+          </div>
+          <div className="flex-1 overflow-hidden">
+            <h3 className="font-semibold text-sm truncate">{user.name}</h3>
+            <p className="text-xs text-muted-foreground truncate">
+              {user.email}
+            </p>
+          </div>
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+function SidebarLink({
+  href,
+  icon: Icon,
+  label,
+  active,
+}: {
+  href: string;
+  icon: LucideIcon;
+  label: string;
+  active: boolean;
+}) {
+  return (
+    <Link
+      href={href}
+      className={`flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all font-semibold text-sm ${
+        active
+          ? "bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+          : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+      }`}
+    >
+      <Icon className="size-5" />
+      {label}
+    </Link>
+  );
+}
