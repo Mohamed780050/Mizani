@@ -34,7 +34,7 @@ export async function RecentActivityLedger({ userId, locale }: { userId: string,
                     <p className="text-xs text-muted-foreground uppercase font-bold tracking-wider mt-0.5">{t(tx.financialAccount.type.toLowerCase() as any)}</p>
                  </div>
               </div>
-              <div className="text-right">
+              <div className="text-end">
                  <p className={`font-black font-mono text-lg ${tx.type === "CREDIT" ? "text-emerald-600" : "text-foreground"}`}>
                     {tx.type === "CREDIT" ? "+" : "-"}{Number(tx.amount).toLocaleString()}
                  </p>

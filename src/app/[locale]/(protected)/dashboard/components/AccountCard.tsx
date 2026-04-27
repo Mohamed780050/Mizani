@@ -3,7 +3,7 @@ import React from "react";
 export function AccountCard({ title, amount, icon: Icon, color, locale }: { title: string; amount: number; icon: any; color: string, locale: string }) {
   return (
     <div className="bg-card border border-border/50 rounded-[32px] p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-       <div className={`absolute -right-4 -top-4 size-24 rounded-full opacity-10 blur-2xl transition-all group-hover:scale-150 ${color.split(' ')[1]}`} />
+       <div className={`absolute -end-4 -top-4 size-24 rounded-full opacity-10 blur-2xl transition-all group-hover:scale-150 ${color.split(' ')[1]}`} />
        
        <div className={`size-12 rounded-2xl flex items-center justify-center mb-6 ${color}`}>
          <Icon className="size-6" />

@@ -20,7 +20,7 @@ export default async function SettingsPage({
 
   if (!session) return null;
 
-  const [budgetSettings, preferences, subscription] = await Promise.all([
+  const [budgetSettingsRaw, preferences, subscription] = await Promise.all([
     db.budgetSetting.findUnique({
       where: { userId: session.user.id }
     }),
@@ -31,6 +31,15 @@ export default async function SettingsPage({
       where: { userId: session.user.id }
     })
   ]);
+
+  // Serialize Decimals for Client Component
+  const budgetSettings = budgetSettingsRaw ? {
+    ...budgetSettingsRaw,
+    investmentPct: Number(budgetSettingsRaw.investmentPct),
+    savingsPct: Number(budgetSettingsRaw.savingsPct),
+    expensesPct: Number(budgetSettingsRaw.expensesPct),
+    charityPct: Number(budgetSettingsRaw.charityPct),
+  } : null;
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500 max-w-6xl mx-auto pb-12 w-full pt-6 px-4 md:px-0">

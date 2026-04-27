@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useTransition, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   Sheet,
   SheetContent,
@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { addExpenseAction } from "../actions/expense-actions";
 import { Loader2, Calendar, Coins, ArrowRight, Minus } from "lucide-react";
+import { DatePicker } from "@/components/ui/date-picker";
 
 type Category = { id: string; name: string; emoji: string; isDefault: boolean };
 
@@ -29,10 +30,11 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState("");
   const t = useTranslations("Expense");
+  const locale = useLocale();
 
   const [amount, setAmount] = useState<number | "">("");
   const [title, setTitle] = useState("");
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [date, setDate] = useState<Date | undefined>(new Date());
   const [categoryId, setCategoryId] = useState("");
   const [expenseType, setExpenseType] = useState("VARIABLE");
   const [necessity, setNecessity] = useState("ESSENTIAL");
@@ -42,7 +44,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
     if (open) {
       setAmount("");
       setTitle("");
-      setDate(new Date().toISOString().split("T")[0]);
+      setDate(new Date());
       setExpenseType("VARIABLE");
       setNecessity("ESSENTIAL");
       setFrequency("ONE_TIME");
@@ -71,7 +73,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
         JSON.stringify({
           amount: Number(amount),
           title,
-          date: new Date(date).toISOString(),
+          date: date?.toISOString(),
           categoryId,
           expenseType,
           necessity,
@@ -102,17 +104,18 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
         </button>
       </SheetTrigger>
       <SheetContent
-        className="w-full sm:max-w-md border-s-border/50 bg-[#f7f9ff] dark:bg-[#080b0e] overflow-y-auto"
+        className="w-full sm:max-w-md border-s-border/50 bg-[#f7f9ff] dark:bg-[#080b0e] overflow-y-auto px-4"
         side="right"
+        dir={locale === "ar" ? "rtl" : "ltr"}
       >
-        <SheetHeader className="text-left space-y-2 pt-6">
+        <SheetHeader className="text-start space-y-2 pt-6">
            <SheetTitle className="text-2xl font-black tracking-tight text-rose-950 dark:text-rose-50">{t("title")}</SheetTitle>
            <SheetDescription className="text-muted-foreground">
               {t("description")}
            </SheetDescription>
         </SheetHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6 mt-8 pb-10">
+        <form dir={locale === "ar" ? "rtl" : "ltr"} onSubmit={handleSubmit} className="space-y-6 mt-8 pb-10">
            {error && (
              <div className="bg-destructive/10 text-destructive p-4 rounded-2xl border border-destructive/20 text-sm font-medium">
                {error}
@@ -122,38 +125,38 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
            <div className="space-y-4">
              {/* Amount */}
              <div className="space-y-1.5">
-               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("amountLabel")}</label>
-               <div className="relative">
-                 <Coins className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground/50" />
-                 <Input
-                   type="number"
-                   min="0.01"
-                   step="0.01"
-                   value={amount}
-                   onChange={(e) => setAmount(Number(e.target.value))}
-                   placeholder="0.00"
-                   required
-                   className="bg-card border-none shadow-sm rounded-xl py-6 pl-12 font-black text-xl text-rose-600 dark:text-rose-400 font-mono"
-                 />
-               </div>
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("amountLabel")}</label>
+                <div className="relative">
+                  <Coins className="absolute left-4 rtl:left-auto rtl:right-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground/50" />
+                  <Input
+                    type="number"
+                    min="0.01"
+                    step="0.01"
+                    value={amount}
+                    onChange={(e) => setAmount(Number(e.target.value))}
+                    placeholder="0.00"
+                    required
+                    className="bg-card border-none shadow-sm rounded-xl py-6 pl-12 rtl:pl-4 rtl:pr-12 font-black text-xl text-rose-600 dark:text-rose-400 font-mono"
+                  />
+                </div>
              </div>
 
              {/* Title */}
-             <div className="space-y-1.5">
-               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("titleLabel")}</label>
-               <Input
-                 value={title}
-                 onChange={(e) => setTitle(e.target.value)}
-                 placeholder={t("titlePlaceholder")}
-                 required
-                 maxLength={100}
-                 className="bg-card border-none shadow-sm rounded-xl py-6 font-semibold"
-               />
-             </div>
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("titleLabel")}</label>
+                <Input
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder={t("titlePlaceholder")}
+                  required
+                  maxLength={100}
+                  className="bg-card border-none shadow-sm rounded-xl py-6 font-semibold"
+                />
+              </div>
 
              {/* Category */}
              <div className="space-y-1.5">
-               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("categoryLabel")}</label>
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("categoryLabel")}</label>
                <Select value={categoryId} onValueChange={setCategoryId}>
                  <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm">
                    <SelectValue placeholder={t("categoryPlaceholder")} />
@@ -174,7 +177,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
              <div className="grid grid-cols-2 gap-4">
                {/* Necessity */}
                <div className="space-y-1.5">
-                 <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("necessityLabel")}</label>
+                  <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("necessityLabel")}</label>
                  <Select value={necessity} onValueChange={setNecessity}>
                    <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm font-semibold">
                      <SelectValue />
@@ -188,7 +191,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
 
                {/* Type */}
                <div className="space-y-1.5">
-                 <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("typeLabel")}</label>
+                  <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("typeLabel")}</label>
                  <Select value={expenseType} onValueChange={setExpenseType}>
                    <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm font-semibold">
                      <SelectValue />
@@ -204,7 +207,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
              {/* Frequency & Date */}
              <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("frequencyLabel")}</label>
+                   <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("frequencyLabel")}</label>
                   <Select value={frequency} onValueChange={setFrequency}>
                     <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm font-semibold">
                       <SelectValue />
@@ -217,18 +220,13 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
                 </div>
                 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("dateLabel")}</label>
-                  <div className="relative">
-                    <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground/50" />
-                    <Input
-                      type="date"
-                      value={date}
-                      onChange={(e) => setDate(e.target.value)}
-                      required
-                      className="bg-card border-none shadow-sm rounded-xl py-6 pl-9 font-semibold"
-                    />
-                  </div>
-                </div>
+                   <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("dateLabel")}</label>
+                   <DatePicker 
+                     date={date} 
+                     setDate={setDate} 
+                     placeholder={t("dateLabel")}
+                   />
+                 </div>
              </div>
            </div>
 
@@ -242,7 +240,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
              ) : (
                <>
                  <span>{t("submitButton")}</span>
-                 <ArrowRight className="size-5 group-hover:translate-x-1 transition-transform" />
+                 <ArrowRight className="size-5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
                </>
              )}
            </Button>

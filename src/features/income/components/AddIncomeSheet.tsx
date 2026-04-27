@@ -14,7 +14,8 @@ import { Input } from "@/components/ui/input";
 import { addIncomeAction } from "../actions/income-actions";
 import { Loader2, Plus, Calendar, Coins, ArrowRight } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { DatePicker } from "@/components/ui/date-picker";
 
 export function AddIncomeSheet({
   defaultAllocations,
@@ -31,10 +32,11 @@ export function AddIncomeSheet({
   const [error, setError] = useState("");
   const t = useTranslations("Income");
   const td = useTranslations("Dashboard");
+  const locale = useLocale();
 
   const [amount, setAmount] = useState<number | "">("");
   const [source, setSource] = useState("");
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [date, setDate] = useState<Date | undefined>(new Date());
   
   const [allocations, setAllocations] = useState(defaultAllocations);
 
@@ -43,7 +45,7 @@ export function AddIncomeSheet({
     if (open) {
       setAmount("");
       setSource("");
-      setDate(new Date().toISOString().split("T")[0]);
+      setDate(new Date());
       setAllocations(defaultAllocations);
       setError("");
     }
@@ -71,7 +73,7 @@ export function AddIncomeSheet({
         JSON.stringify({
           amount: Number(amount),
           source,
-          date: new Date(date).toISOString(),
+          date: date?.toISOString(),
           allocations,
         })
       );
@@ -95,17 +97,18 @@ export function AddIncomeSheet({
         </button>
       </SheetTrigger>
       <SheetContent
-        className="w-full sm:max-w-md border-s-border/50 bg-[#f7f9ff] dark:bg-[#080b0e] overflow-y-auto p-2"
+        className="w-full sm:max-w-md border-s-border/50 bg-[#f7f9ff] dark:bg-[#080b0e] overflow-y-auto px-4"
         side="right"
+        dir={locale === "ar" ? "rtl" : "ltr"}
       >
-        <SheetHeader className="text-left space-y-2 pt-6">
+        <SheetHeader className="text-start space-y-2 pt-6">
            <SheetTitle className="text-2xl font-black tracking-tight text-emerald-950 dark:text-emerald-50">{t("title")}</SheetTitle>
            <SheetDescription className="text-muted-foreground">
               {t("description")}
            </SheetDescription>
         </SheetHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-8 mt-8 pb-10">
+        <form dir={locale === "ar" ? "rtl" : "ltr"} onSubmit={handleSubmit} className="space-y-8 mt-8 pb-10">
            {error && (
              <div className="bg-destructive/10 text-destructive p-3 rounded-xl border border-destructive/20 text-sm font-medium">
                {error}
@@ -128,7 +131,7 @@ export function AddIncomeSheet({
              <div className="space-y-1.5">
                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("amountLabel")}</label>
                <div className="relative">
-                 <Coins className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground/50" />
+                 <Coins className="absolute left-4 rtl:left-auto rtl:right-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground/50" />
                  <Input
                    type="number"
                    min="0.01"
@@ -137,24 +140,19 @@ export function AddIncomeSheet({
                    onChange={(e) => setAmount(Number(e.target.value))}
                    placeholder="0.00"
                    required
-                   className="bg-card border-none shadow-sm rounded-xl py-6 pl-12 font-black text-xl text-emerald-600 dark:text-emerald-400 font-mono"
+                   className="bg-card border-none shadow-sm rounded-xl py-6 pl-12 rtl:pl-4 rtl:pr-12 font-black text-xl text-emerald-600 dark:text-emerald-400 font-mono"
                  />
                </div>
              </div>
 
-             <div className="space-y-1.5">
-               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("dateLabel")}</label>
-               <div className="relative">
-                 <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground/50" />
-                 <Input
-                   type="date"
-                   value={date}
-                   onChange={(e) => setDate(e.target.value)}
-                   required
-                   className="bg-card border-none shadow-sm rounded-xl py-6 pl-12 font-semibold"
-                 />
-               </div>
-             </div>
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("dateLabel")}</label>
+                <DatePicker 
+                  date={date} 
+                  setDate={setDate} 
+                  placeholder={t("dateLabel")}
+                />
+              </div>
            </div>
 
            {/* Dynamic Splitting Preview */}
@@ -188,7 +186,7 @@ export function AddIncomeSheet({
              ) : (
                <>
                   <span>{t("submitButton")}</span>
-                 <ArrowRight className="size-5 group-hover:translate-x-1 transition-transform" />
+                 <ArrowRight className="size-5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
                </>
              )}
            </Button>
