@@ -30,6 +30,7 @@ type LedgerEntry = {
 
 export function LedgerTable({ entries }: { entries: LedgerEntry[] }) {
   const t = useTranslations("Ledger");
+  const td = useTranslations("Dashboard");
   
   if (!entries || entries.length === 0) {
     return (
@@ -81,7 +82,7 @@ export function LedgerTable({ entries }: { entries: LedgerEntry[] }) {
               </TableCell>
               <TableCell className="py-4">
                 <Badge variant="outline" className="bg-background text-xs font-bold uppercase tracking-wider">
-                  {entry.financialAccount.type}
+                  {td(entry.financialAccount.type.toLowerCase() as any)}
                 </Badge>
               </TableCell>
               <TableCell className="py-4 font-mono font-bold text-[15px]">

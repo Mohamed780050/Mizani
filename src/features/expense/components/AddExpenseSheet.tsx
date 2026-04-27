@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useTransition, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import {
   Sheet,
   SheetContent,
@@ -27,6 +28,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState("");
+  const t = useTranslations("Expense");
 
   const [amount, setAmount] = useState<number | "">("");
   const [title, setTitle] = useState("");
@@ -54,11 +56,11 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
     setError("");
 
     if (!amount || amount <= 0) {
-      setError("Amount must be greater than 0");
+      setError(t("errorAmount"));
       return;
     }
     if (!categoryId) {
-      setError("Please select a category");
+      setError(t("errorCategory"));
       return;
     }
 
@@ -83,9 +85,9 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
         setOpen(false);
       } else {
         if (res.error === "LIMIT_EXCEEDED") {
-           setError("Your free tier limit of 50 monthly expenses has been reached. Upgrade to Pro for unlimited.");
+           setError(t("errorLimit"));
         } else {
-           setError(res.error || "Failed to log expense");
+           setError(res.error || t("errorDefault"));
         }
       }
     });
@@ -96,7 +98,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
       <SheetTrigger asChild>
         <button className="flex items-center gap-2 bg-rose-500 text-white font-bold px-4 py-2.5 rounded-full hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-[0_4px_16px_-4px_rgba(244,63,94,0.3)]">
           <Minus className="size-4" />
-          <span>Log Expense</span>
+          <span>{t("trigger")}</span>
         </button>
       </SheetTrigger>
       <SheetContent
@@ -104,9 +106,9 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
         side="right"
       >
         <SheetHeader className="text-left space-y-2 pt-6">
-           <SheetTitle className="text-2xl font-black tracking-tight text-rose-950 dark:text-rose-50">Log Deduction</SheetTitle>
+           <SheetTitle className="text-2xl font-black tracking-tight text-rose-950 dark:text-rose-50">{t("title")}</SheetTitle>
            <SheetDescription className="text-muted-foreground">
-              Record a withdrawal from your expenses pillar.
+              {t("description")}
            </SheetDescription>
         </SheetHeader>
 
@@ -120,7 +122,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
            <div className="space-y-4">
              {/* Amount */}
              <div className="space-y-1.5">
-               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">Amount (EGP)</label>
+               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("amountLabel")}</label>
                <div className="relative">
                  <Coins className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground/50" />
                  <Input
@@ -138,11 +140,11 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
 
              {/* Title */}
              <div className="space-y-1.5">
-               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">Title / Merchant</label>
+               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("titleLabel")}</label>
                <Input
                  value={title}
                  onChange={(e) => setTitle(e.target.value)}
-                 placeholder="e.g. Amazon, Uber, Grocery Store"
+                 placeholder={t("titlePlaceholder")}
                  required
                  maxLength={100}
                  className="bg-card border-none shadow-sm rounded-xl py-6 font-semibold"
@@ -151,10 +153,10 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
 
              {/* Category */}
              <div className="space-y-1.5">
-               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">Category</label>
+               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("categoryLabel")}</label>
                <Select value={categoryId} onValueChange={setCategoryId}>
                  <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm">
-                   <SelectValue placeholder="Select a category" />
+                   <SelectValue placeholder={t("categoryPlaceholder")} />
                  </SelectTrigger>
                  <SelectContent>
                    {categories.map((c) => (
@@ -172,28 +174,28 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
              <div className="grid grid-cols-2 gap-4">
                {/* Necessity */}
                <div className="space-y-1.5">
-                 <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">Necessity</label>
+                 <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("necessityLabel")}</label>
                  <Select value={necessity} onValueChange={setNecessity}>
                    <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm font-semibold">
                      <SelectValue />
                    </SelectTrigger>
                    <SelectContent>
-                     <SelectItem value="ESSENTIAL">Essential</SelectItem>
-                     <SelectItem value="LUXURY">Luxury</SelectItem>
+                     <SelectItem value="ESSENTIAL">{t("necessityEssential")}</SelectItem>
+                     <SelectItem value="LUXURY">{t("necessityLuxury")}</SelectItem>
                    </SelectContent>
                  </Select>
                </div>
 
                {/* Type */}
                <div className="space-y-1.5">
-                 <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">Type</label>
+                 <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("typeLabel")}</label>
                  <Select value={expenseType} onValueChange={setExpenseType}>
                    <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm font-semibold">
                      <SelectValue />
                    </SelectTrigger>
                    <SelectContent>
-                     <SelectItem value="FIXED">Fixed</SelectItem>
-                     <SelectItem value="VARIABLE">Variable</SelectItem>
+                     <SelectItem value="FIXED">{t("typeFixed")}</SelectItem>
+                     <SelectItem value="VARIABLE">{t("typeVariable")}</SelectItem>
                    </SelectContent>
                  </Select>
                </div>
@@ -202,20 +204,20 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
              {/* Frequency & Date */}
              <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">Frequency</label>
+                  <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("frequencyLabel")}</label>
                   <Select value={frequency} onValueChange={setFrequency}>
                     <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm font-semibold">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="ONE_TIME">One Time</SelectItem>
-                      <SelectItem value="MONTHLY">Monthly</SelectItem>
+                      <SelectItem value="ONE_TIME">{t("frequencyOneTime")}</SelectItem>
+                      <SelectItem value="MONTHLY">{t("frequencyMonthly")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">Date</label>
+                  <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("dateLabel")}</label>
                   <div className="relative">
                     <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground/50" />
                     <Input
@@ -239,7 +241,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
                <Loader2 className="size-5 animate-spin" />
              ) : (
                <>
-                 <span>Record Deduction</span>
+                 <span>{t("submitButton")}</span>
                  <ArrowRight className="size-5 group-hover:translate-x-1 transition-transform" />
                </>
              )}

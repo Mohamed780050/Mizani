@@ -104,7 +104,7 @@ function CreateGoalForm({ onSuccess }: { onSuccess: () => void }) {
       }));
       const res = await createGoalAction(null, fd);
       if (res.success) onSuccess();
-      else setError(res.error || "Failed");
+      else setError(res.error || t("errorDefault"));
     });
   };
 
@@ -158,7 +158,7 @@ function GoalCard({ goal, currentSavings }: { goal: Goal, currentSavings: number
     setError("");
 
     if (fundingAmount > currentSavings) {
-      setError("Insufficient unallocated liquid savings.");
+      setError(t("errorInsufficient"));
       return;
     }
 
@@ -172,7 +172,7 @@ function GoalCard({ goal, currentSavings }: { goal: Goal, currentSavings: number
        if (res.success) {
          setFundingAmount("");
        } else {
-         setError(res.error || "Failed to route funds.");
+         setError(res.error || t("errorDefault"));
        }
     });
   };

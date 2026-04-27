@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { addIncomeAction } from "../actions/income-actions";
 import { Loader2, Plus, Calendar, Coins, ArrowRight } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
+import { useTranslations } from "next-intl";
 
 export function AddIncomeSheet({
   defaultAllocations,
@@ -28,6 +29,8 @@ export function AddIncomeSheet({
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState("");
+  const t = useTranslations("Income");
+  const td = useTranslations("Dashboard");
 
   const [amount, setAmount] = useState<number | "">("");
   const [source, setSource] = useState("");
@@ -51,13 +54,13 @@ export function AddIncomeSheet({
     setError("");
 
     if (!amount || amount <= 0) {
-      setError("Amount must be greater than 0");
+      setError(t("errorAmount"));
       return;
     }
 
     const totalAllocations = Object.values(allocations).reduce((a, b) => a + b, 0);
     if (totalAllocations !== 100) {
-      setError(`Allocations must equal exactly 100%. Currently: ${totalAllocations}%`);
+      setError(t("errorAllocation"));
       return;
     }
 
@@ -78,7 +81,7 @@ export function AddIncomeSheet({
       if (res.success) {
         setOpen(false);
       } else {
-        setError(res.error || "Failed to add income");
+        setError(res.error || t("errorDefault"));
       }
     });
   };
@@ -88,17 +91,17 @@ export function AddIncomeSheet({
       <SheetTrigger asChild>
         <button className="flex items-center gap-2 bg-emerald-950 dark:bg-emerald-50 text-white dark:text-emerald-950 font-bold px-4 py-2.5 rounded-full hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-[0_4px_16px_-4px_rgba(4,43,38,0.3)]">
           <Plus className="size-4" />
-          <span>Add Revenue</span>
+          <span>{t("trigger")}</span>
         </button>
       </SheetTrigger>
       <SheetContent
-        className="w-full sm:max-w-md border-s-border/50 bg-[#f7f9ff] dark:bg-[#080b0e] overflow-y-auto"
+        className="w-full sm:max-w-md border-s-border/50 bg-[#f7f9ff] dark:bg-[#080b0e] overflow-y-auto p-2"
         side="right"
       >
         <SheetHeader className="text-left space-y-2 pt-6">
-           <SheetTitle className="text-2xl font-black tracking-tight text-emerald-950 dark:text-emerald-50">Log Revenue</SheetTitle>
+           <SheetTitle className="text-2xl font-black tracking-tight text-emerald-950 dark:text-emerald-50">{t("title")}</SheetTitle>
            <SheetDescription className="text-muted-foreground">
-              Define the source and amount. The Sanctuary will automatically mathematically fracture it according to your blueprint.
+              {t("description")}
            </SheetDescription>
         </SheetHeader>
 
@@ -111,11 +114,11 @@ export function AddIncomeSheet({
 
            <div className="space-y-4">
              <div className="space-y-1.5">
-               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">Source</label>
+               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("sourceLabel")}</label>
                <Input
                  value={source}
                  onChange={(e) => setSource(e.target.value)}
-                 placeholder="e.g. Monthly Salary, Freelance"
+                 placeholder={t("sourcePlaceholder")}
                  required
                  maxLength={100}
                  className="bg-card border-none shadow-sm rounded-xl py-6 font-semibold"
@@ -123,7 +126,7 @@ export function AddIncomeSheet({
              </div>
 
              <div className="space-y-1.5">
-               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">Net Amount (EGP)</label>
+               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("amountLabel")}</label>
                <div className="relative">
                  <Coins className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground/50" />
                  <Input
@@ -140,7 +143,7 @@ export function AddIncomeSheet({
              </div>
 
              <div className="space-y-1.5">
-               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">Received Date</label>
+               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("dateLabel")}</label>
                <div className="relative">
                  <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground/50" />
                  <Input
@@ -157,21 +160,21 @@ export function AddIncomeSheet({
            {/* Dynamic Splitting Preview */}
            <div className="space-y-4 pt-4 border-t border-border/50">
              <div className="flex items-center justify-between px-1">
-               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Allocation Architecture</label>
+               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("allocationTitle")}</label>
                <span className="text-xs font-bold font-mono text-muted-foreground">
                  {Object.values(allocations).reduce((a, b) => a + b, 0)}%
                </span>
              </div>
              
              <div className="space-y-3 bg-card p-4 rounded-2xl border border-border/50">
-                <AllocationRow name="Expenses" color="bg-slate-500" value={allocations.EXPENSES} />
-                <AllocationRow name="Investment" color="bg-emerald-500" value={allocations.INVESTMENT} />
-                <AllocationRow name="Savings" color="bg-blue-500" value={allocations.SAVINGS} />
-                <AllocationRow name="Charity" color="bg-rose-500" value={allocations.CHARITY} />
+                <AllocationRow name={td("expenses")} color="bg-slate-500" value={allocations.EXPENSES} />
+                <AllocationRow name={td("investment")} color="bg-emerald-500" value={allocations.INVESTMENT} />
+                <AllocationRow name={td("savings")} color="bg-blue-500" value={allocations.SAVINGS} />
+                <AllocationRow name={td("charity")} color="bg-rose-500" value={allocations.CHARITY} />
              </div>
              
              <p className="text-xs text-muted-foreground text-center pt-2">
-                Percentages can be permanently altered in Governance.
+                {t("allocationNote")}
              </p>
            </div>
 
@@ -184,7 +187,7 @@ export function AddIncomeSheet({
                <Loader2 className="size-5 animate-spin" />
              ) : (
                <>
-                 <span>Inject into Sanctuary</span>
+                  <span>{t("submitButton")}</span>
                  <ArrowRight className="size-5 group-hover:translate-x-1 transition-transform" />
                </>
              )}

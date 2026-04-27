@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -17,14 +18,9 @@ type Allocations = {
   CHARITY: number;
 };
 
-const STEPS = [
-  { id: 1, title: "The Sanctuary Blueprint", subtitle: "Set your financial pillars. Every income will automatically flow according to these ratios." },
-  { id: 2, title: "Initial Foundations", subtitle: "Declare the balances currently in your possession to seed the ledger." },
-  { id: 3, title: "Establishing Ledger", subtitle: "Preparing your Financial Sanctuary." },
-];
-
 export function OnboardingFlow() {
   const router = useRouter();
+  const t = useTranslations("Onboarding");
   const [step, setStep] = useState(1);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState("");
@@ -53,7 +49,7 @@ export function OnboardingFlow() {
 
   const nextStep = () => {
     if (step === 1 && currentTotal !== 100) {
-      setError("Allocations must sum precisely to 100%.");
+      setError(t("allocationError"));
       return;
     }
     setError("");
@@ -82,7 +78,7 @@ export function OnboardingFlow() {
       if (res.success) {
         router.push("/dashboard");
       } else {
-        setError(res.error || "A disruption occurred in the sanctuary initialization.");
+        setError(res.error || t("initializationError"));
         setStep(2); // Go back so they can see Error.
       }
     });
@@ -94,10 +90,10 @@ export function OnboardingFlow() {
       {/* Header */}
       <div className="space-y-3 text-center">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-emerald-950 dark:text-emerald-50">
-          {STEPS[step - 1].title}
+          {t(`step${step}Title` as any)}
         </h1>
         <p className="text-lg text-muted-foreground max-w-lg mx-auto leading-relaxed">
-          {STEPS[step - 1].subtitle}
+          {t(`step${step}Subtitle` as any)}
         </p>
       </div>
 
@@ -111,7 +107,7 @@ export function OnboardingFlow() {
       {step === 1 && (
         <div className="space-y-8 bg-card border border-border p-8 rounded-[32px] shadow-[0_8px_40px_-12px_rgba(0,0,0,0.05)]">
           <div className="flex justify-between items-end border-b border-border pb-6">
-            <span className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Total Allocation</span>
+            <span className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">{t("totalAllocation")}</span>
             <span className={cn(
               "text-3xl font-black transition-colors duration-300",
               currentTotal === 100 ? "text-emerald-600 dark:text-emerald-400" : "text-amber-500"
@@ -122,28 +118,28 @@ export function OnboardingFlow() {
 
           <div className="space-y-10 pt-2">
             <AllocationSlider
-              label="Expenses"
+              label={t("expenses")}
               icon={Wallet}
               value={allocations.EXPENSES}
               onChange={(v) => handleAllocationChange("EXPENSES", v)}
               color="bg-slate-500"
             />
             <AllocationSlider
-              label="Investment"
+              label={t("investment")}
               icon={TrendingUp}
               value={allocations.INVESTMENT}
               onChange={(v) => handleAllocationChange("INVESTMENT", v)}
               color="bg-emerald-500"
             />
             <AllocationSlider
-              label="Savings"
+              label={t("savings")}
               icon={PiggyBank}
               value={allocations.SAVINGS}
               onChange={(v) => handleAllocationChange("SAVINGS", v)}
               color="bg-blue-500"
             />
             <AllocationSlider
-              label="Charity"
+              label={t("charity")}
               icon={HeartHandshake}
               value={allocations.CHARITY}
               onChange={(v) => handleAllocationChange("CHARITY", v)}
@@ -157,25 +153,25 @@ export function OnboardingFlow() {
       {step === 2 && (
         <div className="space-y-6 bg-card border border-border p-8 rounded-[32px] shadow-[0_8px_40px_-12px_rgba(0,0,0,0.05)]">
            <BalanceInput 
-             label="Expenses Account" 
+             label={t("expensesAccount")} 
              icon={Wallet} 
              value={balances.EXPENSES} 
              onChange={(val) => setBalances(p => ({ ...p, EXPENSES: val }))} 
            />
            <BalanceInput 
-             label="Investment Account" 
+             label={t("investmentAccount")} 
              icon={TrendingUp} 
              value={balances.INVESTMENT} 
              onChange={(val) => setBalances(p => ({ ...p, INVESTMENT: val }))} 
            />
            <BalanceInput 
-             label="Savings Account" 
+             label={t("savingsAccount")} 
              icon={PiggyBank} 
              value={balances.SAVINGS} 
              onChange={(val) => setBalances(p => ({ ...p, SAVINGS: val }))} 
            />
            <BalanceInput 
-             label="Charity Account" 
+             label={t("charityAccount")} 
              icon={HeartHandshake} 
              value={balances.CHARITY} 
              onChange={(val) => setBalances(p => ({ ...p, CHARITY: val }))} 
@@ -190,7 +186,7 @@ export function OnboardingFlow() {
              <CheckCircle2 className="size-10 text-emerald-600 dark:text-emerald-400" />
            </div>
            <p className="text-center text-muted-foreground max-w-sm">
-             The framework for your wealth is complete. Click below to immortalize your ledger.
+             {t("completionMessage")}
            </p>
         </div>
       )}
@@ -204,7 +200,7 @@ export function OnboardingFlow() {
             disabled={isPending}
             className="rounded-xl px-6 text-muted-foreground hover:text-foreground hover:bg-secondary/50 font-semibold h-14"
           >
-            <ArrowLeft className="size-5 me-2" /> Back
+            <ArrowLeft className="size-5 me-2" /> {t("backButton")}
           </Button>
         ) : <div />}
 
@@ -213,7 +209,7 @@ export function OnboardingFlow() {
             onClick={nextStep}
             className="rounded-xl px-10 bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-14 text-lg shadow-xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
-            Continue <ArrowRight className="size-5 ms-2" />
+            {t("continueButton")} <ArrowRight className="size-5 ms-2" />
           </Button>
         ) : (
           <Button 
@@ -221,7 +217,7 @@ export function OnboardingFlow() {
             disabled={isPending}
             className="rounded-xl px-10 bg-emerald-600 hover:bg-emerald-700 text-white font-bold h-14 text-lg shadow-xl shadow-emerald-600/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
-            {isPending ? <Loader2 className="size-5 animate-spin mx-4" /> : "Enter Sanctuary"}
+            {isPending ? <Loader2 className="size-5 animate-spin mx-4" /> : t("enterButton")}
           </Button>
         )}
       </div>
@@ -257,7 +253,7 @@ function AllocationSlider({ label, icon: Icon, value, onChange, color }: { label
 function BalanceInput({ label, icon: Icon, value, onChange }: { label: string, icon: any, value: number, onChange: (v: number) => void }) {
   return (
     <div className="flex items-center gap-4 bg-secondary/30 p-4 rounded-2xl border border-border/50 focus-within:border-primary/50 focus-within:bg-card transition-all">
-       <div className="p-3 bg-card rounded-xl shadow-sm border border-border flex-shrink-0">
+       <div className="p-3 bg-card rounded-xl shadow-sm border border-border shrink-0">
          <Icon className="size-6 text-muted-foreground" />
        </div>
        <div className="flex-1 space-y-1">

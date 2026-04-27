@@ -51,13 +51,14 @@ export function GovernanceTabs({
 function AllocationPanel({ budgetSettings }: { budgetSettings: any }) {
   const t = useTranslations("Governance");
   const [isPending, startTransition] = useTransition();
-  const [allocations, setAllocations] = useState({
-    EXPENSES: Number(budgetSettings?.expensesPct || 50),
-    INVESTMENT: Number(budgetSettings?.investmentPct || 20),
-    SAVINGS: Number(budgetSettings?.savingsPct || 20),
-    CHARITY: Number(budgetSettings?.charityPct || 10),
-  });
-  const [error, setError] = useState("");
+    const [allocations, setAllocations] = useState({
+      EXPENSES: Number(budgetSettings?.expensesPct || 50),
+      INVESTMENT: Number(budgetSettings?.investmentPct || 20),
+      SAVINGS: Number(budgetSettings?.savingsPct || 20),
+      CHARITY: Number(budgetSettings?.charityPct || 10),
+    });
+    const td = useTranslations("Dashboard");
+    const [error, setError] = useState("");
   const total = Object.values(allocations).reduce((a, b) => a + b, 0);
   const isValid = total === 100;
 
@@ -68,7 +69,7 @@ function AllocationPanel({ budgetSettings }: { budgetSettings: any }) {
       const fd = new FormData();
       fd.append("data", JSON.stringify(allocations));
       const res = await updateAllocationsAction(null, fd);
-      if (!res.success) setError(res.error || "Failed to update allocations");
+      if (!res.success) setError(res.error || t("errorUpdate"));
     });
   };
 
@@ -85,7 +86,7 @@ function AllocationPanel({ budgetSettings }: { budgetSettings: any }) {
         {(Object.entries(allocations) as [keyof typeof allocations, number][]).map(([key, value]) => (
           <div key={key} className="space-y-4">
             <div className="flex justify-between items-center text-sm font-bold uppercase tracking-wider">
-              <span className="text-foreground">{key}</span>
+              <span className="text-foreground">{td(key.toLowerCase() as any)}</span>
               <span className="text-emerald-600 font-mono text-base">{value}%</span>
             </div>
             <Slider

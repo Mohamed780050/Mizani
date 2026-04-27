@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import {
   Popover,
   PopoverContent,
@@ -24,6 +25,7 @@ export function NotificationBell({ initialCount = 0 }: { initialCount?: number }
   const [unreadCount, setUnreadCount] = useState(initialCount);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations("Notifications");
 
   useEffect(() => {
     if (open) {
@@ -75,14 +77,14 @@ export function NotificationBell({ initialCount = 0 }: { initialCount?: number }
         className="w-80 md:w-96 p-0 bg-[#f7f9ff] dark:bg-[#080b0e] border-border/50 shadow-2xl rounded-2xl overflow-hidden"
       >
         <div className="p-4 bg-card border-b border-border/50 flex items-center justify-between">
-           <h3 className="font-bold tracking-tight">Sanctuary Alerts</h3>
+           <h3 className="font-bold tracking-tight">{t("title")}</h3>
            {unreadCount > 0 && (
              <button 
                onClick={handleMarkAsRead}
                disabled={isPending}
                className="text-xs text-primary font-semibold hover:underline"
              >
-               Mark all read
+               {t("markAllRead")}
              </button>
            )}
         </div>
@@ -91,7 +93,7 @@ export function NotificationBell({ initialCount = 0 }: { initialCount?: number }
            {notifications.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full py-10 px-4 text-center">
                  <Bell className="size-8 text-muted-foreground/30 mb-3" />
-                 <p className="text-sm font-medium text-muted-foreground">No alerts actively monitored in your sanctuary.</p>
+                 <p className="text-sm font-medium text-muted-foreground">{t("emptyState")}</p>
               </div>
            ) : (
              <div className="divide-y divide-border/30">

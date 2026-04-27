@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import {
   LayoutDashboard,
@@ -11,17 +11,18 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { href: "/dashboard", icon: LayoutDashboard, labelKey: "Sanctuary" },
-  { href: "/accounts", icon: Wallet, labelKey: "Ledger & Accounts" },
-  { href: "/goals", icon: Target, labelKey: "Wealth Goals" },
-  { href: "/settings", icon: Settings, labelKey: "Governance" },
+  { href: "/dashboard", icon: LayoutDashboard, labelKey: "dashboard" },
+  { href: "/accounts", icon: Wallet, labelKey: "accounts" },
+  { href: "/goals", icon: Target, labelKey: "goals" },
+  { href: "/settings", icon: Settings, labelKey: "settings" },
 ] as const;
 
 export function Sidebar({ user }: { user: { name: string; email: string } }) {
   const pathname = usePathname();
+  const t = useTranslations("Sidebar");
 
   return (
-    <aside className="w-72 flex-shrink-0 relative hidden lg:flex flex-col bg-card border-e border-border/50">
+    <aside className="w-72 shrink-0 relative hidden lg:flex flex-col bg-card border-e border-border/50">
       <div className="p-8">
         <div className="flex items-center gap-3">
           <div className="size-8 rounded-xl bg-primary flex items-center justify-center">
@@ -39,7 +40,7 @@ export function Sidebar({ user }: { user: { name: string; email: string } }) {
             key={item.href}
             href={item.href}
             icon={item.icon}
-            label={item.labelKey}
+            label={t(item.labelKey as any)}
             active={pathname === item.href}
           />
         ))}
