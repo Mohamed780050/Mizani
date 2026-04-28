@@ -1,5 +1,5 @@
 import React from "react";
-import { Skeleton } from "../../dashboard/components/Skeletons";
+import { Skeleton } from "@/app/[locale]/(protected)/dashboard/components/Skeletons";
 
 export function GoalsSkeleton() {
   return (

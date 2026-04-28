@@ -11,18 +11,17 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDownRight, ArrowUpRight, Wallet } from "lucide-react";
-import type { Prisma } from "@/generated/prisma/client";
 import { useTranslations } from "next-intl";
 
 // Define the precise nested query output securely
 type LedgerEntry = {
   id: string;
-  amount: Prisma.Decimal;
+  amount: number;
   type: "CREDIT" | "DEBIT";
   refType: string;
   note: string | null;
   createdAt: Date;
-  balanceAfter: Prisma.Decimal;
+  balanceAfter: number;
   financialAccount: {
     type: string;
   };

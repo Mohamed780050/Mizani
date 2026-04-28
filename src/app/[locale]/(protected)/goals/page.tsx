@@ -2,8 +2,8 @@ import React, { Suspense } from "react";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { GoalsContent } from "./components/GoalsContent";
-import { GoalsSkeleton } from "./components/GoalsSkeleton";
+import { GoalsContent } from "@/features/goals/components/GoalsContent";
+import { GoalsSkeleton } from "@/features/goals/components/GoalsSkeleton";
 
 export default async function GoalsPage({
   params,

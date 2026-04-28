@@ -1,9 +1,9 @@
-import React from "react";
-import db from "@/lib/db";
+import React, { Suspense } from "react";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { LedgerTable } from "@/features/ledger/components/LedgerTable";
+import { LedgerContent } from "@/features/ledger/components/LedgerContent";
+import { LedgerSkeleton } from "../dashboard/components/Skeletons";
 
 export default async function AccountsPage({
   params,
@@ -20,34 +20,21 @@ export default async function AccountsPage({
 
   if (!session) return null;
 
-  const ledgerEntries = await db.transactionLedger.findMany({
-    where: { financialAccount: { userId: session.user.id } },
-    orderBy: { createdAt: "desc" },
-    include: {
-      financialAccount: {
-        select: { type: true }
-      }
-    }
-  });
-
-  const serializedEntries = ledgerEntries.map(entry => ({
-    ...entry,
-    amount: Number(entry.amount),
-    balanceAfter: Number(entry.balanceAfter),
-  }));
-
   return (
     <div className="space-y-8 animate-in fade-in duration-500 max-w-6xl mx-auto pb-12 w-full pt-6 px-4 md:px-0">
-       <div className="flex flex-col gap-2">
-         <h1 className="text-3xl font-black tracking-tight text-emerald-950 dark:text-emerald-50">
-           {t("title")}
-         </h1>
-         <p className="text-muted-foreground font-medium max-w-xl">
-           {t("description")}
-         </p>
-       </div>
+      <div className="flex flex-col gap-2">
+        <h1 className="text-3xl font-black tracking-tight text-emerald-950 dark:text-emerald-50">
+          {t("title")}
+          
+        </h1>
+        <p className="text-muted-foreground font-medium max-w-xl">
+          {t("description")}
+        </p>
+      </div>
 
-       <LedgerTable entries={serializedEntries as any} />
+      <Suspense fallback={<LedgerSkeleton />}>
+        <LedgerContent userId={session.user.id} />
+      </Suspense>
     </div>
   );
 }

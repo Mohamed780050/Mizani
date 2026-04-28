@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
+import { Logo } from "@/components/ui/Logo";
 import {
   LayoutDashboard,
   Wallet,
@@ -26,14 +27,14 @@ export function Sidebar({ user }: { user: { name: string; email: string } }) {
   return (
     <aside className="w-72 shrink-0 relative hidden lg:flex flex-col bg-card border-e border-border/50">
       <div className="p-8">
-        <div className="flex items-center gap-3">
-          <div className="size-8 rounded-xl bg-primary flex items-center justify-center">
-            <span className="text-white font-black text-xl">M</span>
+        <Link href="/dashboard" className="flex items-center gap-3 group">
+          <div className="size-20 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <Logo width={64} height={64} />
           </div>
-          <h1 className="font-extrabold text-2xl text-emerald-950 dark:text-emerald-50 tracking-tight">
+          <h1 className="font-extrabold text-3xl text-emerald-950 dark:text-emerald-50 tracking-tight">
             Mizani
           </h1>
-        </div>
+        </Link>
       </div>
 
       <nav className="flex-1 px-4 space-y-2 mt-4 overflow-y-auto">

@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
+import { Logo } from "@/components/ui/Logo";
 import {
   LayoutDashboard,
   Wallet,
@@ -44,8 +45,8 @@ export function MobileNav({ user }: { user: { name: string; email: string } }) {
       <SheetContent side="right" className="w-72 p-0 flex flex-col bg-card border-e border-border/50 h-full">
         <SheetHeader className="p-8 text-start">
           <SheetTitle className="flex items-center gap-3">
-            <div className="size-8 rounded-xl bg-primary flex items-center justify-center">
-              <span className="text-white font-black text-xl">M</span>
+            <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Logo />
             </div>
             <span className="font-extrabold text-2xl text-emerald-950 dark:text-emerald-50 tracking-tight">
               Mizani

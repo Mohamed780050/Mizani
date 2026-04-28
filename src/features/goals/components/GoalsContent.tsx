@@ -1,8 +1,6 @@
 import React from "react";
 import db from "@/lib/db";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import { GoalGrid } from "@/features/goals/components/GoalGrid";
+import { GoalGrid } from "./GoalGrid";
 
 export async function GoalsContent({ userId }: { userId: string }) {
   const [goals, savingsAccount] = await Promise.all([

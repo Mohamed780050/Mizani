@@ -1,4 +1,5 @@
 import React from "react";
+import { Logo } from "@/components/ui/Logo";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (
@@ -17,10 +18,15 @@ export default function layout({ children }: { children: React.ReactNode }) {
             />
           </div>
           <div className="relative z-10">
-            <div className="text-[#9ff2e2] text-4xl font-extrabold tracking-tight mb-2">
-              Mizani
+            <div className="flex items-center gap-3 mb-2">
+              <div className="size-12 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                <Logo width={40} height={40} className="brightness-0 invert" />
+              </div>
+              <div className="text-white text-4xl font-extrabold tracking-tight">
+                Mizani
+              </div>
             </div>
-            <div className="text-[#83d5c6] font-medium text-lg">
+            <div className="text-white/70 font-medium text-lg">
               Financial Sanctuary
             </div>
           </div>
