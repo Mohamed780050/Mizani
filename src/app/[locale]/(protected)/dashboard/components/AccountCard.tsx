@@ -1,4 +1,4 @@
-import React from "react";
+import { NumberFormatting } from "@/components/ui/NumberFormatting";
 
 export function AccountCard({ title, amount, icon: Icon, color, locale }: { title: string; amount: number; icon: any; color: string, locale: string }) {
   return (
@@ -12,7 +12,7 @@ export function AccountCard({ title, amount, icon: Icon, color, locale }: { titl
        <div className="space-y-1 relative z-10">
          <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">{title}</h3>
          <p className="text-3xl font-black font-mono text-foreground tracking-tight">
-           {amount.toLocaleString(locale === 'ar' ? 'ar-EG' : 'en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+           <NumberFormatting value={amount} />
          </p>
        </div>
     </div>

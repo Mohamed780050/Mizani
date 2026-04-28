@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { fundGoalAction } from "../actions/goal-actions";
+import { NumberFormatting } from "@/components/ui/NumberFormatting";
 
 type Goal = {
   id: string;
@@ -92,11 +93,11 @@ export function GoalCard({
         <div className="flex items-baseline space-x-1 mb-6">
           <span className="font-bold text-muted-foreground text-xs">{td("currency")}</span>
           <span className="font-mono font-black text-xl sm:text-2xl tracking-tighter">
-            {Number(goal.currentAmount).toLocaleString()}
+            <NumberFormatting value={goal.currentAmount} />
           </span>
           <span className="text-muted-foreground/50 font-bold mx-1">/</span>
           <span className="font-mono font-bold text-muted-foreground text-sm sm:text-base">
-            {Number(goal.targetAmount).toLocaleString()}
+            <NumberFormatting value={goal.targetAmount} />
           </span>
         </div>
       </div>
@@ -105,7 +106,7 @@ export function GoalCard({
         <div className="space-y-2">
           <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-muted-foreground">
             <span>{t("progress")}</span>
-            <span className="text-foreground">{percentage.toFixed(1)}%</span>
+            <span className="text-foreground"><NumberFormatting value={percentage} precision={1} />%</span>
           </div>
           <Progress value={percentage} className="h-3" />
         </div>

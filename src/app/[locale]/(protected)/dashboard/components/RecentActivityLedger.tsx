@@ -2,6 +2,7 @@ import React from "react";
 import db from "@/lib/db";
 import { getTranslations } from "next-intl/server";
 import { ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { formatNumber } from "@/lib/format-utils";
 
 export async function RecentActivityLedger({ userId, locale }: { userId: string, locale: string }) {
   const t = await getTranslations("Dashboard");
@@ -36,10 +37,11 @@ export async function RecentActivityLedger({ userId, locale }: { userId: string,
               </div>
               <div className="text-end">
                  <p className={`font-black font-mono text-lg ${tx.type === "CREDIT" ? "text-emerald-600" : "text-foreground"}`}>
-                    {tx.type === "CREDIT" ? "+" : "-"}{Number(tx.amount).toLocaleString()}
+                    {tx.type === "CREDIT" ? "+" : "-"}
+                    {formatNumber(Number(tx.amount))}
                  </p>
                  <p className="text-xs text-muted-foreground font-medium">
-                    {new Date(tx.createdAt).toLocaleDateString(locale === 'ar' ? 'ar-EG' : 'en-US')}
+                    {new Date(tx.createdAt).toLocaleDateString("en-US")}
                  </p>
               </div>
             </div>

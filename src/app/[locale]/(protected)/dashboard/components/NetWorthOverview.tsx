@@ -1,6 +1,7 @@
 import React from "react";
 import db from "@/lib/db";
 import { getTranslations } from "next-intl/server";
+import { formatNumber } from "@/lib/format-utils";
 
 export async function NetWorthOverview({ userId, locale }: { userId: string, locale: string }) {
   const t = await getTranslations("Dashboard");
@@ -21,7 +22,7 @@ export async function NetWorthOverview({ userId, locale }: { userId: string, loc
           <h2 className="text-emerald-500 font-bold uppercase tracking-widest text-sm">{t("netWorth")}</h2>
           <div className="flex items-baseline gap-2">
             <span className="text-5xl md:text-7xl font-black tracking-tight font-mono">
-              {totalWealth.toLocaleString(locale === 'ar' ? 'ar-EG' : 'en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              {formatNumber(totalWealth, { precision: 2 })}
             </span>
             <span className="text-xl md:text-2xl font-bold text-emerald-500">{t("currency")}</span>
           </div>

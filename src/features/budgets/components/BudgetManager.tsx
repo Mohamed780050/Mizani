@@ -31,6 +31,7 @@ import {
   upsertBudgetAction,
   deleteBudgetAction,
 } from "../actions/budget-actions";
+import { NumberFormatting } from "@/components/ui/NumberFormatting";
 
 type Category = {
   id: string;
@@ -75,7 +76,7 @@ export function BudgetManager({
           </p>
           <div className="flex items-baseline gap-1.5">
             <span className="text-3xl font-black font-mono text-amber-600 dark:text-amber-500">
-              {budgets.length}
+              <NumberFormatting value={budgets.length} precision={0} />
             </span>
             <span className="text-sm font-bold text-muted-foreground">
               {t("categories")}
@@ -300,7 +301,7 @@ function BudgetCard({ budget }: { budget: BudgetEntry }) {
         <h3 className="font-extrabold tracking-tight text-lg mb-1">
           {budget.category.name}
         </h3>
-        <div className="flex items-baseline gap-1 mb-6">
+        <div className="flex items-baseline gap-1.5 mb-6">
           <span
             className={`font-mono font-black text-2xl tracking-tighter ${
               isOver100
@@ -310,15 +311,11 @@ function BudgetCard({ budget }: { budget: BudgetEntry }) {
                   : "text-foreground"
             }`}
           >
-            {budget.spent.toLocaleString(undefined, {
-              minimumFractionDigits: 2,
-            })}
+            <NumberFormatting value={budget.spent} />
           </span>
           <span className="text-muted-foreground/50 font-bold mx-0.5">/</span>
           <span className="font-mono font-bold text-muted-foreground">
-            {budget.limit.toLocaleString(undefined, {
-              minimumFractionDigits: 2,
-            })}
+            <NumberFormatting value={budget.limit} />
           </span>
         </div>
       </div>
@@ -335,7 +332,7 @@ function BudgetCard({ budget }: { budget: BudgetEntry }) {
                   : "text-foreground"
             }
           >
-            {percentage.toFixed(1)}%
+            <NumberFormatting value={percentage} precision={1} />%
           </span>
         </div>
         <Progress

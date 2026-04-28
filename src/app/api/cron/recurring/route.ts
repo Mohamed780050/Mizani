@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/db";
 import { TransactionType, FrequencyType } from "@/generated/prisma/enums";
+import { formatNumber } from "@/lib/format-utils";
 
 /**
  * Recurring Expense CRON Handler
@@ -99,7 +100,7 @@ export async function GET(request: NextRequest) {
               userId: recurring.userId,
               type: "RECURRING_DEDUCTED",
               title: "Recurring Expense Processed",
-              body: `"${recurring.title}" (${Number(recurring.amount).toLocaleString()} EGP) was automatically deducted.`,
+              body: `"${recurring.title}" (${formatNumber(Number(recurring.amount))} EGP) was automatically deducted.`,
             },
           });
         });

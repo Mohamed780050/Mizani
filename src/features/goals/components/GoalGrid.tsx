@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/sheet";
 import { GoalCard } from "./GoalCard";
 import { CreateGoalForm } from "./CreateGoalForm";
+import { NumberFormatting } from "@/components/ui/NumberFormatting";
 
 type Goal = {
   id: string;
@@ -42,9 +43,7 @@ export function GoalGrid({
           </p>
           <div className="flex items-baseline gap-1.5">
             <span className="text-2xl sm:text-3xl font-black font-mono text-emerald-600 dark:text-emerald-500">
-              {savingsBalance.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-              })}
+              <NumberFormatting value={savingsBalance} />
             </span>
             <span className="text-sm font-bold text-muted-foreground uppercase">{td("currency")}</span>
           </div>

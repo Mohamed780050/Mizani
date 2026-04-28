@@ -12,6 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ArrowDownRight, ArrowUpRight, Wallet } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { NumberFormatting } from "@/components/ui/NumberFormatting";
 
 // Define the precise nested query output securely
 type LedgerEntry = {
@@ -88,11 +89,11 @@ export function LedgerTable({ entries }: { entries: LedgerEntry[] }) {
                 <TableCell className="py-4 font-mono font-bold text-[14px] sm:text-[15px]">
                   <span className={entry.type === "CREDIT" ? "text-emerald-500" : "text-rose-500"}>
                     {entry.type === "CREDIT" ? "+" : "-"}
-                    {Number(entry.amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    <NumberFormatting value={Number(entry.amount)} precision={2} />
                   </span>
                 </TableCell>
                 <TableCell className="text-right pr-6 py-4 font-mono font-black text-primary text-sm sm:text-base hidden md:table-cell">
-                  {Number(entry.balanceAfter).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  <NumberFormatting value={Number(entry.balanceAfter)} precision={2} />
                 </TableCell>
               </TableRow>
             ))}

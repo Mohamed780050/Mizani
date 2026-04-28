@@ -16,6 +16,7 @@ import { Loader2, Plus, Calendar, Coins, ArrowRight } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { useLocale, useTranslations } from "next-intl";
 import { DatePicker } from "@/components/ui/date-picker";
+import { NumberFormatting } from "@/components/ui/NumberFormatting";
 
 export function AddIncomeSheet({
   defaultAllocations,
@@ -160,7 +161,7 @@ export function AddIncomeSheet({
              <div className="flex items-center justify-between px-1">
                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("allocationTitle")}</label>
                <span className="text-xs font-bold font-mono text-muted-foreground">
-                 {Object.values(allocations).reduce((a, b) => a + b, 0)}%
+                 <NumberFormatting value={Object.values(allocations).reduce((a, b) => a + b, 0)} precision={0} />%
                </span>
              </div>
              
@@ -204,7 +205,7 @@ function AllocationRow({ name, color, value }: { name: string, color: string, va
           <div className={`size-2.5 rounded-full ${color}`} />
           <span>{name}</span>
         </div>
-        <span className="font-mono text-muted-foreground">{value}%</span>
+        <span className="font-mono text-muted-foreground"><NumberFormatting value={value} precision={0} />%</span>
       </div>
       {/* Visual Bar */}
       <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
