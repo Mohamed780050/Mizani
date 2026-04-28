@@ -216,5 +216,96 @@
     "createFirst": "Create First Budget",
     "errorLimit": "Free plan is limited to 3 category budgets. Upgrade to Pro for unlimited.",
     "errorDefault": "Failed to save budget"
+  },
+  "Landing": {
+    "nav": {
+      "personal": "Personal",
+      "business": "Business",
+      "wealth": "Wealth",
+      "security": "Security",
+      "about": "About",
+      "login": "Log In",
+      "openAccount": "Open Account"
+    },
+    "hero": {
+      "title": "Financial Automation,\nEffortless Precision.",
+      "description": "Mizani is an intelligent financial distribution system that automatically splits your income across various accounts (savings, investments, expenses) based on rules you define. Say goodbye to complex manual calculations.",
+      "cta": "Start Your Financial Journey",
+      "howItWorks": "How it Works",
+      "previewTitle": "Automatic Salary Distribution",
+      "salaryLabel": "Expected Monthly Salary",
+      "emergencyFund": "Emergency Fund",
+      "investment": "Investment Portfolio",
+      "currentAccount": "Current Account",
+      "charity": "Charity",
+      "automatic": "{percent}% Automatic",
+      "remaining": "Remaining ({percent}%)"
+    },
+    "howItWorks": {
+      "title": "How Mizani Works",
+      "description": "Three simple steps to automate your financial life and focus on what truly matters.",
+      "step1": {
+        "title": "Connect and Set Ratios",
+        "description": "Connect your bank accounts with total security, and define your custom rules. How much do you want to save? How much to invest? Set the rules once."
+      },
+      "step2": {
+        "title": "Automatic Distribution",
+        "description": "Once your salary or any income arrives, Mizani immediately distributes the funds across different accounts and funds according to your rules without your intervention."
+      },
+      "step3": {
+        "title": "Track and Grow",
+        "description": "Monitor the growth of your savings and investments through a single simple and beautiful dashboard. Adjust rules anytime to suit your new goals."
+      }
+    },
+    "pricing": {
+      "title": "Transparent Plans, Real Value",
+      "description": "Choose the plan that suits your financial needs, with no hidden fees.",
+      "basic": {
+        "name": "Basic",
+        "desc": "For simple income management",
+        "price": "Free",
+        "features": [
+          "One bank account connection",
+          "3 category distribution",
+          "Simple monthly reports"
+        ],
+        "cta": "Choose Basic"
+      },
+      "pro": {
+        "name": "Mizani Pro",
+        "desc": "For comprehensive financial automation",
+        "price": "SAR 29",
+        "period": "/month",
+        "badge": "Most Popular",
+        "features": [
+          "Unlimited bank account connections",
+          "Complex and unlimited distribution rules",
+          "Advanced analytical reports",
+          "24/7 technical support"
+        ],
+        "cta": "Subscribe to Pro"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "description": "Everything you need to know about Mizani security and accounts.",
+      "q1": "Is my banking data safe with Mizani?",
+      "a1": "Yes, security is our top priority. We use bank-grade encryption (AES-256) and do not store your login data on our servers. Mizani has 'read and perform programmed transfers only' permissions and cannot withdraw funds to any third party.",
+      "q2": "What banks are supported?",
+      "q3": "Can I cancel my subscription anytime?",
+      "q4": "What happens if my salary or income changes?"
+    },
+    "footer": {
+      "rights": "© 2024 Mizani Financial Technologies. All rights reserved. Member FDIC.",
+      "legal": "Legal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Settings",
+      "company": "Company",
+      "security": "Security",
+      "sustainability": "Sustainability",
+      "careers": "Careers",
+      "press": "Press"
+    }
   }
 }

@@ -1,9 +1,27 @@
-import Image from "next/image";
+import { setRequestLocale } from "next-intl/server";
+import { LandingNav } from "@/features/landing/components/LandingNav";
+import { LandingHero } from "@/features/landing/components/LandingHero";
+import { HowItWorks } from "@/features/landing/components/HowItWorks";
+import { Pricing } from "@/features/landing/components/Pricing";
+import { FAQ } from "@/features/landing/components/FAQ";
+import { LandingFooter } from "@/features/landing/components/LandingFooter";
 
-export default function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <h1>Home</h1>
-    </div>
+    <main className="min-h-screen bg-surface-container-lowest text-on-surface font-sans antialiased overflow-x-hidden">
+      <LandingNav />
+      <LandingHero />
+      <HowItWorks />
+      <Pricing />
+      <FAQ />
+      <LandingFooter />
+    </main>
   );
 }
