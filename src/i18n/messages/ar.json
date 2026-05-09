@@ -228,7 +228,8 @@
       "security": "أمان",
       "about": "حولنا",
       "login": "تسجيل الدخول",
-      "openAccount": "افتح حساب"
+      "openAccount": "افتح حساب",
+      "dashboard": "لوحة التحكم"
     },
     "hero": {
       "title": "أتمتة مالية،\nدقة بلا مجهود.",

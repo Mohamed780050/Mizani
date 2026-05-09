@@ -7,9 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/ui/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { LangToggle } from "@/components/LangToggle";
+import { useSession } from "@/lib/auth-client";
 
 export function LandingNav() {
   const t = useTranslations("Landing.nav");
+  const { data: session, isPending } = useSession();
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur-md shadow-sm border-b border-border/40">
@@ -48,15 +50,28 @@ export function LandingNav() {
             <ThemeToggle variant="ghost" />
             <LangToggle variant="ghost" />
           </div>
-          <Link 
-            href="/sign-in" 
-            className="text-muted-foreground font-medium hover:text-primary transition-colors hover:opacity-80 hidden md:inline-block"
-          >
-            {t("login")}
-          </Link>
-          <Button asChild className="bg-primary text-primary-foreground px-6 py-2 rounded-full font-semibold hover:opacity-90 transition-opacity shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
-            <Link href="/sign-up">{t("openAccount")}</Link>
-          </Button>
+          {isPending ? (
+            <div className="flex gap-4">
+              <div className="h-10 w-20 bg-muted/50 animate-pulse rounded-md hidden md:block"></div>
+              <div className="h-10 w-32 bg-primary/20 animate-pulse rounded-full"></div>
+            </div>
+          ) : session ? (
+            <Button asChild className="bg-primary text-primary-foreground px-6 py-2 rounded-full font-semibold hover:opacity-90 transition-opacity shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+              <Link href="/dashboard">{t("dashboard")}</Link>
+            </Button>
+          ) : (
+            <>
+              <Link 
+                href="/sign-in" 
+                className="text-muted-foreground font-medium hover:text-primary transition-colors hover:opacity-80 hidden md:inline-block"
+              >
+                {t("login")}
+              </Link>
+              <Button asChild className="bg-primary text-primary-foreground px-6 py-2 rounded-full font-semibold hover:opacity-90 transition-opacity shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+                <Link href="/sign-up">{t("openAccount")}</Link>
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </nav>

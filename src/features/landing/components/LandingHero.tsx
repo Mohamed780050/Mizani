@@ -51,7 +51,7 @@ export function LandingHero() {
               <div className="p-8 space-y-8">
                 <div className="text-center pb-8 border-b border-border/50">
                   <span className="block text-sm font-medium text-muted-foreground mb-2">{t("salaryLabel")}</span>
-                  <span className="text-4xl font-black text-primary tracking-tight">SAR 15,000.00</span>
+                  <span className="text-4xl font-black text-primary tracking-tight"> 15,000.00</span>
                 </div>
                 
                 <div className="space-y-6">
@@ -137,7 +137,7 @@ function AllocationItem({
             <span className="block text-xs font-bold text-muted-foreground uppercase tracking-wider">{percent}%</span>
           </div>
         </div>
-        <span className="font-bold text-lg text-primary">SAR {amount}</span>
+        <span className="font-bold text-lg text-primary">{amount}</span>
       </div>
     </div>
   );

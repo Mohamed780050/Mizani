@@ -228,7 +228,8 @@
       "security": "Security",
       "about": "About",
       "login": "Log In",
-      "openAccount": "Open Account"
+      "openAccount": "Open Account",
+      "dashboard": "Dashboard"
     },
     "hero": {
       "title": "Financial Automation,\nEffortless Precision.",
