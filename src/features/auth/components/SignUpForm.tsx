@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { signUpAction } from "../actions/sign-up-action";
+import { SocialSignInButton } from "./SocialSignInButton";
 import { Loader2, ArrowRight, User, Mail, Lock, Shield, Eye, EyeOff } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -165,6 +166,17 @@ export function SignUpForm() {
           </>
         )}
       </Button>
+
+      {/* Social Sign-In Divider */}
+      <div className="relative flex items-center py-2">
+        <div className="flex-1 border-t border-border" />
+        <span className="px-4 text-sm text-muted-foreground font-medium">
+          {t("orContinueWith")}
+        </span>
+        <div className="flex-1 border-t border-border" />
+      </div>
+
+      <SocialSignInButton disabled={isPending} />
 
       <div className="mt-8 pt-6 border-t border-border text-center">
         <p className="text-muted-foreground">

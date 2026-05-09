@@ -48,7 +48,9 @@
     "resetCodeLabel": "رمز إعادة التعيين",
     "newPasswordLabel": "كلمة المرور الجديدة",
     "resetPasswordButton": "تحديث كلمة المرور",
-    "changeEmailLink": "أدخلت بريداً خاطئاً؟ قم بتغييره"
+    "changeEmailLink": "أدخلت بريداً خاطئاً؟ قم بتغييره",
+    "orContinueWith": "أو تابع باستخدام",
+    "continueWithGoogle": "المتابعة باستخدام جوجل"
   },
   "Ledger": {
     "title": "السجل الدائم",

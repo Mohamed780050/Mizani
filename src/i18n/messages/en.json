@@ -48,7 +48,9 @@
     "resetCodeLabel": "Reset Code",
     "newPasswordLabel": "New Password",
     "resetPasswordButton": "Update Password",
-    "changeEmailLink": "Entered wrong email? Change it"
+    "changeEmailLink": "Entered wrong email? Change it",
+    "orContinueWith": "or continue with",
+    "continueWithGoogle": "Continue with Google"
   },
   "Ledger": {
     "title": "Immutable Ledger",
