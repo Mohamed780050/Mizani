@@ -8,6 +8,8 @@ import { Switch } from "@/components/ui/switch";
 import { updateAllocationsAction, updatePreferencesAction } from "../actions/settings-actions";
 import { Loader2, Save, Crown, AlertTriangle } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { LangToggle } from "@/components/LangToggle";
 
 export function GovernanceTabs({
   budgetSettings,
@@ -143,11 +145,17 @@ function PreferencesPanel({ preferences }: { preferences: any }) {
 
   return (
     <div className="bg-card border border-border/50 p-5 sm:p-8 rounded-[32px] shadow-sm max-w-2xl space-y-8">
-      <div>
-        <h3 className="text-xl font-bold mb-2">{t("prefTitle")}</h3>
-        <p className="text-muted-foreground text-sm font-medium mb-8">
-          {t("prefDesc")}
-        </p>
+      <div className="flex justify-between items-start">
+        <div>
+          <h3 className="text-xl font-bold mb-2">{t("prefTitle")}</h3>
+          <p className="text-muted-foreground text-sm font-medium mb-8">
+            {t("prefDesc")}
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <ThemeToggle variant="outline" className="rounded-xl border-border/50 shadow-sm" />
+          <LangToggle variant="outline" className="rounded-xl border-border/50 shadow-sm" />
+        </div>
       </div>
 
       <div className="space-y-6">

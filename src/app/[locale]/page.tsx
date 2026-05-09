@@ -23,7 +23,7 @@ export default async function Home({
   setRequestLocale(locale);
 
   return (
-    <main className="min-h-screen bg-surface-container-lowest text-on-surface font-sans antialiased overflow-x-hidden">
+    <main className="min-h-screen bg-background text-foreground font-sans antialiased overflow-x-hidden">
       <LandingNav />
       <LandingHero />
       <HowItWorks />

@@ -36,11 +36,11 @@ export function FAQ() {
   ];
 
   return (
-    <section className="py-24 bg-surface-container-lowest">
+    <section className="py-24 bg-background">
       <div className="max-w-3xl mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black text-primary mb-6">{t("title")}</h2>
-          <p className="text-xl text-on-surface-variant leading-relaxed">
+          <p className="text-xl text-muted-foreground leading-relaxed">
             {t("description")}
           </p>
         </div>
@@ -50,12 +50,12 @@ export function FAQ() {
             <AccordionItem 
               key={faq.id} 
               value={faq.id}
-              className="bg-surface-container-low rounded-[2rem] px-8 border-none shadow-low overflow-hidden"
+              className="bg-card rounded-[2rem] px-8 border border-border/50 shadow-low overflow-hidden"
             >
               <AccordionTrigger className="text-xl font-bold text-primary hover:no-underline py-8">
                 {faq.q}
               </AccordionTrigger>
-              <AccordionContent className="text-lg text-on-surface-variant leading-relaxed font-medium pb-8">
+              <AccordionContent className="text-lg text-muted-foreground leading-relaxed font-medium pb-8">
                 {faq.a}
               </AccordionContent>
             </AccordionItem>
