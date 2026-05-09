@@ -139,6 +139,7 @@
     "accounts": "Ledger & Accounts",
     "budgets": "Budgets",
     "goals": "Wealth Goals",
+    "investCalc": "Invest Calc",
     "settings": "Governance"
   },
   "Notifications": {
@@ -307,5 +308,28 @@
       "careers": "Careers",
       "press": "Press"
     }
+  },
+  "InvestCalc": {
+    "title": "Investment Calculator",
+    "description": "Simulate compound growth. See how your capital multiplies over time with reinvested returns.",
+    "initialInvestment": "Initial Capital",
+    "roiPercent": "Return on Investment (%)",
+    "frequency": "Compounding Frequency",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "duration": "Investment Duration",
+    "months": "Months",
+    "years": "Years",
+    "totalValue": "Total Value",
+    "totalProfit": "Net Profit",
+    "profitPercent": "Total ROI",
+    "period": "Period",
+    "startBalance": "Start Balance",
+    "interest": "Interest Earned",
+    "endBalance": "End Balance",
+    "breakdown": "Period Breakdown",
+    "growthChart": "Growth Projection",
+    "year": "Year",
+    "month": "Month"
   }
 }

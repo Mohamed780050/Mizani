@@ -8,6 +8,7 @@ import {
   Wallet,
   BarChart3,
   Target,
+  TrendingUp,
   Settings,
   Menu,
   type LucideIcon,
@@ -27,6 +28,7 @@ const navItems = [
   { href: "/accounts", icon: Wallet, labelKey: "accounts" },
   { href: "/budgets", icon: BarChart3, labelKey: "budgets" },
   { href: "/goals", icon: Target, labelKey: "goals" },
+  { href: "/invest-calc", icon: TrendingUp, labelKey: "investCalc" },
   { href: "/settings", icon: Settings, labelKey: "settings" },
 ] as const;
 

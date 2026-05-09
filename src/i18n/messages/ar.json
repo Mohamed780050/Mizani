@@ -139,6 +139,7 @@
     "accounts": "السجل والحسابات",
     "budgets": "الميزانيات",
     "goals": "أهداف الثروة",
+    "investCalc": "حاسبة الاستثمار",
     "settings": "الحوكمة"
   },
   "Notifications": {
@@ -307,5 +308,28 @@
       "careers": "الوظائف",
       "press": "الصحافة"
     }
+  },
+  "InvestCalc": {
+    "title": "حاسبة الاستثمار",
+    "description": "حاكِ النمو المركّب. شاهد كيف يتضاعف رأس مالك عبر الزمن مع إعادة استثمار الأرباح.",
+    "initialInvestment": "رأس المال الأولي",
+    "roiPercent": "العائد على الاستثمار (%)",
+    "frequency": "تكرار الأرباح",
+    "monthly": "شهري",
+    "yearly": "سنوي",
+    "duration": "مدة الاستثمار",
+    "months": "أشهر",
+    "years": "سنوات",
+    "totalValue": "القيمة الإجمالية",
+    "totalProfit": "صافي الربح",
+    "profitPercent": "إجمالي العائد",
+    "period": "الفترة",
+    "startBalance": "الرصيد الابتدائي",
+    "interest": "الأرباح المكتسبة",
+    "endBalance": "الرصيد النهائي",
+    "breakdown": "تفصيل الفترات",
+    "growthChart": "توقعات النمو",
+    "year": "سنة",
+    "month": "شهر"
   }
 }
