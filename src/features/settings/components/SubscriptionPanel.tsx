@@ -66,7 +66,7 @@ export function SubscriptionPanel({ subscription }: { subscription: any }) {
 
   return (
     <div className="bg-card border border-border/50 p-5 sm:p-8 rounded-[32px] shadow-sm max-w-2xl relative overflow-hidden">
-      <ProBadgeDecoration isActive={true} />
+      <ProBadgeDecoration isActive={isPro} />
       
       <div className="relative z-10">
         <h3 className="text-xl font-bold mb-2">{t("subsTitle")}</h3>
