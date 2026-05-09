@@ -8,7 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { updateAllocationsAction, updatePreferencesAction } from "../actions/settings-actions";
 import { Loader2, Save, Crown, AlertTriangle } from "lucide-react";
 import { dodopayments, useSession } from "@/lib/auth-client";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { LangToggle } from "@/components/LangToggle";
 
@@ -22,17 +22,20 @@ export function GovernanceTabs({
   subscription: any;
 }) {
   const t = useTranslations("Governance");
+  const isPro = subscription?.plan === "pro" && subscription?.status === "active";
+  const locale = useLocale();
   return (
-    <Tabs defaultValue="allocations" className="w-full">
-      <TabsList className="bg-secondary/40 p-1 flex rounded-2xl w-full max-w-md mb-8 h-auto border border-border/50 overflow-x-auto no-scrollbar">
+    <Tabs defaultValue="allocations" className="w-full" dir={locale === "ar" ? "rtl" : "ltr"}>
+      <TabsList className="bg-secondary/40 p-1 flex rounded-2xl w-full max-w-md mb-8 h-auto border border-border/50 overflow-x-auto no-scrollbar" >
         <TabsTrigger value="allocations" className="rounded-xl py-3 text-[10px] sm:text-xs uppercase font-bold tracking-widest flex-1 px-2 sm:px-4">
           {t("tabAllocations")}
         </TabsTrigger>
         <TabsTrigger value="preferences" className="rounded-xl py-3 text-[10px] sm:text-xs uppercase font-bold tracking-widest flex-1 px-2 sm:px-4">
           {t("tabPreferences")}
         </TabsTrigger>
-        <TabsTrigger value="subscription" className="rounded-xl py-3 text-[10px] sm:text-xs uppercase font-bold tracking-widest flex-1 px-2 sm:px-4">
+        <TabsTrigger value="subscription" className="rounded-xl py-3 text-[10px] sm:text-xs uppercase font-bold tracking-widest flex-1 px-2 sm:px-4 relative">
           {t("tabBilling")}
+          {isPro && <Crown className="size-3 ml-1 text-amber-500 fill-amber-500 animate-pulse" />}
         </TabsTrigger>
       </TabsList>
 
@@ -265,7 +268,17 @@ function SubscriptionPanel({ subscription }: { subscription: any }) {
 
   return (
     <div className="bg-card border border-border/50 p-5 sm:p-8 rounded-[32px] shadow-sm max-w-2xl relative overflow-hidden">
-      {isPro && <div className="absolute -top-10 -right-10 size-40 bg-amber-500/10 blur-3xl rounded-full" />}
+      {isPro && (
+        <>
+          <div className="absolute -top-10 -right-10 size-40 bg-amber-500/20 blur-3xl rounded-full" />
+          <div className="absolute top-0 right-0 p-4">
+            <div className="bg-amber-500 text-white text-[10px] font-black uppercase tracking-tighter px-4 py-1.5 rounded-full shadow-lg shadow-amber-500/20 flex items-center gap-1.5 animate-in fade-in zoom-in duration-500">
+               <Crown className="size-3 fill-white" />
+               {t("planActive")}
+            </div>
+          </div>
+        </>
+      )}
       
       <div className="relative z-10">
         <h3 className="text-xl font-bold mb-2">{t("subsTitle")}</h3>
@@ -279,13 +292,16 @@ function SubscriptionPanel({ subscription }: { subscription: any }) {
           </div>
         )}
 
-        <div className={`p-6 rounded-2xl border ${isPro ? 'border-amber-500/30 bg-amber-500/5' : 'border-border/50 bg-secondary/20'} flex flex-col sm:flex-row items-start gap-4`}>
-          <div className={`size-12 rounded-full flex items-center justify-center shrink-0 ${isPro ? 'bg-amber-500 text-white' : 'bg-primary/10 text-primary'}`}>
+        <div className={`p-6 rounded-2xl border ${isPro ? 'border-amber-500/30 bg-gradient-to-br from-amber-500/[0.07] to-amber-500/[0.02] backdrop-blur-sm' : 'border-border/50 bg-secondary/20'} flex flex-col sm:flex-row items-start gap-4 transition-all duration-300 hover:shadow-md hover:shadow-amber-500/5`}>
+          <div className={`size-12 rounded-full flex items-center justify-center shrink-0 ${isPro ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/40' : 'bg-primary/10 text-primary'}`}>
              <Crown className="size-6" />
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 flex-wrap mb-1">
-              <h4 className="font-bold text-lg">{isPro ? t("proTitle") : t("freeTitle")}</h4>
+              <div className="flex flex-col">
+                <h4 className="font-bold text-lg">{isPro ? t("proTitle") : t("freeTitle")}</h4>
+                {isPro && <span className="text-[10px] font-black text-amber-600 uppercase tracking-widest -mt-1">Pro Member</span>}
+              </div>
               {subscription?.status && (
                 <span className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border ${statusInfo.color}`}>
                   {statusInfo.label}

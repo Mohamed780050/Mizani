@@ -1,13 +1,22 @@
 "use client";
 
 import React, { useState, useTransition } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import { submitOnboardingAction } from "../actions/onboarding-actions";
-import { Loader2, ArrowRight, ArrowLeft, CheckCircle2, Wallet, TrendingUp, PiggyBank, HeartHandshake } from "lucide-react";
+import {
+  Loader2,
+  ArrowRight,
+  ArrowLeft,
+  CheckCircle2,
+  Wallet,
+  TrendingUp,
+  PiggyBank,
+  HeartHandshake,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Types
@@ -21,6 +30,8 @@ type Allocations = {
 export function OnboardingFlow() {
   const router = useRouter();
   const t = useTranslations("Onboarding");
+  const locale = useLocale();
+  const isRtl = locale === "ar";
   const [step, setStep] = useState(1);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState("");
@@ -70,7 +81,7 @@ export function OnboardingFlow() {
         JSON.stringify({
           percentages: allocations,
           initialBalances: balances,
-        })
+        }),
       );
 
       const res = await submitOnboardingAction(null, formData);
@@ -85,8 +96,10 @@ export function OnboardingFlow() {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      
+    <div
+      dir={isRtl ? "rtl" : "ltr"}
+      className="w-full max-w-2xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700"
+    >
       {/* Header */}
       <div className="space-y-3 text-center">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-emerald-950 dark:text-emerald-50">
@@ -107,11 +120,17 @@ export function OnboardingFlow() {
       {step === 1 && (
         <div className="space-y-8 bg-card border border-border p-8 rounded-[32px] shadow-[0_8px_40px_-12px_rgba(0,0,0,0.05)]">
           <div className="flex justify-between items-end border-b border-border pb-6">
-            <span className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">{t("totalAllocation")}</span>
-            <span className={cn(
-              "text-3xl font-black transition-colors duration-300",
-              currentTotal === 100 ? "text-emerald-600 dark:text-emerald-400" : "text-amber-500"
-            )}>
+            <span className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+              {t("totalAllocation")}
+            </span>
+            <span
+              className={cn(
+                "text-3xl font-black transition-colors duration-300",
+                currentTotal === 100
+                  ? "text-emerald-600 dark:text-emerald-400"
+                  : "text-amber-500",
+              )}
+            >
               {currentTotal}%
             </span>
           </div>
@@ -152,42 +171,42 @@ export function OnboardingFlow() {
       {/* Step 2: Initial Balances */}
       {step === 2 && (
         <div className="space-y-6 bg-card border border-border p-8 rounded-[32px] shadow-[0_8px_40px_-12px_rgba(0,0,0,0.05)]">
-           <BalanceInput 
-             label={t("expensesAccount")} 
-             icon={Wallet} 
-             value={balances.EXPENSES} 
-             onChange={(val) => setBalances(p => ({ ...p, EXPENSES: val }))} 
-           />
-           <BalanceInput 
-             label={t("investmentAccount")} 
-             icon={TrendingUp} 
-             value={balances.INVESTMENT} 
-             onChange={(val) => setBalances(p => ({ ...p, INVESTMENT: val }))} 
-           />
-           <BalanceInput 
-             label={t("savingsAccount")} 
-             icon={PiggyBank} 
-             value={balances.SAVINGS} 
-             onChange={(val) => setBalances(p => ({ ...p, SAVINGS: val }))} 
-           />
-           <BalanceInput 
-             label={t("charityAccount")} 
-             icon={HeartHandshake} 
-             value={balances.CHARITY} 
-             onChange={(val) => setBalances(p => ({ ...p, CHARITY: val }))} 
-           />
+          <BalanceInput
+            label={t("expensesAccount")}
+            icon={Wallet}
+            value={balances.EXPENSES}
+            onChange={(val) => setBalances((p) => ({ ...p, EXPENSES: val }))}
+          />
+          <BalanceInput
+            label={t("investmentAccount")}
+            icon={TrendingUp}
+            value={balances.INVESTMENT}
+            onChange={(val) => setBalances((p) => ({ ...p, INVESTMENT: val }))}
+          />
+          <BalanceInput
+            label={t("savingsAccount")}
+            icon={PiggyBank}
+            value={balances.SAVINGS}
+            onChange={(val) => setBalances((p) => ({ ...p, SAVINGS: val }))}
+          />
+          <BalanceInput
+            label={t("charityAccount")}
+            icon={HeartHandshake}
+            value={balances.CHARITY}
+            onChange={(val) => setBalances((p) => ({ ...p, CHARITY: val }))}
+          />
         </div>
       )}
 
       {/* Step 3: Confirmation */}
       {step === 3 && (
         <div className="py-12 flex flex-col items-center justify-center space-y-6 bg-card border border-border p-8 rounded-[32px] shadow-[0_8px_40px_-12px_rgba(0,0,0,0.05)]">
-           <div className="size-20 rounded-full bg-emerald-100 dark:bg-emerald-950/50 flex items-center justify-center animate-pulse">
-             <CheckCircle2 className="size-10 text-emerald-600 dark:text-emerald-400" />
-           </div>
-           <p className="text-center text-muted-foreground max-w-sm">
-             {t("completionMessage")}
-           </p>
+          <div className="size-20 rounded-full bg-emerald-100 dark:bg-emerald-950/50 flex items-center justify-center animate-pulse">
+            <CheckCircle2 className="size-10 text-emerald-600 dark:text-emerald-400" />
+          </div>
+          <p className="text-center text-muted-foreground max-w-sm">
+            {t("completionMessage")}
+          </p>
         </div>
       )}
 
@@ -200,24 +219,40 @@ export function OnboardingFlow() {
             disabled={isPending}
             className="rounded-xl px-6 text-muted-foreground hover:text-foreground hover:bg-secondary/50 font-semibold h-14"
           >
-            <ArrowLeft className="size-5 me-2" /> {t("backButton")}
+            {isRtl ? (
+              <ArrowRight className="size-5 ms-2" />
+            ) : (
+              <ArrowLeft className="size-5 me-2" />
+            )}{" "}
+            {t("backButton")}
           </Button>
-        ) : <div />}
+        ) : (
+          <div />
+        )}
 
         {step < 3 ? (
-          <Button 
+          <Button
             onClick={nextStep}
             className="rounded-xl px-10 bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-14 text-lg shadow-xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
-            {t("continueButton")} <ArrowRight className="size-5 ms-2" />
+            {t("continueButton")}{" "}
+            {isRtl ? (
+              <ArrowLeft className="size-5 me-2" />
+            ) : (
+              <ArrowRight className="size-5 ms-2" />
+            )}
           </Button>
         ) : (
-          <Button 
+          <Button
             onClick={submitToSanctuary}
             disabled={isPending}
             className="rounded-xl px-10 bg-emerald-600 hover:bg-emerald-700 text-white font-bold h-14 text-lg shadow-xl shadow-emerald-600/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
-            {isPending ? <Loader2 className="size-5 animate-spin mx-4" /> : t("enterButton")}
+            {isPending ? (
+              <Loader2 className="size-5 animate-spin mx-4" />
+            ) : (
+              t("enterButton")
+            )}
           </Button>
         )}
       </div>
@@ -227,7 +262,19 @@ export function OnboardingFlow() {
 
 // ─── Subcomponents ─────────────────────────────────────────────────────────────
 
-function AllocationSlider({ label, icon: Icon, value, onChange, color }: { label: string, icon: any, value: number, onChange: (v: number[]) => void, color: string }) {
+function AllocationSlider({
+  label,
+  icon: Icon,
+  value,
+  onChange,
+  color,
+}: {
+  label: string;
+  icon: any;
+  value: number;
+  onChange: (v: number[]) => void;
+  color: string;
+}) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -250,26 +297,38 @@ function AllocationSlider({ label, icon: Icon, value, onChange, color }: { label
   );
 }
 
-function BalanceInput({ label, icon: Icon, value, onChange }: { label: string, icon: any, value: number, onChange: (v: number) => void }) {
+function BalanceInput({
+  label,
+  icon: Icon,
+  value,
+  onChange,
+}: {
+  label: string;
+  icon: any;
+  value: number;
+  onChange: (v: number) => void;
+}) {
   return (
     <div className="flex items-center gap-4 bg-secondary/30 p-4 rounded-2xl border border-border/50 focus-within:border-primary/50 focus-within:bg-card transition-all">
-       <div className="p-3 bg-card rounded-xl shadow-sm border border-border shrink-0">
-         <Icon className="size-6 text-muted-foreground" />
-       </div>
-       <div className="flex-1 space-y-1">
-         <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{label}</label>
-         <div className="flex items-center gap-2">
-           <span className="text-lg font-black text-foreground">EGP</span>
-           <Input 
-             type="number"
-             min={0}
-             value={value || ""}
-             onChange={(e) => onChange(Number(e.target.value))}
-             placeholder="0.00"
-             className="border-0 shadow-none bg-transparent text-2xl font-black focus-visible:ring-0 px-0 placeholder:text-muted-foreground/30 font-mono text-emerald-950 dark:text-emerald-50"
-           />
-         </div>
-       </div>
+      <div className="p-3 bg-card rounded-xl shadow-sm border border-border shrink-0">
+        <Icon className="size-6 text-muted-foreground" />
+      </div>
+      <div className="flex-1 space-y-1">
+        <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+          {label}
+        </label>
+        <div className="flex items-center gap-2">
+          <span className="text-lg font-black text-foreground">EGP</span>
+          <Input
+            type="number"
+            min={0}
+            value={value || ""}
+            onChange={(e) => onChange(Number(e.target.value))}
+            placeholder="0.00"
+            className="border-0 shadow-none bg-transparent text-2xl font-black focus-visible:ring-0 px-0 placeholder:text-muted-foreground/30 font-mono text-emerald-950 dark:text-emerald-50"
+          />
+        </div>
+      </div>
     </div>
   );
 }
