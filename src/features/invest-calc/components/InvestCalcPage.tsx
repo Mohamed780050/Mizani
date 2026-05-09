@@ -25,11 +25,12 @@ type Frequency = "monthly" | "yearly";
  */
 function computeBreakdown(
   principal: number,
+  recurring: number,
   roiPercent: number,
   frequency: Frequency,
   duration: number
 ): PeriodData[] {
-  if (principal <= 0 || roiPercent <= 0 || duration <= 0) return [];
+  if (principal < 0 || duration <= 0) return [];
 
   const ratePerPeriod =
     frequency === "yearly"
@@ -41,12 +42,14 @@ function computeBreakdown(
 
   for (let i = 1; i <= duration; i++) {
     const startBalance = balance;
-    const interest = startBalance * ratePerPeriod;
-    balance = startBalance + interest;
+    // Add recurring investment at the start of each period
+    const afterContribution = startBalance + recurring;
+    const interest = afterContribution * ratePerPeriod;
+    balance = afterContribution + interest;
 
     periods.push({
       period: i,
-      startBalance,
+      startBalance: afterContribution,
       interest,
       endBalance: balance,
     });
@@ -60,6 +63,7 @@ export function InvestCalcPage() {
 
   // State
   const [principal, setPrincipal] = useState<number | "">(10000);
+  const [recurring, setRecurring] = useState<number | "">(1000);
   const [roiPercent, setRoiPercent] = useState<number>(10);
   const [frequency, setFrequency] = useState<Frequency>("yearly");
   const [duration, setDuration] = useState<number | "">(5);
@@ -69,17 +73,18 @@ export function InvestCalcPage() {
     () =>
       computeBreakdown(
         Number(principal) || 0,
+        Number(recurring) || 0,
         roiPercent,
         frequency,
         Number(duration) || 0
       ),
-    [principal, roiPercent, frequency, duration]
+    [principal, recurring, roiPercent, frequency, duration]
   );
 
-  const totalValue = breakdown.length > 0 ? breakdown[breakdown.length - 1].endBalance : 0;
-  const totalProfit = totalValue - (Number(principal) || 0);
-  const profitPercent =
-    Number(principal) > 0 ? (totalProfit / Number(principal)) * 100 : 0;
+  const totalValue = breakdown.length > 0 ? breakdown[breakdown.length - 1].endBalance : (Number(principal) || 0);
+  const totalInvested = (Number(principal) || 0) + (Number(recurring) || 0) * (Number(duration) || 0);
+  const totalProfit = totalValue - totalInvested;
+  const profitPercent = totalInvested > 0 ? (totalProfit / totalInvested) * 100 : 0;
 
   const periodLabel = frequency === "yearly" ? t("year") : t("month");
 
@@ -96,7 +101,7 @@ export function InvestCalcPage() {
       </div>
 
       {/* ──── TOP: Summary Cards (full width) ──── */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Value */}
         <div className="bg-card border border-border/50 rounded-3xl p-5 sm:p-6 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
           <div className="absolute -top-8 -inset-e-8 size-20 bg-emerald-500/5 rounded-full blur-2xl pointer-events-none group-hover:scale-150 transition-transform duration-700" />
@@ -105,6 +110,17 @@ export function InvestCalcPage() {
           </p>
           <p className="font-mono font-black text-2xl sm:text-3xl tracking-tighter text-foreground">
             <NumberFormatting value={totalValue} />
+          </p>
+        </div>
+
+        {/* Invested Capital */}
+        <div className="bg-card border border-border/50 rounded-3xl p-5 sm:p-6 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
+          <div className="absolute -top-8 -inset-e-8 size-20 bg-blue-500/5 rounded-full blur-2xl pointer-events-none group-hover:scale-150 transition-transform duration-700" />
+          <p className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">
+            {t("totalInvested")}
+          </p>
+          <p className="font-mono font-black text-2xl sm:text-3xl tracking-tighter text-blue-600 dark:text-blue-400">
+            <NumberFormatting value={totalInvested} />
           </p>
         </div>
 
@@ -173,6 +189,31 @@ export function InvestCalcPage() {
                 placeholder="10,000"
                 className="bg-secondary/40 border-none shadow-sm rounded-xl py-6 ps-5 font-black text-xl text-foreground font-mono"
               />
+            </div>
+          </div>
+
+          {/* Recurring Investment */}
+          <div className="space-y-2 relative">
+            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1 flex items-center gap-1.5">
+              <Sparkles className="size-3.5" />
+              {t("recurringInvestment")}
+            </label>
+            <div className="relative">
+              <Input
+                id="invest-calc-recurring"
+                type="number"
+                min="0"
+                step="100"
+                value={recurring}
+                onChange={(e) =>
+                  setRecurring(e.target.value === "" ? "" : Number(e.target.value))
+                }
+                placeholder="1,000"
+                className="bg-secondary/40 border-none shadow-sm rounded-xl py-6 ps-5 font-black text-xl text-foreground font-mono"
+              />
+              <span className="absolute inset-e-4 top-1/2 -translate-y-1/2 text-muted-foreground/50 font-bold text-sm pointer-events-none">
+                /{frequency === "yearly" ? t("year") : t("month")}
+              </span>
             </div>
           </div>
 

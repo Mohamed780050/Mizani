@@ -329,6 +329,8 @@
     "endBalance": "End Balance",
     "breakdown": "Period Breakdown",
     "growthChart": "Growth Projection",
+    "recurringInvestment": "Recurring Investment",
+    "totalInvested": "Invested Capital",
     "year": "Year",
     "month": "Month"
   }
