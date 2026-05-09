@@ -66,7 +66,7 @@ export function SubscriptionPanel({ subscription }: { subscription: any }) {
 
   return (
     <div className="bg-card border border-border/50 p-5 sm:p-8 rounded-[32px] shadow-sm max-w-2xl relative overflow-hidden">
-      <ProBadgeDecoration isActive={isPro} />
+      <ProBadgeDecoration isActive={true} />
       
       <div className="relative z-10">
         <h3 className="text-xl font-bold mb-2">{t("subsTitle")}</h3>
@@ -99,8 +99,8 @@ function ProBadgeDecoration({ isActive }: { isActive: boolean }) {
   
   return (
     <>
-      <div className="absolute -top-10 -right-10 size-40 bg-amber-500/20 blur-3xl rounded-full" />
-      <div className="absolute top-0 right-0 p-4">
+      <div className="absolute -top-10 ltr:-right-10 rtl:-left-10 size-40 bg-amber-500/20 blur-3xl rounded-full" />
+      <div className="absolute top-0 ltr:right-0 rtl:left-0 p-4">
         <div className="bg-amber-500 text-white text-[10px] font-black uppercase tracking-tighter px-4 py-1.5 rounded-full shadow-lg shadow-amber-500/20 flex items-center gap-1.5 animate-in fade-in zoom-in duration-500">
            <Crown className="size-3 fill-white" />
            {t("planActive")}
@@ -143,7 +143,7 @@ function SubscriptionDetailsCard({
   const statusInfo = statusMap[statusKey] || statusMap.active;
 
   return (
-    <div className={`p-6 rounded-2xl border ${isPro ? 'border-amber-500/30 bg-gradient-to-br from-amber-500/[0.07] to-amber-500/[0.02] backdrop-blur-sm' : 'border-border/50 bg-secondary/20'} flex flex-col sm:flex-row items-start gap-4 transition-all duration-300 hover:shadow-md hover:shadow-amber-500/5`}>
+    <div className={`p-6 rounded-2xl border ${isPro ? 'border-amber-500/30 bg-linear-to-br from-amber-500/[0.07] to-amber-500/2 backdrop-blur-sm' : 'border-border/50 bg-secondary/20'} flex flex-col sm:flex-row items-start gap-4 transition-all duration-300 hover:shadow-md hover:shadow-amber-500/5`}>
       <div className={`size-12 rounded-full flex items-center justify-center shrink-0 ${isPro ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/40' : 'bg-primary/10 text-primary'}`}>
          <Crown className="size-6" />
       </div>
