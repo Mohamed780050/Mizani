@@ -19,8 +19,8 @@ export function FrequencyToggle({ value, onChange, labels }: FrequencyToggleProp
         className={cn(
           "absolute top-1.5 bottom-1.5 w-[calc(50%-0.375rem)] rounded-xl bg-card shadow-md transition-all duration-300 ease-out",
           value === "yearly"
-            ? "translate-x-[calc(100%+0.25rem)]"
-            : "translate-x-0"
+            ? "start-[calc(50%+0.125rem)]"
+            : "start-1.5"
         )}
       />
 

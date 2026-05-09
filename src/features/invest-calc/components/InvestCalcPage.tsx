@@ -190,7 +190,7 @@ export function InvestCalcPage() {
                 min={1}
                 max={100}
                 step={0.5}
-                className="flex-1 **:data-[slot=slider-track]:h-2 **:data-[slot=slider-range]:bg-linear-to-r **:data-[slot=slider-range]:from-emerald-500 **:data-[slot=slider-range]:to-amber-500 **:data-[slot=slider-thumb]:size-5 **:data-[slot=slider-thumb]:border-2"
+                className="flex-1 **:data-[slot=slider-track]:h-2 **:data-[slot=slider-range]:bg-linear-to-e **:data-[slot=slider-range]:from-emerald-500 **:data-[slot=slider-range]:to-amber-500 **:data-[slot=slider-thumb]:size-5 **:data-[slot=slider-thumb]:border-2"
               />
               <div className="relative shrink-0 w-20">
                 <Input
