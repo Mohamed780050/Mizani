@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { updateAllocationsAction, updatePreferencesAction } from "../actions/settings-actions";
 import { Loader2, Save, Crown, AlertTriangle } from "lucide-react";
+import { dodopayments, useSession } from "@/lib/auth-client";
 import { useTranslations } from "next-intl";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { LangToggle } from "@/components/LangToggle";
@@ -189,7 +190,78 @@ function PreferencesPanel({ preferences }: { preferences: any }) {
 
 function SubscriptionPanel({ subscription }: { subscription: any }) {
   const t = useTranslations("Governance");
-  const isPro = subscription?.plan === "pro";
+  const { data: session } = useSession();
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState("");
+
+  const isPro = subscription?.plan === "pro" && subscription?.status === "active";
+  const isCancelled = subscription?.status === "cancelled";
+  const isExpired = subscription?.status === "expired";
+  const isFailed = subscription?.status === "failed";
+  const isPaused = subscription?.status === "paused";
+  const isOnHold = subscription?.status === "on_hold";
+  const needsResubscribe = isCancelled || isExpired || isFailed;
+
+  const statusKey = subscription?.status as string;
+  const statusMap: Record<string, { label: string; color: string }> = {
+    active: { label: t("planActive"), color: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" },
+    cancelled: { label: t("planCancelled"), color: "bg-rose-500/10 text-rose-600 border-rose-500/20" },
+    expired: { label: t("planExpired"), color: "bg-gray-500/10 text-gray-500 border-gray-500/20" },
+    on_hold: { label: t("planOnHold"), color: "bg-amber-500/10 text-amber-600 border-amber-500/20" },
+    paused: { label: t("planPaused"), color: "bg-amber-500/10 text-amber-600 border-amber-500/20" },
+    failed: { label: t("planFailed"), color: "bg-rose-500/10 text-rose-600 border-rose-500/20" },
+  };
+  const statusInfo = statusMap[statusKey] || statusMap.active;
+
+  const handleCheckout = () => {
+    if (!session?.user) return;
+    setError("");
+    startTransition(async () => {
+      try {
+        const { data, error: checkoutError } = await dodopayments.checkout({
+          slug: "pro",
+          customer: {
+            email: session.user.email,
+            name: session.user.name,
+          },
+          billing: {
+            city: "",
+            country: "US",
+            state: "",
+            street: "",
+            zipcode: "",
+          },
+        });
+        if (checkoutError) {
+          setError(t("checkoutError"));
+          return;
+        }
+        if (data?.url) {
+          window.location.href = data.url;
+        }
+      } catch {
+        setError(t("checkoutError"));
+      }
+    });
+  };
+
+  const handlePortal = () => {
+    setError("");
+    startTransition(async () => {
+      try {
+        const { data: portal, error: portalError } = await dodopayments.customer.portal();
+        if (portalError) {
+          setError(t("portalError"));
+          return;
+        }
+        if (portal?.url) {
+          window.location.href = portal.url;
+        }
+      } catch {
+        setError(t("portalError"));
+      }
+    });
+  };
 
   return (
     <div className="bg-card border border-border/50 p-5 sm:p-8 rounded-[32px] shadow-sm max-w-2xl relative overflow-hidden">
@@ -201,19 +273,92 @@ function SubscriptionPanel({ subscription }: { subscription: any }) {
           {t("subsDesc")}
         </p>
 
-        <div className={`p-6 rounded-2xl border ${isPro ? 'border-amber-500/30 bg-amber-500/5' : 'border-border/50 bg-secondary/20'} flex items-start gap-4`}>
+        {error && (
+          <div className="text-rose-500 bg-rose-500/10 p-4 rounded-xl text-sm font-bold mb-6">
+            {error}
+          </div>
+        )}
+
+        <div className={`p-6 rounded-2xl border ${isPro ? 'border-amber-500/30 bg-amber-500/5' : 'border-border/50 bg-secondary/20'} flex flex-col sm:flex-row items-start gap-4`}>
           <div className={`size-12 rounded-full flex items-center justify-center shrink-0 ${isPro ? 'bg-amber-500 text-white' : 'bg-primary/10 text-primary'}`}>
              <Crown className="size-6" />
           </div>
-          <div>
-            <h4 className="font-bold text-lg">{isPro ? t("proTitle") : t("freeTitle")}</h4>
-            <p className="text-sm font-medium text-muted-foreground mt-1 mb-4">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-3 flex-wrap mb-1">
+              <h4 className="font-bold text-lg">{isPro ? t("proTitle") : t("freeTitle")}</h4>
+              {subscription?.status && (
+                <span className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border ${statusInfo.color}`}>
+                  {statusInfo.label}
+                </span>
+              )}
+            </div>
+            <p className="text-sm font-medium text-muted-foreground mt-1 mb-2">
               {isPro ? t("proDesc") : t("freeDesc")}
             </p>
-            
-            <Button disabled variant={isPro ? "outline" : "default"} className={`rounded-xl font-bold ${isPro ? 'border-amber-500/50 text-amber-600 hover:bg-amber-500/10' : ''}`}>
-               {isPro ? t("managePro") : t("upgrade")}
-            </Button>
+
+            {/* Renewal / Cancellation date */}
+            {isPro && subscription?.currentPeriodEnd && (
+              <p className="text-xs font-bold text-muted-foreground/70 mb-4">
+                {t("renewsOn", { date: new Date(subscription.currentPeriodEnd).toLocaleDateString() })}
+              </p>
+            )}
+            {isCancelled && subscription?.cancelledAt && (
+              <p className="text-xs font-bold text-rose-500/70 mb-4">
+                {t("cancelledOn", { date: new Date(subscription.cancelledAt).toLocaleDateString() })}
+              </p>
+            )}
+
+            <div className="flex flex-wrap gap-3 mt-4">
+              {/* Pro Active → Manage via portal */}
+              {isPro && (
+                <Button 
+                  onClick={handlePortal}
+                  disabled={isPending}
+                  variant="outline" 
+                  className="rounded-xl font-bold border-amber-500/50 text-amber-600 hover:bg-amber-500/10"
+                >
+                  {isPending ? <Loader2 className="size-4 animate-spin me-2" /> : null}
+                  {isPending ? t("portalLoading") : t("managePro")}
+                </Button>
+              )}
+
+              {/* Free user → Upgrade */}
+              {!isPro && !needsResubscribe && (
+                <Button 
+                  onClick={handleCheckout}
+                  disabled={isPending}
+                  className="rounded-xl font-bold"
+                >
+                  {isPending ? <Loader2 className="size-4 animate-spin me-2" /> : null}
+                  {t("upgrade")}
+                </Button>
+              )}
+
+              {/* Cancelled/Expired/Failed → Re-subscribe */}
+              {needsResubscribe && (
+                <Button 
+                  onClick={handleCheckout}
+                  disabled={isPending}
+                  className="rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700 text-white"
+                >
+                  {isPending ? <Loader2 className="size-4 animate-spin me-2" /> : null}
+                  {t("resubscribe")}
+                </Button>
+              )}
+
+              {/* Paused/On Hold → Portal to manage */}
+              {(isPaused || isOnHold) && (
+                <Button 
+                  onClick={handlePortal}
+                  disabled={isPending}
+                  variant="outline" 
+                  className="rounded-xl font-bold"
+                >
+                  {isPending ? <Loader2 className="size-4 animate-spin me-2" /> : null}
+                  {t("managePro")}
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>

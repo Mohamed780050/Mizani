@@ -110,8 +110,21 @@
     "proDesc": "لديك وصول غير محدود إلى محرك السجل الموحد، حدود فئات غير محدودة، وآلية التكرار التلقائي.",
     "freeTitle": "ميزاني الأساسي (مجاني)",
     "freeDesc": "أنت مقيد بـ 50 معاملة يدوية شهرياً. قم بالترقية لرفع هذا القيد.",
-    "managePro": "إدارة عبر DodoPayments",
-    "upgrade": "الترقية إلى برو"
+    "managePro": "إدارة الاشتراك",
+    "upgrade": "الترقية إلى برو",
+    "planStatus": "الحالة",
+    "planActive": "نشط",
+    "planCancelled": "ملغي",
+    "planExpired": "منتهي",
+    "planOnHold": "معلق",
+    "planPaused": "متوقف مؤقتاً",
+    "planFailed": "فشل الدفع",
+    "renewsOn": "يتجدد في {date}",
+    "cancelledOn": "تم الإلغاء في {date}",
+    "resubscribe": "إعادة الاشتراك",
+    "checkoutError": "فشل في بدء عملية الدفع. حاول مرة أخرى.",
+    "portalError": "فشل في فتح بوابة الاشتراك.",
+    "portalLoading": "جاري فتح البوابة..."
   },
   "Onboarding": {
     "step1Title": "مخطط الملاذ",
@@ -278,7 +291,7 @@
       "pro": {
         "name": "ميزاني برو",
         "desc": "للأتمتة المالية الشاملة",
-        "price": "SAR 29",
+        "price": "$9",
         "period": "/شهرياً",
         "badge": "الأكثر شعبية",
         "features": [

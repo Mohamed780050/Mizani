@@ -1,4 +1,5 @@
 import db from "@/lib/db";
+import { subscriptionModel } from "@/features/settings/model/subscription-model";
 import { PlanLimitError, InsufficientFundsError, NotFoundError } from "@/lib/errors";
 
 export type CreateGoalInput = {
@@ -14,10 +15,7 @@ export type FundGoalInput = {
 
 export const goalModel = {
   async checkPlanLimits(userId: string) {
-    const activeSub = await db.subscription.findFirst({
-      where: { userId, status: "active" },
-    });
-    const isPro = activeSub?.plan === "pro" || activeSub?.plan === "max";
+    const isPro = await subscriptionModel.isPro(userId);
 
     if (!isPro) {
       const goalCount = await db.goal.count({ where: { userId } });

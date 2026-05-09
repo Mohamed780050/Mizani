@@ -11,6 +11,14 @@ import {
 import db from "./db";
 import { dodo } from "./dodo";
 import { sendEmailVerification, sendOTPToChangePassword } from "./resend";
+import { resolveSlugFromProductId } from "./resolve-plan";
+
+// ─── Helpers ────────────────────────────────────────────────────
+/** Resolve user from Dodo customer ID embedded in webhook payload */
+async function findUserByCustomerId(customerId?: string | null) {
+  if (!customerId) return null;
+  return db.user.findFirst({ where: { dodoCustomerId: customerId } });
+}
 
 export const auth = betterAuth({
   database: prismaAdapter(db, {
@@ -32,7 +40,7 @@ export const auth = betterAuth({
       dodoCustomerId: {
         type: "string",
         required: false,
-      }
+      },
     },
   },
   emailAndPassword: {
@@ -70,16 +78,8 @@ export const auth = betterAuth({
         checkout({
           products: [
             {
-              productId: `${process.env.DODO_STARTER_PRODUCT_ID}`,
-              slug: "starter",
-            },
-            {
               productId: `${process.env.DODO_PRO_PRODUCT_ID}`,
               slug: "pro",
-            },
-            {
-              productId: `${process.env.DODO_MAX_PRODUCT_ID}`,
-              slug: "max",
             },
           ],
           successUrl: "/dashboard",
@@ -88,10 +88,136 @@ export const auth = betterAuth({
         portal(),
         webhooks({
           webhookKey: process.env.DODO_PAYMENTS_WEBHOOK_SECRET || "",
-          onPayload: async (payload) => {
-            console.log("Received webhook:", payload);
-            // Handle subscription/payment events here
-            // e.g., update user plan status in your database
+
+          // ── Subscription Activated ──────────────────────────
+          onSubscriptionActive: async (payload: any) => {
+            const user = await findUserByCustomerId(
+              payload.data?.customer?.customer_id
+            );
+            if (!user) return;
+
+            const planSlug = resolveSlugFromProductId(
+              payload.data?.product_id
+            );
+
+            await db.subscription.upsert({
+              where: { userId: user.id },
+              create: {
+                userId: user.id,
+                plan: planSlug,
+                status: "active",
+                dodoSubscriptionId: payload.data?.subscription_id,
+                dodoProductId: payload.data?.product_id,
+                currentPeriodEnd: payload.data?.current_period_end
+                  ? new Date(payload.data.current_period_end)
+                  : null,
+              },
+              update: {
+                plan: planSlug,
+                status: "active",
+                dodoSubscriptionId: payload.data?.subscription_id,
+                dodoProductId: payload.data?.product_id,
+                currentPeriodEnd: payload.data?.current_period_end
+                  ? new Date(payload.data.current_period_end)
+                  : null,
+                cancelledAt: null,
+              },
+            });
+          },
+
+          // ── Subscription Renewed ───────────────────────────
+          onSubscriptionRenewed: async (payload: any) => {
+            const user = await findUserByCustomerId(
+              payload.data?.customer?.customer_id
+            );
+            if (!user) return;
+
+            await db.subscription.update({
+              where: { userId: user.id },
+              data: {
+                status: "active",
+                currentPeriodEnd: payload.data?.current_period_end
+                  ? new Date(payload.data.current_period_end)
+                  : undefined,
+                cancelledAt: null,
+              },
+            });
+          },
+
+          // ── Subscription Cancelled ─────────────────────────
+          onSubscriptionCancelled: async (payload: any) => {
+            const user = await findUserByCustomerId(
+              payload.data?.customer?.customer_id
+            );
+            if (!user) return;
+
+            await db.subscription.update({
+              where: { userId: user.id },
+              data: {
+                status: "cancelled",
+                cancelledAt: new Date(),
+              },
+            });
+          },
+
+          // ── Subscription Failed ────────────────────────────
+          onSubscriptionFailed: async (payload: any) => {
+            const user = await findUserByCustomerId(
+              payload.data?.customer?.customer_id
+            );
+            if (!user) return;
+
+            await db.subscription.update({
+              where: { userId: user.id },
+              data: { status: "failed" },
+            });
+          },
+
+          // ── Subscription Expired ───────────────────────────
+          onSubscriptionExpired: async (payload: any) => {
+            const user = await findUserByCustomerId(
+              payload.data?.customer?.customer_id
+            );
+            if (!user) return;
+
+            await db.subscription.update({
+              where: { userId: user.id },
+              data: { status: "expired" },
+            });
+          },
+
+
+          // ── Subscription On Hold ───────────────────────────
+          onSubscriptionOnHold: async (payload: any) => {
+            const user = await findUserByCustomerId(
+              payload.data?.customer?.customer_id
+            );
+            if (!user) return;
+
+            await db.subscription.update({
+              where: { userId: user.id },
+              data: { status: "on_hold" },
+            });
+          },
+
+          // ── Subscription Plan Changed ──────────────────────
+          onSubscriptionPlanChanged: async (payload: any) => {
+            const user = await findUserByCustomerId(
+              payload.data?.customer?.customer_id
+            );
+            if (!user) return;
+
+            const planSlug = resolveSlugFromProductId(
+              payload.data?.product_id
+            );
+
+            await db.subscription.update({
+              where: { userId: user.id },
+              data: {
+                plan: planSlug,
+                dodoProductId: payload.data?.product_id,
+              },
+            });
           },
         }),
       ],

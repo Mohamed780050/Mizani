@@ -29,7 +29,8 @@ export type SubscriptionMinAggregateOutputType = {
   userId: string | null
   plan: string | null
   status: string | null
-  paymobOrderId: string | null
+  dodoSubscriptionId: string | null
+  dodoProductId: string | null
   currentPeriodEnd: Date | null
   cancelledAt: Date | null
   createdAt: Date | null
@@ -41,7 +42,8 @@ export type SubscriptionMaxAggregateOutputType = {
   userId: string | null
   plan: string | null
   status: string | null
-  paymobOrderId: string | null
+  dodoSubscriptionId: string | null
+  dodoProductId: string | null
   currentPeriodEnd: Date | null
   cancelledAt: Date | null
   createdAt: Date | null
@@ -53,7 +55,8 @@ export type SubscriptionCountAggregateOutputType = {
   userId: number
   plan: number
   status: number
-  paymobOrderId: number
+  dodoSubscriptionId: number
+  dodoProductId: number
   currentPeriodEnd: number
   cancelledAt: number
   createdAt: number
@@ -67,7 +70,8 @@ export type SubscriptionMinAggregateInputType = {
   userId?: true
   plan?: true
   status?: true
-  paymobOrderId?: true
+  dodoSubscriptionId?: true
+  dodoProductId?: true
   currentPeriodEnd?: true
   cancelledAt?: true
   createdAt?: true
@@ -79,7 +83,8 @@ export type SubscriptionMaxAggregateInputType = {
   userId?: true
   plan?: true
   status?: true
-  paymobOrderId?: true
+  dodoSubscriptionId?: true
+  dodoProductId?: true
   currentPeriodEnd?: true
   cancelledAt?: true
   createdAt?: true
@@ -91,7 +96,8 @@ export type SubscriptionCountAggregateInputType = {
   userId?: true
   plan?: true
   status?: true
-  paymobOrderId?: true
+  dodoSubscriptionId?: true
+  dodoProductId?: true
   currentPeriodEnd?: true
   cancelledAt?: true
   createdAt?: true
@@ -176,7 +182,8 @@ export type SubscriptionGroupByOutputType = {
   userId: string
   plan: string
   status: string
-  paymobOrderId: string | null
+  dodoSubscriptionId: string | null
+  dodoProductId: string | null
   currentPeriodEnd: Date | null
   cancelledAt: Date | null
   createdAt: Date
@@ -209,7 +216,8 @@ export type SubscriptionWhereInput = {
   userId?: Prisma.StringFilter<"Subscription"> | string
   plan?: Prisma.StringFilter<"Subscription"> | string
   status?: Prisma.StringFilter<"Subscription"> | string
-  paymobOrderId?: Prisma.StringNullableFilter<"Subscription"> | string | null
+  dodoSubscriptionId?: Prisma.StringNullableFilter<"Subscription"> | string | null
+  dodoProductId?: Prisma.StringNullableFilter<"Subscription"> | string | null
   currentPeriodEnd?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
   cancelledAt?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Subscription"> | Date | string
@@ -222,7 +230,8 @@ export type SubscriptionOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  paymobOrderId?: Prisma.SortOrderInput | Prisma.SortOrder
+  dodoSubscriptionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  dodoProductId?: Prisma.SortOrderInput | Prisma.SortOrder
   currentPeriodEnd?: Prisma.SortOrderInput | Prisma.SortOrder
   cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -233,25 +242,27 @@ export type SubscriptionOrderByWithRelationInput = {
 export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   userId?: string
+  dodoSubscriptionId?: string
   AND?: Prisma.SubscriptionWhereInput | Prisma.SubscriptionWhereInput[]
   OR?: Prisma.SubscriptionWhereInput[]
   NOT?: Prisma.SubscriptionWhereInput | Prisma.SubscriptionWhereInput[]
   plan?: Prisma.StringFilter<"Subscription"> | string
   status?: Prisma.StringFilter<"Subscription"> | string
-  paymobOrderId?: Prisma.StringNullableFilter<"Subscription"> | string | null
+  dodoProductId?: Prisma.StringNullableFilter<"Subscription"> | string | null
   currentPeriodEnd?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
   cancelledAt?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "userId">
+}, "id" | "userId" | "dodoSubscriptionId">
 
 export type SubscriptionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  paymobOrderId?: Prisma.SortOrderInput | Prisma.SortOrder
+  dodoSubscriptionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  dodoProductId?: Prisma.SortOrderInput | Prisma.SortOrder
   currentPeriodEnd?: Prisma.SortOrderInput | Prisma.SortOrder
   cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -269,7 +280,8 @@ export type SubscriptionScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"Subscription"> | string
   plan?: Prisma.StringWithAggregatesFilter<"Subscription"> | string
   status?: Prisma.StringWithAggregatesFilter<"Subscription"> | string
-  paymobOrderId?: Prisma.StringNullableWithAggregatesFilter<"Subscription"> | string | null
+  dodoSubscriptionId?: Prisma.StringNullableWithAggregatesFilter<"Subscription"> | string | null
+  dodoProductId?: Prisma.StringNullableWithAggregatesFilter<"Subscription"> | string | null
   currentPeriodEnd?: Prisma.DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
   cancelledAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Subscription"> | Date | string
@@ -280,7 +292,8 @@ export type SubscriptionCreateInput = {
   id?: string
   plan?: string
   status?: string
-  paymobOrderId?: string | null
+  dodoSubscriptionId?: string | null
+  dodoProductId?: string | null
   currentPeriodEnd?: Date | string | null
   cancelledAt?: Date | string | null
   createdAt?: Date | string
@@ -293,7 +306,8 @@ export type SubscriptionUncheckedCreateInput = {
   userId: string
   plan?: string
   status?: string
-  paymobOrderId?: string | null
+  dodoSubscriptionId?: string | null
+  dodoProductId?: string | null
   currentPeriodEnd?: Date | string | null
   cancelledAt?: Date | string | null
   createdAt?: Date | string
@@ -304,7 +318,8 @@ export type SubscriptionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  paymobOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dodoSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dodoProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -317,7 +332,8 @@ export type SubscriptionUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  paymobOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dodoSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dodoProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -329,7 +345,8 @@ export type SubscriptionCreateManyInput = {
   userId: string
   plan?: string
   status?: string
-  paymobOrderId?: string | null
+  dodoSubscriptionId?: string | null
+  dodoProductId?: string | null
   currentPeriodEnd?: Date | string | null
   cancelledAt?: Date | string | null
   createdAt?: Date | string
@@ -340,7 +357,8 @@ export type SubscriptionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  paymobOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dodoSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dodoProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -352,7 +370,8 @@ export type SubscriptionUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  paymobOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dodoSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dodoProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -369,7 +388,8 @@ export type SubscriptionCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  paymobOrderId?: Prisma.SortOrder
+  dodoSubscriptionId?: Prisma.SortOrder
+  dodoProductId?: Prisma.SortOrder
   currentPeriodEnd?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -381,7 +401,8 @@ export type SubscriptionMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  paymobOrderId?: Prisma.SortOrder
+  dodoSubscriptionId?: Prisma.SortOrder
+  dodoProductId?: Prisma.SortOrder
   currentPeriodEnd?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -393,7 +414,8 @@ export type SubscriptionMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  paymobOrderId?: Prisma.SortOrder
+  dodoSubscriptionId?: Prisma.SortOrder
+  dodoProductId?: Prisma.SortOrder
   currentPeriodEnd?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -436,7 +458,8 @@ export type SubscriptionCreateWithoutUserInput = {
   id?: string
   plan?: string
   status?: string
-  paymobOrderId?: string | null
+  dodoSubscriptionId?: string | null
+  dodoProductId?: string | null
   currentPeriodEnd?: Date | string | null
   cancelledAt?: Date | string | null
   createdAt?: Date | string
@@ -447,7 +470,8 @@ export type SubscriptionUncheckedCreateWithoutUserInput = {
   id?: string
   plan?: string
   status?: string
-  paymobOrderId?: string | null
+  dodoSubscriptionId?: string | null
+  dodoProductId?: string | null
   currentPeriodEnd?: Date | string | null
   cancelledAt?: Date | string | null
   createdAt?: Date | string
@@ -474,7 +498,8 @@ export type SubscriptionUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  paymobOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dodoSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dodoProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -485,7 +510,8 @@ export type SubscriptionUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
-  paymobOrderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dodoSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dodoProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -499,7 +525,8 @@ export type SubscriptionSelect<ExtArgs extends runtime.Types.Extensions.Internal
   userId?: boolean
   plan?: boolean
   status?: boolean
-  paymobOrderId?: boolean
+  dodoSubscriptionId?: boolean
+  dodoProductId?: boolean
   currentPeriodEnd?: boolean
   cancelledAt?: boolean
   createdAt?: boolean
@@ -512,7 +539,8 @@ export type SubscriptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   userId?: boolean
   plan?: boolean
   status?: boolean
-  paymobOrderId?: boolean
+  dodoSubscriptionId?: boolean
+  dodoProductId?: boolean
   currentPeriodEnd?: boolean
   cancelledAt?: boolean
   createdAt?: boolean
@@ -525,7 +553,8 @@ export type SubscriptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   userId?: boolean
   plan?: boolean
   status?: boolean
-  paymobOrderId?: boolean
+  dodoSubscriptionId?: boolean
+  dodoProductId?: boolean
   currentPeriodEnd?: boolean
   cancelledAt?: boolean
   createdAt?: boolean
@@ -538,14 +567,15 @@ export type SubscriptionSelectScalar = {
   userId?: boolean
   plan?: boolean
   status?: boolean
-  paymobOrderId?: boolean
+  dodoSubscriptionId?: boolean
+  dodoProductId?: boolean
   currentPeriodEnd?: boolean
   cancelledAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SubscriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "plan" | "status" | "paymobOrderId" | "currentPeriodEnd" | "cancelledAt" | "createdAt" | "updatedAt", ExtArgs["result"]["subscription"]>
+export type SubscriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "plan" | "status" | "dodoSubscriptionId" | "dodoProductId" | "currentPeriodEnd" | "cancelledAt" | "createdAt" | "updatedAt", ExtArgs["result"]["subscription"]>
 export type SubscriptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -566,7 +596,8 @@ export type $SubscriptionPayload<ExtArgs extends runtime.Types.Extensions.Intern
     userId: string
     plan: string
     status: string
-    paymobOrderId: string | null
+    dodoSubscriptionId: string | null
+    dodoProductId: string | null
     currentPeriodEnd: Date | null
     cancelledAt: Date | null
     createdAt: Date
@@ -999,7 +1030,8 @@ export interface SubscriptionFieldRefs {
   readonly userId: Prisma.FieldRef<"Subscription", 'String'>
   readonly plan: Prisma.FieldRef<"Subscription", 'String'>
   readonly status: Prisma.FieldRef<"Subscription", 'String'>
-  readonly paymobOrderId: Prisma.FieldRef<"Subscription", 'String'>
+  readonly dodoSubscriptionId: Prisma.FieldRef<"Subscription", 'String'>
+  readonly dodoProductId: Prisma.FieldRef<"Subscription", 'String'>
   readonly currentPeriodEnd: Prisma.FieldRef<"Subscription", 'DateTime'>
   readonly cancelledAt: Prisma.FieldRef<"Subscription", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Subscription", 'DateTime'>

@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Sparkles, Zap, ArrowRight } from "lucide-react";
+import { CheckCircle2, Sparkles, Zap, ArrowRight, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -14,9 +14,44 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { dodopayments, useSession } from "@/lib/auth-client";
+import { Link } from "@/i18n/navigation";
 
 export function Pricing() {
   const t = useTranslations("Landing.pricing");
+  const { data: session } = useSession();
+  const [isPending, startTransition] = useTransition();
+
+  const handleCheckout = () => {
+    if (!session?.user) return;
+    startTransition(async () => {
+      try {
+        const { data, error } = await dodopayments.checkout({
+          slug: "pro",
+          customer: {
+            email: session.user.email,
+            name: session.user.name,
+          },
+          billing: {
+            city: "",
+            country: "US",
+            state: "",
+            street: "",
+            zipcode: "",
+          },
+        });
+        if (error) {
+          console.error("Checkout error:", error);
+          return;
+        }
+        if (data?.url) {
+          window.location.href = data.url;
+        }
+      } catch (err) {
+        console.error("Checkout failed:", err);
+      }
+    });
+  };
 
   return (
     <section className="relative py-32 px-6 md:px-12 overflow-hidden bg-background">
@@ -70,7 +105,7 @@ export function Pricing() {
                 </div>
 
                 <div className="space-y-4">
-                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60 mb-6">What's included</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60 mb-6">What&apos;s included</p>
                   {(t.raw("basic.features") as string[]).map((feature, i) => (
                     <FeatureItem key={i} text={feature} />
                   ))}
@@ -79,10 +114,13 @@ export function Pricing() {
 
               <CardFooter className="p-8">
                 <Button 
+                  asChild
                   variant="outline" 
                   className="w-full py-8 rounded-2xl font-bold text-lg border-2 hover:bg-secondary transition-all active:scale-[0.98]"
                 >
-                  {t("basic.cta")}
+                  <Link href={session ? "/dashboard" : "/sign-up"}>
+                    {t("basic.cta")}
+                  </Link>
                 </Button>
               </CardFooter>
             </Card>
@@ -133,14 +171,36 @@ export function Pricing() {
                 </CardContent>
 
                 <CardFooter className="p-0 mt-16 bg-transparent">
-                  <Button 
-                    className="w-full py-10 rounded-[2rem] font-black text-2xl bg-white text-primary hover:bg-white/90 transition-all shadow-xl hover:translate-y-[-4px] active:translate-y-0 group"
-                  >
-                    <span className="flex items-center gap-3">
-                      {t("pro.cta")}
-                      <ArrowRight className="size-6 group-hover:translate-x-2 rtl:rotate-180 rtl:group-hover:-translate-x-2 transition-transform" />
-                    </span>
-                  </Button>
+                  {session ? (
+                    <Button 
+                      onClick={handleCheckout}
+                      disabled={isPending}
+                      className="w-full py-10 rounded-[2rem] font-black text-2xl bg-white text-primary hover:bg-white/90 transition-all shadow-xl hover:translate-y-[-4px] active:translate-y-0 group disabled:opacity-70"
+                    >
+                      <span className="flex items-center gap-3">
+                        {isPending ? (
+                          <Loader2 className="size-6 animate-spin" />
+                        ) : (
+                          <>
+                            {t("pro.cta")}
+                            <ArrowRight className="size-6 group-hover:translate-x-2 rtl:rotate-180 rtl:group-hover:-translate-x-2 transition-transform" />
+                          </>
+                        )}
+                      </span>
+                    </Button>
+                  ) : (
+                    <Button 
+                      asChild
+                      className="w-full py-10 rounded-[2rem] font-black text-2xl bg-white text-primary hover:bg-white/90 transition-all shadow-xl hover:translate-y-[-4px] active:translate-y-0 group"
+                    >
+                      <Link href="/sign-up">
+                        <span className="flex items-center gap-3">
+                          {t("pro.cta")}
+                          <ArrowRight className="size-6 group-hover:translate-x-2 rtl:rotate-180 rtl:group-hover:-translate-x-2 transition-transform" />
+                        </span>
+                      </Link>
+                    </Button>
+                  )}
                 </CardFooter>
               </div>
 

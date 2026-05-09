@@ -1,6 +1,7 @@
 "use server";
 
 import db from "@/lib/db";
+import { subscriptionModel } from "@/features/settings/model/subscription-model";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { z } from "zod";
@@ -55,10 +56,7 @@ export async function upsertBudgetAction(
     }
 
     // --- Plan Enforcement: Free users limited to 3 budget categories ---
-    const activeSub = await db.subscription.findFirst({
-      where: { userId, status: "active" },
-    });
-    const isPro = activeSub?.plan === "pro" || activeSub?.plan === "max";
+    const isPro = await subscriptionModel.isPro(userId);
 
     if (!isPro) {
       // Count distinct categories with budgets (not counting the current one if updating)

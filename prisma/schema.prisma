@@ -344,9 +344,10 @@ model BudgetSetting {
 model Subscription {
   id               String    @id @default(cuid())
   userId           String    @unique
-  plan             String    @default("free")
-  status           String    @default("active")
-  paymobOrderId    String?
+  plan             String    @default("free") // "free" | "pro"
+  status           String    @default("active") // "active" | "cancelled" | "expired" | "paused" | "on_hold" | "failed"
+  dodoSubscriptionId String? @unique
+  dodoProductId      String?
   currentPeriodEnd DateTime?
   cancelledAt      DateTime?
   createdAt        DateTime  @default(now())

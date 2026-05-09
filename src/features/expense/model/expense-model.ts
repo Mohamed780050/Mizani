@@ -1,4 +1,5 @@
 import db from "@/lib/db";
+import { subscriptionModel } from "@/features/settings/model/subscription-model";
 import {
   AccountType,
   TransactionType,
@@ -25,10 +26,7 @@ export const expenseModel = {
    * Throws PlanLimitError if limits are exceeded.
    */
   async checkPlanLimits(userId: string, date: Date, frequency: FrequencyType) {
-    const activeSub = await db.subscription.findFirst({
-      where: { userId, status: "active" },
-    });
-    const isPro = activeSub?.plan === "pro" || activeSub?.plan === "max";
+    const isPro = await subscriptionModel.isPro(userId);
 
     if (!isPro) {
       const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);

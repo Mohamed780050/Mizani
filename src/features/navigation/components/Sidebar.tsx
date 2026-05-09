@@ -1,5 +1,7 @@
 "use client";
 
+import { useTransition } from "react";
+
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Logo } from "@/components/ui/Logo";
@@ -10,8 +12,12 @@ import {
   Target,
   TrendingUp,
   Settings,
+  LogOut,
+  Loader2,
   type LucideIcon,
 } from "lucide-react";
+import { signOut } from "@/lib/auth-client";
+import { Button } from "@/components/ui/button";
 
 const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, labelKey: "dashboard" },
@@ -25,6 +31,13 @@ const navItems = [
 export function Sidebar({ user }: { user: { name: string; email: string } }) {
   const pathname = usePathname();
   const t = useTranslations("Sidebar");
+  const [isPending, startTransition] = useTransition();
+
+  const handleLogout = () => {
+    startTransition(async () => {
+      await signOut({ fetchOptions: { onSuccess: () => { window.location.href = "/"; } } });
+    });
+  };
 
   return (
     <aside className="w-72 shrink-0 relative hidden lg:flex flex-col bg-card border-e border-border/50">
@@ -53,7 +66,7 @@ export function Sidebar({ user }: { user: { name: string; email: string } }) {
 
       <div className="p-6 border-t border-border/50 mt-auto">
         <div className="bg-secondary/40 rounded-2xl p-4 flex items-center gap-3">
-          <div className="size-10 rounded-full bg-emerald-100 flex items-center justify-center font-bold text-emerald-700">
+          <div className="size-10 rounded-full bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center font-bold text-emerald-700 dark:text-emerald-400">
             {user.name.charAt(0).toUpperCase()}
           </div>
           <div className="flex-1 overflow-hidden">
@@ -62,6 +75,19 @@ export function Sidebar({ user }: { user: { name: string; email: string } }) {
               {user.email}
             </p>
           </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleLogout}
+            disabled={isPending}
+            className="size-9 rounded-xl text-muted-foreground hover:text-rose-600 hover:bg-rose-500/10 shrink-0 transition-colors"
+          >
+            {isPending ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : (
+              <LogOut className="size-4" />
+            )}
+          </Button>
         </div>
       </div>
     </aside>

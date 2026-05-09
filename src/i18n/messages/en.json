@@ -110,8 +110,21 @@
     "proDesc": "You have limitless access to the unified ledger engine, unlimited category thresholds, and automated recurring logic.",
     "freeTitle": "Mizani Architect (Free)",
     "freeDesc": "You are bounded by 50 manual expense deductions per month. Upgrade to lift the boundary.",
-    "managePro": "Manage via DodoPayments",
-    "upgrade": "Upgrade to Pro"
+    "managePro": "Manage Subscription",
+    "upgrade": "Upgrade to Pro",
+    "planStatus": "Status",
+    "planActive": "Active",
+    "planCancelled": "Cancelled",
+    "planExpired": "Expired",
+    "planOnHold": "On Hold",
+    "planPaused": "Paused",
+    "planFailed": "Payment Failed",
+    "renewsOn": "Renews on {date}",
+    "cancelledOn": "Cancelled on {date}",
+    "resubscribe": "Re-subscribe",
+    "checkoutError": "Failed to start checkout. Please try again.",
+    "portalError": "Failed to open subscription portal.",
+    "portalLoading": "Opening portal..."
   },
   "Onboarding": {
     "step1Title": "The Sanctuary Blueprint",
@@ -278,7 +291,7 @@
       "pro": {
         "name": "Mizani Pro",
         "desc": "For comprehensive financial automation",
-        "price": "SAR 29",
+        "price": "$9",
         "period": "/month",
         "badge": "Most Popular",
         "features": [
