@@ -2,6 +2,12 @@ import React from "react";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { InvestCalcPage } from "@/features/invest-calc/components/InvestCalcPage";
 
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Metadata' });
+  return { title: t('investCalcTitle') };
+}
+
 export default async function InvestCalcRoute({
   params,
 }: {

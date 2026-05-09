@@ -5,6 +5,12 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { LedgerContent } from "@/features/ledger/components/LedgerContent";
 import { LedgerSkeleton } from "../dashboard/components/Skeletons";
 
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Metadata' });
+  return { title: t('accountsTitle') };
+}
+
 export default async function AccountsPage({
   params,
 }: {

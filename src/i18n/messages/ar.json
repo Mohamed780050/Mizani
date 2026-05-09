@@ -335,5 +335,22 @@
     "totalInvested": "رأس المال المستثمر",
     "year": "سنة",
     "month": "شهر"
+  },
+  "Metadata": {
+    "title": "ميزاني - الأتمتة المالية",
+    "description": "أتمت توزيع أموالك بدقة عالية.",
+    "homeTitle": "الأتمتة المالية الذكية",
+    "signInTitle": "تسجيل الدخول",
+    "signUpTitle": "إنشاء حساب",
+    "dashboardTitle": "لوحة التحكم",
+    "investCalcTitle": "حاسبة الاستثمار",
+    "accountsTitle": "السجل والحسابات",
+    "budgetsTitle": "الميزانيات",
+    "goalsTitle": "أهداف الثروة",
+    "settingsTitle": "الحوكمة",
+    "privacyTitle": "سياسة الخصوصية",
+    "termsTitle": "شروط الخدمة",
+    "onboardingTitle": "مخطط الملاذ",
+    "resetPasswordTitle": "إعادة تعيين كلمة المرور"
   }
 }

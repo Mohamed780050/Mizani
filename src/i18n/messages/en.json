@@ -335,5 +335,22 @@
     "totalInvested": "Invested Capital",
     "year": "Year",
     "month": "Month"
+  },
+  "Metadata": {
+    "title": "Mizani - Financial Automation",
+    "description": "Automate your financial distribution with precision.",
+    "homeTitle": "Intelligent Financial Automation",
+    "signInTitle": "Sign In",
+    "signUpTitle": "Create Account",
+    "dashboardTitle": "Dashboard",
+    "investCalcTitle": "Investment Calculator",
+    "accountsTitle": "Ledger & Accounts",
+    "budgetsTitle": "Budgets",
+    "goalsTitle": "Wealth Goals",
+    "settingsTitle": "Governance",
+    "privacyTitle": "Privacy Policy",
+    "termsTitle": "Terms of Service",
+    "onboardingTitle": "Sanctuary Blueprint",
+    "resetPasswordTitle": "Reset Password"
   }
 }

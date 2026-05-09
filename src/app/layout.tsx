@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+
 import { Geist, Geist_Mono, Manrope, Inter, Cairo } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/themeProvider";
@@ -29,10 +29,7 @@ const cairo = Cairo({
   subsets: ["arabic"],
 });
 
-export const metadata: Metadata = {
-  title: "Mizani - Financial Automation",
-  description: "Automate your financial distribution with precision.",
-};
+
 
 export default function RootLayout({
   children,

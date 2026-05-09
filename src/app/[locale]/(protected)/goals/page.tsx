@@ -5,6 +5,12 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { GoalsContent } from "@/features/goals/components/GoalsContent";
 import { GoalsSkeleton } from "@/features/goals/components/GoalsSkeleton";
 
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Metadata' });
+  return { title: t('goalsTitle') };
+}
+
 export default async function GoalsPage({
   params,
 }: {

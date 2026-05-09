@@ -5,6 +5,12 @@ import { headers } from "next/headers";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { BudgetManager } from "@/features/budgets/components/BudgetManager";
 
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Metadata' });
+  return { title: t('budgetsTitle') };
+}
+
 export default async function BudgetsPage({
   params,
 }: {

@@ -1,11 +1,17 @@
 import React, { Suspense } from "react";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { NetWorthOverview } from "./components/NetWorthOverview";
 import { AccountsGrid } from "./components/AccountsGrid";
 import { RecentActivityLedger } from "./components/RecentActivityLedger";
 import { NetWorthSkeleton, GridSkeleton, LedgerSkeleton } from "./components/Skeletons";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Metadata' });
+  return { title: t('dashboardTitle') };
+}
 
 export default async function DashboardPage({
   params,
