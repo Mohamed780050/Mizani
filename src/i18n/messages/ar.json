@@ -256,7 +256,9 @@
       "currentAccount": "الحساب الجاري",
       "charity": "الصدقة",
       "automatic": "{percent}% تلقائي",
-      "remaining": "الباقي ({percent}%)"
+      "remaining": "الباقي ({percent}%)",
+      "adjustAllocations": "تعديل التخصيصات",
+      "adjustAllocationsDesc": "اسحب أشرطة التمرير لتغيير نسب التوزيع الخاصة بك."
     },
     "howItWorks": {
       "title": "كيف يعمل ميزاني",

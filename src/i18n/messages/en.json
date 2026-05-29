@@ -256,7 +256,9 @@
       "currentAccount": "Current Account",
       "charity": "Charity",
       "automatic": "{percent}% Automatic",
-      "remaining": "Remaining ({percent}%)"
+      "remaining": "Remaining ({percent}%)",
+      "adjustAllocations": "Adjust Allocations",
+      "adjustAllocationsDesc": "Drag sliders to change your distribution splits."
     },
     "howItWorks": {
       "title": "How Mizani Works",

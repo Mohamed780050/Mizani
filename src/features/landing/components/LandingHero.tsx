@@ -124,7 +124,7 @@ export function LandingHero() {
   };
 
   return (
-    <section className="relative pt-32 pb-24 md:pt-48 md:pb-32 min-h-[921px] flex items-center overflow-hidden">
+    <section className="relative pt-32 pb-24 md:pt-48 md:pb-32 min-h-[921px] flex items-center overflow-hidden rtl:flex-col-reverse">
       {/* Abstract gradient blob */}
       <div className="absolute top-0 right-0 w-full h-full overflow-hidden -z-10 opacity-30 pointer-events-none">
         <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[70%] bg-linear-to-br from-primary/30 to-transparent rounded-full blur-3xl"></div>

@@ -1,14 +1,13 @@
 import React from "react";
-import db from "@/lib/db";
 import { getTranslations } from "next-intl/server";
 import { formatNumber } from "@/lib/format-utils";
+import { getFinancialAccounts } from "../queries";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export async function NetWorthOverview({ userId, locale }: { userId: string, locale: string }) {
   const t = await getTranslations("Dashboard");
   
-  const accounts = await db.financialAccount.findMany({
-    where: { userId },
-  });
+  const accounts = await getFinancialAccounts(userId);
 
   const totalWealth = accounts.reduce((sum, acc) => sum + Number(acc.balance), 0);
 
@@ -33,5 +32,17 @@ export async function NetWorthOverview({ userId, locale }: { userId: string, loc
         </p>
       </div>
     </section>
+  );
+}
+
+export function NetWorthOverviewSkeleton() {
+  return (
+    <div className="bg-card border border-border/50 rounded-[32px] p-8 md:p-12 shadow-sm space-y-6">
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-32" />
+        <Skeleton className="h-16 w-64 md:w-80" />
+      </div>
+      <Skeleton className="h-5 w-full max-w-md" />
+    </div>
   );
 }

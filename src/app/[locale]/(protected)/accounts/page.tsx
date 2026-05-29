@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { LedgerContent } from "@/features/ledger/components/LedgerContent";
-import { LedgerSkeleton } from "../dashboard/components/Skeletons";
+import { RecentActivityLedgerSkeleton as LedgerSkeleton } from "../dashboard/components/RecentActivityLedger";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

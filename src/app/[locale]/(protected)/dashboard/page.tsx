@@ -2,10 +2,9 @@ import React, { Suspense } from "react";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { NetWorthOverview } from "./components/NetWorthOverview";
-import { AccountsGrid } from "./components/AccountsGrid";
-import { RecentActivityLedger } from "./components/RecentActivityLedger";
-import { NetWorthSkeleton, GridSkeleton, LedgerSkeleton } from "./components/Skeletons";
+import { NetWorthOverview, NetWorthOverviewSkeleton } from "./components/NetWorthOverview";
+import { AccountsGrid, AccountsGridSkeleton } from "./components/AccountsGrid";
+import { RecentActivityLedger, RecentActivityLedgerSkeleton } from "./components/RecentActivityLedger";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -29,15 +28,15 @@ export default async function DashboardPage({
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500 max-w-6xl mx-auto">
-       <Suspense fallback={<NetWorthSkeleton />}>
+       <Suspense fallback={<NetWorthOverviewSkeleton />}>
           <NetWorthOverview userId={session.user.id} locale={locale} />
        </Suspense>
 
-       <Suspense fallback={<GridSkeleton />}>
+       <Suspense fallback={<AccountsGridSkeleton />}>
           <AccountsGrid userId={session.user.id} locale={locale} />
        </Suspense>
 
-       <Suspense fallback={<LedgerSkeleton />}>
+       <Suspense fallback={<RecentActivityLedgerSkeleton />}>
           <RecentActivityLedger userId={session.user.id} locale={locale} />
        </Suspense>
     </div>

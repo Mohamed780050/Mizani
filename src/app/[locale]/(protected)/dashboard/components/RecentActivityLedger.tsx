@@ -1,18 +1,14 @@
 import React from "react";
-import db from "@/lib/db";
 import { getTranslations } from "next-intl/server";
 import { ArrowUpRight, ArrowDownRight } from "lucide-react";
 import { formatNumber } from "@/lib/format-utils";
+import { getRecentTransactions } from "../queries";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export async function RecentActivityLedger({ userId, locale }: { userId: string, locale: string }) {
   const t = await getTranslations("Dashboard");
 
-  const recentTransactions = await db.transactionLedger.findMany({
-    where: { financialAccount: { userId } },
-    orderBy: { createdAt: "desc" },
-    take: 5,
-    include: { financialAccount: true }
-  });
+  const recentTransactions = await getRecentTransactions(userId, 5);
 
   return (
     <section className="bg-card border border-border/50 rounded-[32px] p-8 shadow-sm">
@@ -49,5 +45,30 @@ export async function RecentActivityLedger({ userId, locale }: { userId: string,
         </div>
       )}
     </section>
+  );
+}
+
+export function RecentActivityLedgerSkeleton() {
+  return (
+    <div className="bg-card border border-border/50 rounded-[32px] p-8 shadow-sm space-y-6">
+      <Skeleton className="h-7 w-48 rounded-lg" />
+      <div className="space-y-3">
+        {[1, 2, 3, 4, 5].map((i) => (
+          <div key={i} className="flex items-center justify-between p-4 bg-secondary/10 rounded-2xl">
+            <div className="flex items-center gap-4">
+              <Skeleton className="size-11 rounded-xl" />
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-32 md:w-48" />
+                <Skeleton className="h-3 w-16" />
+              </div>
+            </div>
+            <div className="space-y-2 text-right">
+              <Skeleton className="h-5 w-20 ml-auto" />
+              <Skeleton className="h-3 w-14 ml-auto" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
