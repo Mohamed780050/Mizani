@@ -1,9 +1,9 @@
-import React from "react";
-import db from "@/lib/db";
+import React, { Suspense } from "react";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { BudgetManager } from "@/features/budgets/components/BudgetManager";
+import { BudgetsContent } from "@/features/budgets/components/BudgetsContent";
+import { BudgetsSkeleton } from "@/features/budgets/components/BudgetsSkeleton";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -26,57 +26,6 @@ export default async function BudgetsPage({
 
   if (!session) return null;
 
-  const now = new Date();
-  const currentMonth = now.getMonth() + 1;
-  const currentYear = now.getFullYear();
-  const monthStart = new Date(currentYear, currentMonth - 1, 1);
-  const monthEnd = new Date(currentYear, currentMonth, 0);
-
-  const [budgetsRaw, categories] = await Promise.all([
-    db.budget.findMany({
-      where: {
-        userId: session.user.id,
-        month: currentMonth,
-        year: currentYear,
-      },
-      include: {
-        category: {
-          select: { name: true, emoji: true },
-        },
-      },
-      orderBy: { createdAt: "desc" },
-    }),
-    db.category.findMany({
-      where: { userId: session.user.id, isArchived: false },
-      select: { id: true, name: true, emoji: true },
-      orderBy: { name: "asc" },
-    }),
-  ]);
-
-  // Calculate spent per category for the current month
-  const spentByCategory = await db.expense.groupBy({
-    by: ["categoryId"],
-    where: {
-      userId: session.user.id,
-      date: { gte: monthStart, lte: monthEnd },
-    },
-    _sum: { amount: true },
-  });
-
-  const spentMap = new Map(
-    spentByCategory.map((s) => [s.categoryId, Number(s._sum.amount || 0)])
-  );
-
-  const budgets = budgetsRaw.map((b) => ({
-    id: b.id,
-    categoryId: b.categoryId,
-    limit: Number(b.limit),
-    month: b.month,
-    year: b.year,
-    category: b.category,
-    spent: spentMap.get(b.categoryId) || 0,
-  }));
-
   return (
     <div className="space-y-8 animate-in fade-in duration-500 max-w-6xl mx-auto pb-12 w-full pt-6 px-4 md:px-0">
       <div className="flex flex-col gap-2">
@@ -88,7 +37,9 @@ export default async function BudgetsPage({
         </p>
       </div>
 
-      <BudgetManager budgets={budgets} categories={categories} />
+      <Suspense fallback={<BudgetsSkeleton />}>
+        <BudgetsContent userId={session.user.id} />
+      </Suspense>
     </div>
   );
 }
