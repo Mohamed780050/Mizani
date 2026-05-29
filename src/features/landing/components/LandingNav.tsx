@@ -22,7 +22,7 @@ export function LandingNav() {
           className="flex items-center gap-2 text-2xl font-bold text-primary tracking-tighter hover:opacity-80 transition-opacity"
         >
           <Logo width={32} height={32} />
-          <span>Mizani</span>
+          <span>{t("title")}</span>
         </Link>
 
         {/* Links */}

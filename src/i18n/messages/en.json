@@ -150,6 +150,7 @@
     "enterButton": "Enter Sanctuary"
   },
   "Sidebar": {
+    "title": "Mizani",
     "dashboard": "Sanctuary",
     "accounts": "Ledger & Accounts",
     "budgets": "Budgets",
@@ -235,6 +236,7 @@
   },
   "Landing": {
     "nav": {
+      "title": "Mizani",
       "personal": "Personal",
       "business": "Business",
       "wealth": "Wealth",

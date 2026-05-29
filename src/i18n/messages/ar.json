@@ -150,6 +150,7 @@
     "enterButton": "دخول الملاذ"
   },
   "Sidebar": {
+    "title": "ميزاني",
     "dashboard": "الملاذ",
     "accounts": "السجل والحسابات",
     "budgets": "الميزانيات",
@@ -235,6 +236,7 @@
   },
   "Landing": {
     "nav": {
+      "title": "ميزاني",
       "personal": "شخصي",
       "business": "أعمال",
       "wealth": "ثروة",

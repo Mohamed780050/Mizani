@@ -47,7 +47,7 @@ export function Sidebar({ user }: { user: { name: string; email: string } }) {
             <Logo width={64} height={64} />
           </div>
           <h1 className="font-extrabold text-3xl text-emerald-950 dark:text-emerald-50 tracking-tight">
-            Mizani
+            {t("title")}
           </h1>
         </Link>
       </div>
