@@ -3,12 +3,16 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { LedgerContent } from "@/features/ledger/components/LedgerContent";
-import { RecentActivityLedgerSkeleton as LedgerSkeleton } from "../dashboard/components/RecentActivityLedger";
+import { RecentActivityLedgerSkeleton as LedgerSkeleton } from "../../../../features/dashboard/components/RecentActivityLedger";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'Metadata' });
-  return { title: t('accountsTitle') };
+  const t = await getTranslations({ locale, namespace: "Metadata" });
+  return { title: t("accountsTitle") };
 }
 
 export default async function AccountsPage({
@@ -31,7 +35,6 @@ export default async function AccountsPage({
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-black tracking-tight text-emerald-950 dark:text-emerald-50">
           {t("title")}
-          
         </h1>
         <p className="text-muted-foreground font-medium max-w-xl">
           {t("description")}
