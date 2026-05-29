@@ -36,6 +36,7 @@ export function CreateBudgetForm({
   const [categoryId, setCategoryId] = useState("");
   const [limit, setLimit] = useState<number | "">("");
   const t = useTranslations("Budget");
+  const tc = useTranslations("Categories");
 
   const [state, formAction, isPending] = useActionState(
     upsertBudgetAction,
@@ -105,7 +106,7 @@ export function CreateBudgetForm({
                 <SelectItem key={c.id} value={c.id}>
                   <div className="flex items-center gap-2 font-medium">
                     <span>{c.emoji}</span>
-                    <span>{c.name}</span>
+                    <span>{tc.has(c.name) ? tc(c.name) : c.name}</span>
                   </div>
                 </SelectItem>
               ))}

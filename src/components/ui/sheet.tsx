@@ -73,6 +73,7 @@ function SheetContent({
             <Button
               variant="ghost"
               className="absolute top-3 right-3"
+              dir="auto"
               size="icon-sm"
             >
               <XIcon

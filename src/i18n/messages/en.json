@@ -365,8 +365,17 @@
     "goalsTitle": "Wealth Goals",
     "settingsTitle": "Governance",
     "privacyTitle": "Privacy Policy",
-    "termsTitle": "Terms of Service",
     "onboardingTitle": "Sanctuary Blueprint",
     "resetPasswordTitle": "Reset Password"
+  },
+  "Categories": {
+    "Housing": "Housing",
+    "Food & Dining": "Food & Dining",
+    "Transportation": "Transportation",
+    "Utilities": "Utilities",
+    "Shopping": "Shopping",
+    "Healthcare": "Healthcare",
+    "Personal Care": "Personal Care",
+    "Entertainment": "Entertainment"
   }
 }

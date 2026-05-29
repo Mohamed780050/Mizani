@@ -30,6 +30,7 @@ const initialState = { success: false as const, error: "" };
 export function AddExpenseSheet({ categories }: { categories: Category[] }) {
   const [open, setOpen] = useState(false);
   const t = useTranslations("Expense");
+  const tc = useTranslations("Categories");
   const locale = useLocale();
 
   const [amount, setAmount] = useState<number | "">("");
@@ -87,159 +88,209 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
         dir={locale === "ar" ? "rtl" : "ltr"}
       >
         <SheetHeader className="text-start space-y-2 pt-6">
-           <SheetTitle className="text-2xl font-black tracking-tight text-rose-950 dark:text-rose-50">{t("title")}</SheetTitle>
-           <SheetDescription className="text-muted-foreground">
-              {t("description")}
-           </SheetDescription>
+          <SheetTitle className="text-2xl font-black tracking-tight text-rose-950 dark:text-rose-50">
+            {t("title")}
+          </SheetTitle>
+          <SheetDescription className="text-muted-foreground">
+            {t("description")}
+          </SheetDescription>
         </SheetHeader>
 
-        <form dir={locale === "ar" ? "rtl" : "ltr"} action={formAction} className="space-y-6 mt-8 pb-10">
-           {/* Hidden field for server action */}
-           <input
-             disabled={isPending}
-             type="hidden"
-             name="data"
-             value={JSON.stringify({
-               amount: Number(amount),
-               title,
-               date: date?.toISOString(),
-               categoryId,
-               expenseType,
-               necessity,
-               frequency,
-             })}
-           />
+        <form
+          dir={locale === "ar" ? "rtl" : "ltr"}
+          action={formAction}
+          className="space-y-6 mt-8 pb-10"
+        >
+          {/* Hidden field for server action */}
+          <input
+            disabled={isPending}
+            type="hidden"
+            name="data"
+            value={JSON.stringify({
+              amount: Number(amount),
+              title,
+              date: date?.toISOString(),
+              categoryId,
+              expenseType,
+              necessity,
+              frequency,
+            })}
+          />
 
-           {displayError && (
-             <div className="bg-destructive/10 text-destructive p-4 rounded-2xl border border-destructive/20 text-sm font-medium">
-               {displayError}
-             </div>
-           )}
+          {displayError && (
+            <div className="bg-destructive/10 text-destructive p-4 rounded-2xl border border-destructive/20 text-sm font-medium">
+              {displayError}
+            </div>
+          )}
 
-           <div className="space-y-4">
-             {/* Amount */}
-             <div className="space-y-1.5">
-                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("amountLabel")}</label>
-                <div className="relative">
-                  <Coins className="absolute left-4 rtl:left-auto rtl:right-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground/50" />
-                  <Input
-                    disabled={isPending}
-                    type="number"
-                    min="0.01"
-                    step="0.01"
-                    value={amount}
-                    onChange={(e) => setAmount(Number(e.target.value))}
-                    placeholder="0.00"
-                    required
-                    className="bg-card border-none shadow-sm rounded-xl py-6 pl-12 rtl:pl-4 rtl:pr-12 font-black text-xl text-rose-600 dark:text-rose-400 font-mono"
-                  />
-                </div>
-             </div>
-
-             {/* Title */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("titleLabel")}</label>
+          <div className="space-y-4">
+            {/* Amount */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">
+                {t("amountLabel")}
+              </label>
+              <div className="relative">
+                <Coins className="absolute left-4 rtl:left-auto rtl:right-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground/50" />
                 <Input
                   disabled={isPending}
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  placeholder={t("titlePlaceholder")}
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  value={amount}
+                  onChange={(e) => setAmount(Number(e.target.value))}
+                  placeholder="0.00"
                   required
-                  maxLength={100}
-                  className="bg-card border-none shadow-sm rounded-xl py-6 font-semibold"
+                  className="bg-card border-none shadow-sm rounded-xl py-6 pl-12 rtl:pl-4 rtl:pr-12 font-black text-xl text-rose-600 dark:text-rose-400 font-mono"
                 />
               </div>
+            </div>
 
-             {/* Category */}
-             <div className="space-y-1.5">
-                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("categoryLabel")}</label>
-               <Select value={categoryId} onValueChange={setCategoryId} disabled={isPending}>
-                 <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm">
-                   <SelectValue placeholder={t("categoryPlaceholder")} />
-                 </SelectTrigger>
-                 <SelectContent>
-                   {categories.map((c) => (
-                     <SelectItem key={c.id} value={c.id}>
-                       <div className="flex items-center gap-2 font-medium">
-                         <span>{c.emoji}</span>
-                         <span>{c.name}</span>
-                       </div>
-                     </SelectItem>
-                   ))}
-                 </SelectContent>
-               </Select>
-             </div>
+            {/* Title */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">
+                {t("titleLabel")}
+              </label>
+              <Input
+                disabled={isPending}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder={t("titlePlaceholder")}
+                required
+                maxLength={100}
+                className="bg-card border-none shadow-sm rounded-xl py-6 font-semibold"
+              />
+            </div>
 
-             <div className="grid grid-cols-2 gap-4">
-               {/* Necessity */}
-               <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("necessityLabel")}</label>
-                 <Select value={necessity} onValueChange={setNecessity} disabled={isPending}>
-                   <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm font-semibold">
-                     <SelectValue />
-                   </SelectTrigger>
-                   <SelectContent>
-                     <SelectItem value="ESSENTIAL">{t("necessityEssential")}</SelectItem>
-                     <SelectItem value="LUXURY">{t("necessityLuxury")}</SelectItem>
-                   </SelectContent>
-                 </Select>
-               </div>
+            {/* Category */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">
+                {t("categoryLabel")}
+              </label>
+              <Select
+                dir={locale === "ar" ? "rtl" : "ltr"}
+                value={categoryId}
+                onValueChange={setCategoryId}
+                disabled={isPending}
+              >
+                <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm">
+                  <SelectValue placeholder={t("categoryPlaceholder")} />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((c) => (
+                    <SelectItem key={c.id} value={c.id}>
+                      <div className="flex items-center gap-2 font-medium">
+                        <span>{c.emoji}</span>
+                        <span>{tc.has(c.name) ? tc(c.name) : c.name}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-               {/* Type */}
-               <div className="space-y-1.5">
-                  <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("typeLabel")}</label>
-                 <Select value={expenseType} onValueChange={setExpenseType} disabled={isPending}>
-                   <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm font-semibold">
-                     <SelectValue />
-                   </SelectTrigger>
-                   <SelectContent>
-                     <SelectItem value="FIXED">{t("typeFixed")}</SelectItem>
-                     <SelectItem value="VARIABLE">{t("typeVariable")}</SelectItem>
-                   </SelectContent>
-                 </Select>
-               </div>
-             </div>
+            <div className="grid grid-cols-2 gap-4">
+              {/* Necessity */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">
+                  {t("necessityLabel")}
+                </label>
+                <Select
+                  dir={locale === "ar" ? "rtl" : "ltr"}
+                  value={necessity}
+                  onValueChange={setNecessity}
+                  disabled={isPending}
+                >
+                  <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm font-semibold">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="ESSENTIAL">
+                      {t("necessityEssential")}
+                    </SelectItem>
+                    <SelectItem value="LUXURY">
+                      {t("necessityLuxury")}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-             {/* Frequency & Date */}
-             <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                   <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("frequencyLabel")}</label>
-                  <Select value={frequency} onValueChange={setFrequency} disabled={isPending}>
-                    <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm font-semibold">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="ONE_TIME">{t("frequencyOneTime")}</SelectItem>
-                      <SelectItem value="MONTHLY">{t("frequencyMonthly")}</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                
-                <div className="space-y-1.5">
-                   <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("dateLabel")}</label>
-                   <DatePicker 
-                     date={date} 
-                     setDate={setDate} 
-                     placeholder={t("dateLabel")}
-                   />
-                 </div>
-             </div>
-           </div>
+              {/* Type */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">
+                  {t("typeLabel")}
+                </label>
+                <Select
+                  dir={locale === "ar" ? "rtl" : "ltr"}
+                  value={expenseType}
+                  onValueChange={setExpenseType}
+                  disabled={isPending}
+                >
+                  <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm font-semibold">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="FIXED">{t("typeFixed")}</SelectItem>
+                    <SelectItem value="VARIABLE">
+                      {t("typeVariable")}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
 
-           <Button
-             type="submit"
-             disabled={isPending}
-             className="w-full py-7 bg-rose-500 text-white font-bold text-lg rounded-xl shadow-lg shadow-rose-500/20 hover:bg-rose-600 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group mt-4"
-           >
-             {isPending ? (
-               <Loader2 className="size-5 animate-spin" />
-             ) : (
-               <>
-                 <span>{t("submitButton")}</span>
-                 <ArrowRight className="size-5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
-               </>
-             )}
-           </Button>
+            {/* Frequency & Date */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">
+                  {t("frequencyLabel")}
+                </label>
+                <Select
+                  dir={locale === "ar" ? "rtl" : "ltr"}
+                  value={frequency}
+                  onValueChange={setFrequency}
+                  disabled={isPending}
+                >
+                  <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm font-semibold">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="ONE_TIME">
+                      {t("frequencyOneTime")}
+                    </SelectItem>
+                    <SelectItem value="MONTHLY">
+                      {t("frequencyMonthly")}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">
+                  {t("dateLabel")}
+                </label>
+                <DatePicker
+                  date={date}
+                  setDate={setDate}
+                  placeholder={t("dateLabel")}
+                />
+              </div>
+            </div>
+          </div>
+
+          <Button
+            type="submit"
+            disabled={isPending}
+            className="w-full py-7 bg-rose-500 text-white font-bold text-lg rounded-xl shadow-lg shadow-rose-500/20 hover:bg-rose-600 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group mt-4"
+          >
+            {isPending ? (
+              <Loader2 className="size-5 animate-spin" />
+            ) : (
+              <>
+                <span>{t("submitButton")}</span>
+                <ArrowRight className="size-5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" />
+              </>
+            )}
+          </Button>
         </form>
       </SheetContent>
     </Sheet>

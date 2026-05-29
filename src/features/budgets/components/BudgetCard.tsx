@@ -11,6 +11,7 @@ import type { BudgetEntry } from "@/features/budgets/actions/queries";
 export function BudgetCard({ budget }: { budget: BudgetEntry }) {
   const [isPending, startTransition] = useTransition();
   const t = useTranslations("Budget");
+  const tc = useTranslations("Categories");
   const percentage = Math.min((budget.spent / budget.limit) * 100, 100);
   const isOver80 = percentage >= 80;
   const isOver100 = percentage >= 100;
@@ -44,7 +45,7 @@ export function BudgetCard({ budget }: { budget: BudgetEntry }) {
         </div>
 
         <h3 className="font-extrabold tracking-tight text-lg mb-1">
-          {budget.category.name}
+          {tc.has(budget.category.name) ? tc(budget.category.name) : budget.category.name}
         </h3>
         <div className="flex items-baseline gap-1.5 mb-6">
           <span

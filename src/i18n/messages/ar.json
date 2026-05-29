@@ -365,8 +365,17 @@
     "goalsTitle": "أهداف الثروة",
     "settingsTitle": "الحوكمة",
     "privacyTitle": "سياسة الخصوصية",
-    "termsTitle": "شروط الخدمة",
     "onboardingTitle": "مخطط الملاذ",
     "resetPasswordTitle": "إعادة تعيين كلمة المرور"
+  },
+  "Categories": {
+    "Housing": "السكن",
+    "Food & Dining": "الطعام والشراب",
+    "Transportation": "المواصلات",
+    "Utilities": "الخدمات والمرافق",
+    "Shopping": "التسوق",
+    "Healthcare": "الرعاية الصحية",
+    "Personal Care": "العناية الشخصية",
+    "Entertainment": "الترفيه"
   }
 }
