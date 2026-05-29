@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useTransition, useEffect } from "react";
+import { useState, useActionState, useEffect } from "react";
 import {
   Sheet,
   SheetContent,
@@ -12,11 +12,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { addIncomeAction } from "../actions/income-actions";
-import { Loader2, Plus, Calendar, Coins, ArrowRight } from "lucide-react";
-import { Slider } from "@/components/ui/slider";
+import { Loader2, Plus,  Coins, ArrowRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { DatePicker } from "@/components/ui/date-picker";
 import { NumberFormatting } from "@/components/ui/NumberFormatting";
+
+const initialState = { success: false as const, error: "" };
 
 export function AddIncomeSheet({
   defaultAllocations,
@@ -29,8 +30,6 @@ export function AddIncomeSheet({
   };
 }) {
   const [open, setOpen] = useState(false);
-  const [isPending, startTransition] = useTransition();
-  const [error, setError] = useState("");
   const t = useTranslations("Income");
   const td = useTranslations("Dashboard");
   const locale = useLocale();
@@ -38,56 +37,33 @@ export function AddIncomeSheet({
   const [amount, setAmount] = useState<number | "">("");
   const [source, setSource] = useState("");
   const [date, setDate] = useState<Date | undefined>(new Date());
-  
   const [allocations, setAllocations] = useState(defaultAllocations);
 
-  // Reset form when opened
+  const [state, formAction, isPending] = useActionState(
+    addIncomeAction,
+    initialState,
+  );
+
+  // Reset form when sheet opens
   useEffect(() => {
     if (open) {
       setAmount("");
       setSource("");
       setDate(new Date());
       setAllocations(defaultAllocations);
-      setError("");
     }
   }, [open, defaultAllocations]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-
-    if (!amount || amount <= 0) {
-      setError(t("errorAmount"));
-      return;
+  // React to successful submission
+  useEffect(() => {
+    if (state.success) {
+      setOpen(false);
     }
+  }, [state]);
 
-    const totalAllocations = Object.values(allocations).reduce((a, b) => a + b, 0);
-    if (totalAllocations !== 100) {
-      setError(t("errorAllocation"));
-      return;
-    }
-
-    startTransition(async () => {
-      const formData = new FormData();
-      formData.append(
-        "data",
-        JSON.stringify({
-          amount: Number(amount),
-          source,
-          date: date?.toISOString(),
-          allocations,
-        })
-      );
-
-      const res = await addIncomeAction(null, formData);
-
-      if (res.success) {
-        setOpen(false);
-      } else {
-        setError(res.error || t("errorDefault"));
-      }
-    });
-  };
+  // Derive display error from action result
+  const displayError =
+    !state.success && state.error ? state.error : "";
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -109,10 +85,23 @@ export function AddIncomeSheet({
            </SheetDescription>
         </SheetHeader>
 
-        <form dir={locale === "ar" ? "rtl" : "ltr"} onSubmit={handleSubmit} className="space-y-8 mt-8 pb-10">
-           {error && (
+        <form dir={locale === "ar" ? "rtl" : "ltr"} action={formAction} className="space-y-8 mt-8 pb-10">
+           {/* Hidden field for server action */}
+           <input
+             disabled={isPending}
+             type="hidden"
+             name="data"
+             value={JSON.stringify({
+               amount: Number(amount),
+               source,
+               date: date?.toISOString(),
+               allocations,
+             })}
+           />
+
+           {displayError && (
              <div className="bg-destructive/10 text-destructive p-3 rounded-xl border border-destructive/20 text-sm font-medium">
-               {error}
+               {displayError}
              </div>
            )}
 
@@ -120,6 +109,7 @@ export function AddIncomeSheet({
              <div className="space-y-1.5">
                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("sourceLabel")}</label>
                <Input
+                 disabled={isPending}
                  value={source}
                  onChange={(e) => setSource(e.target.value)}
                  placeholder={t("sourcePlaceholder")}
@@ -134,6 +124,7 @@ export function AddIncomeSheet({
                <div className="relative">
                  <Coins className="absolute left-4 rtl:left-auto rtl:right-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground/50" />
                  <Input
+                   disabled={isPending}
                    type="number"
                    min="0.01"
                    step="0.01"

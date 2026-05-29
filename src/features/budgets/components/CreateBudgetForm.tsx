@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useTransition } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,6 +20,8 @@ import { Coins, Loader2 } from "lucide-react";
 import { upsertBudgetAction } from "../actions/budget-actions";
 import type { CategoryOption } from "@/features/budgets/actions/queries";
 
+const initialState = { success: false as const, error: "" };
+
 export function CreateBudgetForm({
   categories,
   month,
@@ -31,40 +33,29 @@ export function CreateBudgetForm({
   year: number;
   onSuccess: () => void;
 }) {
-  const [isPending, startTransition] = useTransition();
   const [categoryId, setCategoryId] = useState("");
   const [limit, setLimit] = useState<number | "">("");
-  const [error, setError] = useState("");
   const t = useTranslations("Budget");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!categoryId || !limit || limit <= 0) return;
-    setError("");
+  const [state, formAction, isPending] = useActionState(
+    upsertBudgetAction,
+    initialState,
+  );
 
-    startTransition(async () => {
-      const fd = new FormData();
-      fd.append(
-        "data",
-        JSON.stringify({
-          categoryId,
-          limit: Number(limit),
-          month,
-          year,
-        }),
-      );
-      const res = await upsertBudgetAction(null, fd);
-      if (res.success) {
-        onSuccess();
-      } else {
-        if (res.error === "BUDGET_LIMIT") {
-          setError(t("errorLimit"));
-        } else {
-          setError(res.error || t("errorDefault"));
-        }
-      }
-    });
-  };
+  // React to successful submission
+  useEffect(() => {
+    if (state.success) {
+      onSuccess();
+    }
+  }, [state, onSuccess]);
+
+  // Derive display error from action result
+  const displayError =
+    !state.success && state.error
+      ? state.error === "BUDGET_LIMIT"
+        ? t("errorLimit")
+        : state.error
+      : "";
 
   return (
     <>
@@ -77,10 +68,23 @@ export function CreateBudgetForm({
         </SheetDescription>
       </SheetHeader>
 
-      <form onSubmit={handleSubmit} className="space-y-6 mt-8">
-        {error && (
+      <form action={formAction} className="space-y-6 mt-8">
+        {/* Hidden fields for server action */}
+        <input
+          disabled={isPending}
+          type="hidden"
+          name="data"
+          value={JSON.stringify({
+            categoryId,
+            limit: Number(limit),
+            month,
+            year,
+          })}
+        />
+
+        {displayError && (
           <div className="bg-destructive/10 text-destructive p-4 rounded-2xl border border-destructive/20 text-sm font-medium">
-            {error}
+            {displayError}
           </div>
         )}
 
@@ -88,7 +92,11 @@ export function CreateBudgetForm({
           <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">
             {t("categoryLabel")}
           </label>
-          <Select value={categoryId} onValueChange={setCategoryId}>
+          <Select
+            value={categoryId}
+            onValueChange={setCategoryId}
+            disabled={isPending}
+          >
             <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm">
               <SelectValue placeholder={t("categoryPlaceholder")} />
             </SelectTrigger>
@@ -112,6 +120,7 @@ export function CreateBudgetForm({
           <div className="relative">
             <Coins className="absolute left-4 rtl:left-auto rtl:right-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground/50" />
             <Input
+              disabled={isPending}
               type="number"
               min="0.01"
               step="0.01"

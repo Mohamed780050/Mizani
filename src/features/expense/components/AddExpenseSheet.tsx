@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useTransition, useEffect } from "react";
+import { useState, useActionState, useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import {
   Sheet,
@@ -20,15 +20,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { addExpenseAction } from "../actions/expense-actions";
-import { Loader2, Calendar, Coins, ArrowRight, Minus } from "lucide-react";
+import { Loader2, Coins, ArrowRight, Minus } from "lucide-react";
 import { DatePicker } from "@/components/ui/date-picker";
 
 type Category = { id: string; name: string; emoji: string; isDefault: boolean };
 
+const initialState = { success: false as const, error: "" };
+
 export function AddExpenseSheet({ categories }: { categories: Category[] }) {
   const [open, setOpen] = useState(false);
-  const [isPending, startTransition] = useTransition();
-  const [error, setError] = useState("");
   const t = useTranslations("Expense");
   const locale = useLocale();
 
@@ -40,6 +40,12 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
   const [necessity, setNecessity] = useState("ESSENTIAL");
   const [frequency, setFrequency] = useState("ONE_TIME");
 
+  const [state, formAction, isPending] = useActionState(
+    addExpenseAction,
+    initialState,
+  );
+
+  // Reset form when sheet opens
   useEffect(() => {
     if (open) {
       setAmount("");
@@ -49,51 +55,23 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
       setNecessity("ESSENTIAL");
       setFrequency("ONE_TIME");
       if (categories.length > 0) setCategoryId(categories[0].id);
-      setError("");
     }
   }, [open, categories]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-
-    if (!amount || amount <= 0) {
-      setError(t("errorAmount"));
-      return;
+  // React to successful submission
+  useEffect(() => {
+    if (state.success) {
+      setOpen(false);
     }
-    if (!categoryId) {
-      setError(t("errorCategory"));
-      return;
-    }
+  }, [state]);
 
-    startTransition(async () => {
-      const formData = new FormData();
-      formData.append(
-        "data",
-        JSON.stringify({
-          amount: Number(amount),
-          title,
-          date: date?.toISOString(),
-          categoryId,
-          expenseType,
-          necessity,
-          frequency,
-        })
-      );
-
-      const res = await addExpenseAction(null, formData);
-
-      if (res.success) {
-        setOpen(false);
-      } else {
-        if (res.error === "LIMIT_EXCEEDED") {
-           setError(t("errorLimit"));
-        } else {
-           setError(res.error || t("errorDefault"));
-        }
-      }
-    });
-  };
+  // Derive display error from action result
+  const displayError =
+    !state.success && state.error
+      ? state.error === "LIMIT_EXCEEDED"
+        ? t("errorLimit")
+        : state.error
+      : "";
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -115,10 +93,26 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
            </SheetDescription>
         </SheetHeader>
 
-        <form dir={locale === "ar" ? "rtl" : "ltr"} onSubmit={handleSubmit} className="space-y-6 mt-8 pb-10">
-           {error && (
+        <form dir={locale === "ar" ? "rtl" : "ltr"} action={formAction} className="space-y-6 mt-8 pb-10">
+           {/* Hidden field for server action */}
+           <input
+             disabled={isPending}
+             type="hidden"
+             name="data"
+             value={JSON.stringify({
+               amount: Number(amount),
+               title,
+               date: date?.toISOString(),
+               categoryId,
+               expenseType,
+               necessity,
+               frequency,
+             })}
+           />
+
+           {displayError && (
              <div className="bg-destructive/10 text-destructive p-4 rounded-2xl border border-destructive/20 text-sm font-medium">
-               {error}
+               {displayError}
              </div>
            )}
 
@@ -129,6 +123,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
                 <div className="relative">
                   <Coins className="absolute left-4 rtl:left-auto rtl:right-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground/50" />
                   <Input
+                    disabled={isPending}
                     type="number"
                     min="0.01"
                     step="0.01"
@@ -145,6 +140,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
               <div className="space-y-1.5">
                 <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("titleLabel")}</label>
                 <Input
+                  disabled={isPending}
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder={t("titlePlaceholder")}
@@ -157,7 +153,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
              {/* Category */}
              <div className="space-y-1.5">
                 <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("categoryLabel")}</label>
-               <Select value={categoryId} onValueChange={setCategoryId}>
+               <Select value={categoryId} onValueChange={setCategoryId} disabled={isPending}>
                  <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm">
                    <SelectValue placeholder={t("categoryPlaceholder")} />
                  </SelectTrigger>
@@ -178,7 +174,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
                {/* Necessity */}
                <div className="space-y-1.5">
                   <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("necessityLabel")}</label>
-                 <Select value={necessity} onValueChange={setNecessity}>
+                 <Select value={necessity} onValueChange={setNecessity} disabled={isPending}>
                    <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm font-semibold">
                      <SelectValue />
                    </SelectTrigger>
@@ -192,7 +188,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
                {/* Type */}
                <div className="space-y-1.5">
                   <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("typeLabel")}</label>
-                 <Select value={expenseType} onValueChange={setExpenseType}>
+                 <Select value={expenseType} onValueChange={setExpenseType} disabled={isPending}>
                    <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm font-semibold">
                      <SelectValue />
                    </SelectTrigger>
@@ -208,7 +204,7 @@ export function AddExpenseSheet({ categories }: { categories: Category[] }) {
              <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                    <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ms-1">{t("frequencyLabel")}</label>
-                  <Select value={frequency} onValueChange={setFrequency}>
+                  <Select value={frequency} onValueChange={setFrequency} disabled={isPending}>
                     <SelectTrigger className="w-full bg-card border-none rounded-xl py-6 shadow-sm font-semibold">
                       <SelectValue />
                     </SelectTrigger>
